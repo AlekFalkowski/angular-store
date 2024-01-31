@@ -1,0 +1,36 @@
+{
+  "name": "Blanco",
+  "short_name": "Blanco",
+  "theme_color": "#333399",
+  "background_color": "#fffbff",
+  "display": "standalone",
+  "description": "Официальный магазин Blanco в Москве",
+  "scope": "https://kesrest.dev",
+  "start_url": "https://kesrest.dev",
+  "icons": [
+    {
+      "src": "/assets/favicons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/favicons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/favicons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/favicons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

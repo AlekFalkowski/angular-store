@@ -1,0 +1,49 @@
+@mixin HTML_COMPONENTS_TUNING_RULE_TABLE {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box; // inherit
+        -webkit-font-smoothing: antialiased;
+    }
+    hr {
+        height: 1px;
+        min-height: 1px;
+        padding: 0;
+        border: none;
+        background-color: var(--md-sys-color-outline-variant);
+    }
+    img {
+        display: block; // Убирает отступ снизу картинки.
+        max-width: 100%;
+    }
+    fieldset {
+        min-width: 0;
+        padding: 0;
+        margin: 0;
+        border: 0;
+    }
+    p:not([class]) {
+        //@include body-large;
+    }
+    p:not([class]) a {
+        color: inherit;
+    }
+    //.visually-hidden {
+    //    border: 0;
+    //    clip: rect(0 0 0 0);
+    //    clip-path: inset(50%);
+    //    height: 1px;
+    //    margin: -1px;
+    //    overflow: hidden;
+    //    padding: 0;
+    //    position: absolute;
+    //    width: 1px;
+    //    white-space: nowrap;
+    //}
+    //hr {
+    //    height: 1px;
+    //    padding: 0;
+    //    border: none;
+    //    background-color: var(--md-sys-color-outline-variant);
+    //}
+}

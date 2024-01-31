@@ -1,0 +1,81 @@
+// css @media СРАБАТЫВАЕТ ПО window.innerWidth.
+// max-width: 999px - window.innerWidth до 999px включительно
+// min-width: 1000px - window.innerWidth от 1000px и более
+
+// !!! При именении значений breakpoints здесь, так же менять значения в breakpoints.ts. !!!
+$maxPhoneViewportWidth: 599.99px; // Максимально возможный viewport width, встречающийся у смартфонов.  // When value changed, also change the value in the ~/stores/app.ts file.
+// 600-700 (without padding) - ширина текста "презентационной страницы" в одну колонку при шрифте 16-18-20px, это 90-80-70 сиволов в строке. 20px великоват для мобильной версии.
+$maxPhoneViewportHeight: 999.99px; // ...839px // Максимально возможный viewport height, встречающийся у смартфонов.  // When value changed, also change the value in the ~/stores/app.ts file.
+// 1240 (without padding) - ширина контента "презентационной страницы" в две колонки при шрифте 18px ~50 сиволов в строке.
+// 1400-1500 ширина контента с наличием боковых панелей или без них
+$large: 1399.99px; // 1400 // 20 300 20 700 20 300 20 = 1380  // When value changed, also change the value in the ~/stores/app.ts file.
+// 1800 // Максимальная ширина контента шапки.
+// 2200
+
+// При ширине вьюпорта меньше 1300px исчезает правая колонка.
+// При ширине вьюпорта меньше 1000px скрывается левая колонка.
+// Тем самым на контент остается от 1000px до 700px
+
+@mixin ONLY_FOR_MOBILE_IN_PORTRAIT {
+  //@media (hover: none) and (max-width: $maxPhoneViewportWidth) {
+  @media (max-width: $maxPhoneViewportWidth) {
+    @content;
+  }
+}
+
+@mixin ONLY_FOR_MOBILE_IN_LANDSCAPE {
+  //@media (hover: none) and (orientation: landscape) and (max-width: $maxPhoneViewportHeight) {
+  @media (max-width: $maxPhoneViewportHeight) and (max-height: $maxPhoneViewportWidth) {
+    @content;
+  }
+}
+
+@mixin ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
+  //@media (hover: none) and (max-width: $maxPhoneViewportWidth), (hover: none) and (orientation: landscape) and (max-width: $maxPhoneViewportHeight) {
+  @media (max-width: $maxPhoneViewportWidth), (max-width: $maxPhoneViewportHeight) and (max-height: $maxPhoneViewportWidth) {
+    @content;
+  }
+}
+
+@mixin ONLY_FOR_DESKTOP_AND_TABLET {
+  //@media (hover: hover) and (pointer: fine), (orientation: portrait) and (min-width: $maxPhoneViewportWidth + 0.01px), (orientation: landscape) and (min-width: $maxPhoneViewportHeight + 0.01px) {
+  @media (min-width: $maxPhoneViewportWidth + 0.01px) and (min-height: $maxPhoneViewportWidth + 0.01px), (min-width: $maxPhoneViewportHeight + 0.01px) {
+    @content;
+  }
+}
+
+@mixin min-width-lg {
+  @media (min-width: $large + 0.01px) {
+    @content;
+  }
+}
+
+@mixin max-width-lg {
+  @media (max-width: $large) {
+    @content;
+  }
+}
+
+@mixin max-width-md {
+  @media (max-width: $maxPhoneViewportHeight) {
+    @content;
+  }
+}
+
+@mixin max-width-sm {
+  @media (max-width: $maxPhoneViewportWidth) {
+    @content;
+  }
+}
+
+@mixin ONLY_FOR_HOVERING_POINTER {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin ONLY_FOR_NOT_HOVERING_POINTER {
+  @media (hover: none) {
+    @content;
+  }
+}
