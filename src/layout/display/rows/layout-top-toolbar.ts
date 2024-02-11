@@ -1,6 +1,15 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, EventEmitter, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    EventEmitter,
+    inject, Injector, NgZone,
+    Output, PLATFORM_ID
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SpacerBlock } from "../../../shared/display/blocks/spacer-block";
+// import { SpacerBlock } from "../../../shared/display/blocks/spacer-block";
+import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
+import { isPlatformBrowser } from "@angular/common";
 
 @Component({
     imports: [ RouterModule, RouterModule, SpacerBlock ],

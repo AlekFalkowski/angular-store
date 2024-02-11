@@ -1,6 +1,19 @@
 {
     "$schema": "./node_modules/@angular/service-worker/config/schema.json",
     "index": "/index.html",
+    "dataGroups": [
+        {
+            "name": "api",
+            "urls": [
+                "/api",
+                "/api/**"
+            ],
+            "cacheConfig": {
+                "maxSize": 0,
+                "maxAge": "0u"
+            }
+        }
+    ],
     "assetGroups": [
         {
             "name": "app",

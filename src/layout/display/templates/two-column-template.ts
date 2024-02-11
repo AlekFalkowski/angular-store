@@ -15,7 +15,7 @@ import {
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { fromEvent, Subscription, throttleTime } from "rxjs";
-import { TPreferredSidePanelView } from "../../../pages/catalog/types/TPreferredSidePanelView";
+import { TPreferredSidePanelView } from "@/pages/catalog/types/TPreferredSidePanelView";
 
 @Component({
     imports: [ CommonModule, RouterLinkActive, RouterLink ],
@@ -196,6 +196,7 @@ import { TPreferredSidePanelView } from "../../../pages/catalog/types/TPreferred
 export class TwoColumnTemplate {
     @Input() preferredSidePanelView!: Signal<TPreferredSidePanelView>
     @Output() setPreferredSidePanelView: EventEmitter<TPreferredSidePanelView> = new EventEmitter()
+
 
     isSidePanelOpenInMobile: WritableSignal<boolean> = signal(false)
     openButtonTopIndent: WritableSignal<"0px" | "70px"> = signal("70px")

@@ -29,8 +29,9 @@
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                          "src/assets",
-                          "src/config/manifest.webmanifest"
+                            "src/api",
+                            "src/assets",
+                            "src/config/manifest.webmanifest"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
@@ -100,8 +101,9 @@
                         "tsConfig": "tsconfig.spec.json",
                         "inlineStyleLanguage": "scss",
                         "assets": [
-                          "src/assets",
-                          "src/config/manifest.webmanifest"
+                            "src/api",
+                            "src/assets",
+                            "src/config/manifest.webmanifest"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [

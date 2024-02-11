@@ -4,7 +4,7 @@ import { fromEvent, Subscription, throttleTime } from "rxjs";
 import { ObservePreferredSidePanelViewOption } from "../options/ObservePreferredSidePanelViewOption";
 import { SetPreferredSidePanelViewOption } from "../options/SetPreferredSidePanelViewOption";
 import { TPreferredSidePanelView } from "../types/TPreferredSidePanelView";
-import { TCardCollection } from "../../../shared/types/TCardCollection";
+import { TCardCollection } from "@/shared/types/TCardCollection";
 
 @Injectable()
 export class CatalogViewModel {

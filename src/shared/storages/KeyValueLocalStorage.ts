@@ -1,28 +1,31 @@
 import { inject, Inject, Injectable, PLATFORM_ID, Signal, signal, WritableSignal } from "@angular/core";
-import { TKeyValueItem } from "../types/TKeyValueItem";
+import { TKeyValue } from "../types/TKeyValue";
 import { isPlatformBrowser } from "@angular/common";
 
 @Injectable({ providedIn: 'root' })
 export class KeyValueLocalStorage {
     #_platformId: Object = inject(PLATFORM_ID)
-    #_lastSetKeyValueItem: WritableSignal<TKeyValueItem> = signal({ key: '', value: '' })
+    #_lastSetKeyValue: WritableSignal<TKeyValue> = signal({ key: '', value: '' })
 
     constructor() {
+        if (isPlatformBrowser(this.#_platformId)) {
+            // https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event
+            window.addEventListener('storage', (event) => {
+                this.#_lastSetKeyValue.set({ key: event.key ?? '', value: event.newValue ?? '' })
+            })
+        }
     }
 
-    lastSetKeyValueItem: Signal<TKeyValueItem> = this.#_lastSetKeyValueItem.asReadonly()
+    lastSetKeyValue: Signal<TKeyValue> = this.#_lastSetKeyValue.asReadonly()
 
-    setValueByKey(keyValueItem: TKeyValueItem): void {
+    setValueByKey(keyValueItem: TKeyValue): void {
         try {
             localStorage.setItem(keyValueItem.key, keyValueItem.value)
-            this.#_lastSetKeyValueItem.set({ key: keyValueItem.key, value: keyValueItem.value })
+            this.#_lastSetKeyValue.set({ key: keyValueItem.key, value: keyValueItem.value })
         } catch (error) {
             throw error
         }
     }
-    // setValueByKey(key: string, value: string): void {
-    //     localStorage.setItem(key, value)
-    // }
 
     getValueByKey(key: string): string | null {
         if (isPlatformBrowser(this.#_platformId)) {
@@ -32,11 +35,11 @@ export class KeyValueLocalStorage {
         }
     }
 
-    deleteValueByKey(key: string): void {
-        localStorage.removeItem(key)
-    }
+    // deleteValueByKey(key: string): void {
+    //     localStorage.removeItem(key)
+    // }
 
-    deleteAll(): void {
-        localStorage.clear();
-    }
+    // deleteAll(): void {
+    //     localStorage.clear();
+    // }
 }

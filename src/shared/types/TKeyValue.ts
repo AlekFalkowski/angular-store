@@ -1,4 +1,4 @@
-export type TKeyValueItem = {
+export type TKeyValue = {
     key: string
     value: string
 }

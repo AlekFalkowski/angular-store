@@ -15,7 +15,7 @@
                 // По умолчанию для documentElement задано правило: "scrollbar-gutter: auto".
                 // А в css задано правило: "scrollbar-gutter: stable".
                 // Нижеследующее условие сработает после подключения css.
-                // После его подключения можно вычислить ширину скроллбара.
+                // Затем можно вычислить ширину скроллбара.
                 // Ширина скроллбара записывается в css-переменную --sw.
                 if (window.getComputedStyle(document.documentElement).getPropertyValue("scrollbar-gutter") === "stable") {
                     clearInterval(timer);

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ElementRef, inject } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import { PageBreadcrumbs } from "../../../shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "../../../shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/rows/page-title";
 import { HomeViewModel } from "../model/HomeViewModel";
-import { Title } from "@angular/platform-browser";
+import { Meta, Title } from "@angular/platform-browser";
 import { StoreAssortment } from "./rows/store-assortment";
 
 @Component({
@@ -50,9 +50,16 @@ import { StoreAssortment } from "./rows/store-assortment";
 export class HomePage {
     viewModel: HomeViewModel = inject(HomeViewModel)
     htmlHeadTitleService: Title = inject(Title)
+    meta: Meta = inject(Meta)
     elementRef: ElementRef = inject(ElementRef)
 
     constructor() {
         this.htmlHeadTitleService.setTitle(this.viewModel.fakeStableContent.htmlHeadTitle)
+        // https://angular.dev/api/platform-browser/Meta?tab=api
+        this.meta.addTags([
+            { name: 'twitter:card', content: 'summary_large_image' },
+            { name: 'twitter:site', content: '@alligatorio' },
+            // ...
+        ]);
     }
 }

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
-import { TCardCollection } from "../../../../shared/types/TCardCollection";
-import { CardCollection } from "../../../../shared/display/panels/card-collection";
+import { TCardCollection } from "@/shared/types/TCardCollection";
+import { CardCollection } from "@/shared/display/panels/card-collection";
 
 @Component({
     imports: [ CommonModule, RouterLinkActive, RouterLink, CardCollection ],
