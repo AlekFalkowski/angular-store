@@ -1,27 +1,28 @@
 import { Routes } from '@angular/router';
-import { HomePage } from "../pages/home/display/home-page";
-import { CatalogPage } from "../pages/catalog/display/catalog-page";
-import { CatalogProductPage } from "../pages/catalog-product/display/catalog-product-page";
-import { OrderPage } from "../pages/order/display/order-page";
-import { NotFoundPage } from "../pages/not-found/display/not-found-page";
-import { AccountPage } from "../pages/account/display/account-page";
-import { ArticlesPage } from "../pages/articles/display/articles-page";
-import { BookmarksPage } from "../pages/bookmarks/display/bookmarks-page";
-import { CompanyPage } from "../pages/company/display/company-page";
-import { ContactsPage } from "../pages/contacts/display/contacts-page";
-import { ServicePage } from "../pages/service/display/service-page";
-import { DeliveryPage } from "../pages/delivery/display/delivery-page";
-import { NewsPage } from "../pages/news/display/news-page";
-import { PaymentPage } from "../pages/payment/display/payment-page";
-import { ReturnPage } from "../pages/return/display/return-page";
-import { CartPage } from "../pages/cart/display/cart-page";
-import { OrderProductPage } from "../pages/order-product/display/order-product-page";
-import { CatalogSectionsPage } from "../pages/catalog-sections/display/catalog-sections-page";
+import { OrderPage } from "@/pages/order/display/order-page";
+import { NotFoundPage } from "@/pages/not-found/display/not-found-page";
+import { AccountPage } from "@/pages/account/display/account-page";
+import { ArticlesPage } from "@/pages/articles/display/articles-page";
+import { BookmarksPage } from "@/pages/bookmarks/display/bookmarks-page";
+import { CompanyPage } from "@/pages/company/display/company-page";
+import { ContactsPage } from "@/pages/contacts/display/contacts-page";
+import { ServicePage } from "@/pages/service/display/service-page";
+import { DeliveryPage } from "@/pages/delivery/display/delivery-page";
+import { NewsPage } from "@/pages/news/display/news-page";
+import { PaymentPage } from "@/pages/payment/display/payment-page";
+import { ReturnPage } from "@/pages/return/display/return-page";
+import { CartPage } from "@/pages/cart/display/cart-page";
+import { OrderProductPage } from "@/pages/order-product/display/order-product-page";
+import { CatalogCmp } from "@/r_catalog/display/catalog-cmp";
+import { CatalogIndexCmp } from "@/r_catalog_index/display/catalog-index-cmp";
+import { CatalogProductCmp } from "@/r_catalog_product/display/catalog-product-cmp";
+import { CatalogSectionCmp } from "@/r_catalog_section/display/catalog-section-cmp";
+import { IndexCmp } from "@/r_index/display/index-cmp";
 
 const navigationMap: Routes = [
     {
         path: '',
-        component: HomePage,
+        component: IndexCmp,
     },
     {
         path: 'account',
@@ -39,17 +40,35 @@ const navigationMap: Routes = [
         path: 'cart',
         component: CartPage,
     },
+    // {
+    //     path: 'catalogs/:catalogNavId',
+    //     component: CatalogPage,
+    // },
+    // {
+    //     path: 'catalogs/:catalogNavId/products/:catalogProductNavId',
+    //     component: CatalogProductPage,
+    // },
+    // {
+    //     path: 'catalog-sections/:catalogSectionNavId',
+    //     component: CatalogSectionsPage,
+    // },
     {
         path: 'catalogs/:catalogNavId',
-        component: CatalogPage,
-    },
-    {
-        path: 'catalog-sections/:catalogSectionNavId',
-        component: CatalogSectionsPage,
-    },
-    {
-        path: 'catalogs/:catalogNavId/products/:catalogProductNavId',
-        component: CatalogProductPage,
+        component: CatalogCmp, // this is the component with the <router-outlet> in the template
+        children: [
+            {
+                path: '',
+                component: CatalogIndexCmp,
+            },
+            {
+                path: 'products/:catalogProductNavId',
+                component: CatalogProductCmp,
+            },
+            {
+                path: 'sections/:catalogSectionNavId',
+                component: CatalogSectionCmp,
+            },
+        ],
     },
     {
         path: 'company',
