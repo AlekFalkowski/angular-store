@@ -1,0 +1,10 @@
+@mixin ONLY_FOR_HOVERING_POINTER {
+    @media (hover: hover) and (pointer: fine) {
+        @content;
+    }
+}
+@mixin ONLY_FOR_NOT_HOVERING_POINTER {
+    @media (hover: none) {
+        @content;
+    }
+}

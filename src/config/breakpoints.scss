@@ -1,0 +1,18 @@
+$MAX_PHONE_VIEWPORT_WIDTH: 600px;
+$MAX_PHONE_VIEWPORT_HEIGHT: 1000px;
+
+@mixin ONLY_FOR_MOBILE_IN_PORTRAIT {
+    @media (width < $MAX_PHONE_VIEWPORT_WIDTH) {
+        @content;
+    }
+}
+@mixin ONLY_FOR_MOBILE_IN_LANDSCAPE {
+    @media (width < $MAX_PHONE_VIEWPORT_HEIGHT) and (height < $MAX_PHONE_VIEWPORT_WIDTH) {
+        @content;
+    }
+}
+@mixin ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
+    @media (width < $MAX_PHONE_VIEWPORT_WIDTH) or ((width < $MAX_PHONE_VIEWPORT_HEIGHT) and (height < $MAX_PHONE_VIEWPORT_WIDTH)) {
+        @content;
+    }
+}

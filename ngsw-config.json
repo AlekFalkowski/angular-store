@@ -22,7 +22,7 @@
                 "files": [
                     "/assets/favicons/**",
                     "/index.html",
-                    "/config/manifest.webmanifest",
+                    "/manifest.webmanifest",
                     "/*.css",
                     "/*.js"
                 ]

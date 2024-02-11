@@ -21,8 +21,8 @@
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": "dist/blanco",
-                        "index": "src/app/frame/index.html",
-                        "browser": "src/config/main.ts",
+                        "index": "src/frame/index.html",
+                        "browser": "src/main.ts",
                         "polyfills": [
                             "zone.js"
                         ],
@@ -31,18 +31,18 @@
                         "assets": [
                             "src/api",
                             "src/assets",
-                            "src/config/manifest.webmanifest"
+                            "src/manifest.webmanifest"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
-                                "src/css-inserts"
+                                "src/config"
                             ]
                         },
                         "styles": [
-                            "src/app/frame/index.scss"
+                            "src/frame/index.scss"
                         ],
                         "scripts": [],
-                        "server": "src/config/main.server.ts",
+                        "server": "src/main.server.ts",
                         "prerender": true,
                         "ssr": {
                             "entry": "server.ts"
@@ -103,15 +103,15 @@
                         "assets": [
                             "src/api",
                             "src/assets",
-                            "src/config/manifest.webmanifest"
+                            "src/manifest.webmanifest"
                         ],
                         "stylePreprocessorOptions": {
                             "includePaths": [
-                                "src/css-inserts"
+                                "src/config"
                             ]
                         },
                         "styles": [
-                            "src/app/frame/index.scss"
+                            "src/frame/index.scss"
                         ],
                         "scripts": []
                     }

@@ -1,0 +1,43 @@
+@import "./breakpoints";
+
+$app-min-width: 320px;
+
+$base-max-width: 1480px; // with inline-paddings 40px, with column-gap 80px
+$tablet-inline-padding: 40px; // Падинги для десктоп и таблет 32-40px.
+$mobile-inline-padding: 20px; // Паддинги для мобильных 16-20px.
+$content-max-width: $base-max-width - $tablet-inline-padding - $tablet-inline-padding;
+
+$side-column-width: 300px;
+$start-column-width: 300px;
+$end-column-width: 300px;
+
+//$text-column-min-width: 380px; // without inline-paddings
+$text-column-max-width: 680px; // without inline-paddings
+//$double-text-column-max-width: 1400px; // without include inline-paddings, with column-gap 80px
+
+$layout-template-columns: minmax(0, 1fr) minmax(0, $base-max-width) minmax(0, 1fr);
+
+@mixin LAYOUT_SIDE_PADDING_RULE_SET {
+    --inline-padding: #{$tablet-inline-padding};
+    @include ONLY_FOR_MOBILE_IN_PORTRAIT {
+        --inline-padding: #{$mobile-inline-padding};
+    }
+}
+
+$full-inline-padding: calc(max(var(--inline-padding), 50% - $content-max-width / 2));
+
+// @mixin PAGE_RULE_SET {
+//     // grid-column: 1/-1;
+//     // grid-row: 4;
+//     display: grid;
+//     grid-template-columns: $layout-template-columns;
+//     grid-auto-rows: min-content;
+// }
+// @mixin LONG_ROW_IN_LAYOUT_RULE_SET {
+//     grid-column: 1/-1;
+//     padding-inline: calc(max(var(--inline-padding), 50% - $content-max-width / 2));
+// }
+// @mixin SHORT_PAGE_ROW_RULE_SET {
+//     grid-column: 2;
+//     padding-inline: var(--inline-padding);
+// }
