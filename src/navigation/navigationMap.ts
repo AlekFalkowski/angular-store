@@ -1,44 +1,44 @@
 import { Routes } from '@angular/router';
-import { OrderPage } from "@/pages/order/display/order-page";
-import { NotFoundPage } from "@/pages/not-found/display/not-found-page";
-import { AccountPage } from "@/pages/account/display/account-page";
-import { ArticlesPage } from "@/pages/articles/display/articles-page";
-import { BookmarksPage } from "@/pages/bookmarks/display/bookmarks-page";
-import { CompanyPage } from "@/pages/company/display/company-page";
-import { ContactsPage } from "@/pages/contacts/display/contacts-page";
-import { ServicePage } from "@/pages/service/display/service-page";
-import { DeliveryPage } from "@/pages/delivery/display/delivery-page";
-import { NewsPage } from "@/pages/news/display/news-page";
-import { PaymentPage } from "@/pages/payment/display/payment-page";
-import { ReturnPage } from "@/pages/return/display/return-page";
-import { CartPage } from "@/pages/cart/display/cart-page";
-import { OrderProductPage } from "@/pages/order-product/display/order-product-page";
-import { CatalogCmp } from "@/r_catalog/display/catalog-cmp";
-import { CatalogIndexCmp } from "@/r_catalog_index/display/catalog-index-cmp";
-import { CatalogProductCmp } from "@/r_catalog_product/display/catalog-product-cmp";
-import { CatalogSectionCmp } from "@/r_catalog_section/display/catalog-section-cmp";
-import { IndexCmp } from "@/r_index/display/index-cmp";
+import { IndexNode } from "@/app/nodes/0/display/index-node";
+import { AccountNode } from "@/app/nodes/account/display/account-node";
+import { ArticlesNode } from "@/app/nodes/articles/display/articles-node";
+import { BookmarksNode } from "@/app/nodes/bookmarks/display/bookmarks-node";
+import { CartNode } from "@/app/nodes/cart/display/cart-node";
+import { CatalogLayout } from "@/app/nodes/catalog/layout/display/catalog-layout";
+import { CatalogIndexNode } from "@/app/nodes/catalog/nodes/0/display/catalog-index-node";
+import { CatalogProductNode } from "@/app/nodes/catalog/nodes/product/display/catalog-product-node";
+import { CatalogSectionNode } from "@/app/nodes/catalog/nodes/section/display/catalog-section-node";
+import { CompanyNode } from "@/app/nodes/company/display/company-node";
+import { ContactsNode } from "@/app/nodes/contacts/display/contacts-node";
+import { DeliveryNode } from "@/app/nodes/delivery/display/delivery-node";
+import { NewsNode } from "@/app/nodes/news/display/news-node";
+import { PaymentNode } from "@/app/nodes/payment/display/payment-node";
+import { ReturnNode } from "@/app/nodes/return/display/return-node";
+import { OrderIndexNode } from "@/app/nodes/order/nodes/0/display/order-index-node";
+import { OrderProductNode } from "@/app/nodes/order/nodes/product/display/order-product-node";
+import { ServiceNode } from "@/app/nodes/service/display/service-node";
+import { NotFoundNode } from "@/app/nodes/404/display/not-found-node";
 
 const navigationMap: Routes = [
     {
         path: '',
-        component: IndexCmp,
+        component: IndexNode,
     },
     {
         path: 'account',
-        component: AccountPage,
+        component: AccountNode,
     },
     {
         path: 'articles',
-        component: ArticlesPage,
+        component: ArticlesNode,
     },
     {
         path: 'bookmarks',
-        component: BookmarksPage,
+        component: BookmarksNode,
     },
     {
         path: 'cart',
-        component: CartPage,
+        component: CartNode,
     },
     // {
     //     path: 'catalogs/:catalogNavId',
@@ -54,61 +54,61 @@ const navigationMap: Routes = [
     // },
     {
         path: 'catalogs/:catalogNavId',
-        component: CatalogCmp, // this is the component with the <router-outlet> in the template
+        component: CatalogLayout, // this is the component with the <router-outlet> in the template
         children: [
             {
                 path: '',
-                component: CatalogIndexCmp,
+                component: CatalogIndexNode,
             },
             {
                 path: 'products/:catalogProductNavId',
-                component: CatalogProductCmp,
+                component: CatalogProductNode,
             },
             {
                 path: 'sections/:catalogSectionNavId',
-                component: CatalogSectionCmp,
+                component: CatalogSectionNode,
             },
         ],
     },
     {
         path: 'company',
-        component: CompanyPage,
+        component: CompanyNode,
     },
     {
         path: 'contacts',
-        component: ContactsPage,
+        component: ContactsNode,
     },
     {
         path: 'delivery',
-        component: DeliveryPage,
+        component: DeliveryNode,
     },
     {
         path: 'news',
-        component: NewsPage,
+        component: NewsNode,
     },
     {
         path: 'payment',
-        component: PaymentPage,
+        component: PaymentNode,
     },
     {
         path: 'return',
-        component: ReturnPage,
+        component: ReturnNode,
     },
     {
         path: 'orders/:orderNavId',
-        component: OrderPage,
+        component: OrderIndexNode,
     },
     {
         path: 'orders/:orderNavId/products/:orderProductNavId',
-        component: OrderProductPage,
+        component: OrderProductNode,
     },
     {
         path: 'service',
-        component: ServicePage,
+        component: ServiceNode,
     },
     {
         path: '**',
-        component: NotFoundPage,
+        component: NotFoundNode,
     },
 ]
 

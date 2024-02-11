@@ -1,5 +1,5 @@
 import { bootstrapApplication, provideClientHydration } from '@angular/platform-browser';
-import { BasicLayout } from "../layout/display/basic-layout";
+import { AppLayout } from "@/app/layout/display/app-layout";
 import {
     provideRouter,
     RouteReuseStrategy,
@@ -13,7 +13,7 @@ import { isDevMode } from '@angular/core';
 import { AppRouteReuseStrategy } from "./AppRouteReuseStrategy";
 
 bootstrapApplication(
-      BasicLayout,
+      AppLayout,
       {
           providers: [
               // Примечание. Такое объявление приводит RouteReuseStrategy

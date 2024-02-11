@@ -1,5 +1,5 @@
 import { bootstrapApplication, provideClientHydration } from '@angular/platform-browser';
-import { BasicLayout } from "../layout/display/basic-layout";
+import { AppLayout } from "@/app/layout/display/app-layout";
 import { provideServerRendering } from "@angular/platform-server";
 import {
     provideRouter,
@@ -15,7 +15,7 @@ import { AppRouteReuseStrategy } from "./AppRouteReuseStrategy";
 
 const bootstrap =
       () => bootstrapApplication(
-            BasicLayout,
+            AppLayout,
             {
                 providers: [
                     provideServerRendering(),

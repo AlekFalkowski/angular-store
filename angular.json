@@ -21,7 +21,7 @@
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": "dist/blanco",
-                        "index": "src/frame/index.html",
+                        "index": "src/app/frame/index.html",
                         "browser": "src/config/main.ts",
                         "polyfills": [
                             "zone.js"
@@ -39,7 +39,7 @@
                             ]
                         },
                         "styles": [
-                            "src/frame/index.scss"
+                            "src/app/frame/index.scss"
                         ],
                         "scripts": [],
                         "server": "src/config/main.server.ts",
@@ -111,7 +111,7 @@
                             ]
                         },
                         "styles": [
-                            "src/frame/index.scss"
+                            "src/app/frame/index.scss"
                         ],
                         "scripts": []
                     }
