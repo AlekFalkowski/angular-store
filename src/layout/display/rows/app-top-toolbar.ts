@@ -10,7 +10,10 @@ import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 
 @Component({
-    imports: [ RouterModule, RouterModule, SpacerBlock ],
+    imports: [
+        RouterModule,
+        SpacerBlock
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

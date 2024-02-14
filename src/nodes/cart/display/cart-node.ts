@@ -8,36 +8,43 @@ import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 
 @Component({
-    imports: [ CommonModule, PageBreadcrumbs, PageTitle ],
+    imports: [
+        CommonModule,
+        PageBreadcrumbs,
+        PageTitle
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        cart-node {
             max-width: $base-max-width;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-        }
-        :host > div {
 
-    grid-column: 2;
-    padding-inline: var(--inline-padding);
+            & > [data-e="content"] {
+                padding-inline: var(--inline-padding);
+            }
         }
     `,
     selector: 'cart-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-        <div>
+        <page-breadcrumbs />
+        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
+        <div data-e="content" >
             CART_PAGE_CONTENT
-        </div>
+        </div >
     `,
-    providers: [ CartViewModel, GetCartStableContentOption, CartRemoteStorage ]
+    providers: [
+        CartViewModel,
+        GetCartStableContentOption,
+        CartRemoteStorage
+    ]
 })
 export class CartNode {
     viewModel: CartViewModel = inject(CartViewModel)

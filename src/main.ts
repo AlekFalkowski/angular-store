@@ -23,6 +23,7 @@ bootstrapApplication(
                     routes,
                     withEnabledBlockingInitialNavigation(),
                     withRouterConfig({
+                        paramsInheritanceStrategy: 'always',
                         onSameUrlNavigation: 'reload',
                     }),
                     withInMemoryScrolling({

@@ -6,7 +6,8 @@ import {
     effect,
     inject,
     Injector,
-    PLATFORM_ID, ViewEncapsulation
+    PLATFORM_ID,
+    ViewEncapsulation
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -41,9 +42,7 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     encapsulation: ViewEncapsulation.None,
-    styleUrls: [
-
-    ],
+    styleUrls: [],
     styles: `
         @import "all-config";
         app-layout {
@@ -117,7 +116,6 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
     ]
 })
 export class AppLayout {
-
     readonly indexStateProvider: IndexStateProvider = inject(IndexStateProvider)
     readonly viewModel: LayoutViewModel = inject(LayoutViewModel)
     #_platformId: Object = inject(PLATFORM_ID)

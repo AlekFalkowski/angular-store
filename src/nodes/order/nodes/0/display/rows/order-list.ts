@@ -6,10 +6,10 @@ import { CommonModule } from "@angular/common";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        order-list {
             grid-column: 2;
             padding-inline: var(--inline-padding);
             background-color: var(--md-sys-color-surface-container-low);

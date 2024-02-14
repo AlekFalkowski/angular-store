@@ -3,7 +3,10 @@ import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 
 @Component({
-    imports: [ RouterModule, SpacerBlock ],
+    imports: [
+        RouterModule,
+        SpacerBlock
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -29,15 +32,12 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
         }
     `,
     selector: 'app-footer',
-    host: {
-        'role': 'contentinfo',
-    },
+    host: { 'role': 'contentinfo' },
     template: `
-        <div>© 2024 GmbH + Co KG</div>
-        <spacer-block/>
+        <div >© 2024 GmbH + Co KG</div >
+        <spacer-block />
         <!-- <a data-e="footer-link" href="https://etesso.com/">Etesso</a> -->
     `,
 })
 export class AppFooter {
-
 }

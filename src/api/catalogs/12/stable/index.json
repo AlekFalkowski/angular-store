@@ -1,5 +1,7 @@
 {
-    "title": "Catalog Title",
+    "htmlHeadTitle": "Мойки Blanco в Москве",
+    "pageTitle": "Мойки Blanco в Москве",
+    "breadcrumbs": [],
     "filterConfig": [
         {
             "label": "Sort",

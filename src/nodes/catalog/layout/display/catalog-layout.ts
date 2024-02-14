@@ -7,11 +7,11 @@ import { RouterModule } from "@angular/router";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
     `,
     selector: 'catalog-layout',
-    host: { 'role': 'main' },
+    host: {},
     template: `
         <router-outlet ></router-outlet >
     `,

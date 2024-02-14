@@ -1,31 +1,34 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 
 @Component({
-    imports: [ CommonModule, RouterModule, PageBreadcrumbs, PageTitle ],
+    imports: [
+        CommonModule,
+        PageBreadcrumbs,
+        PageTitle
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    selector: 'not-found-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title title="404 Not Found"/>
-    `,
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        not-found-node {
             max-width: $base-max-width;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
         }
+    `,
+    selector: 'not-found-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs />
+        <page-title title="404 Not Found" />
     `,
     providers: []
 })

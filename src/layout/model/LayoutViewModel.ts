@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, Signal, } from "@angular/core";
+import { computed, inject, Injectable, Signal } from "@angular/core";
 import { ObservePreferredColorSchemeOption } from "../options/ObservePreferredColorSchemeOption";
 import { SetPreferredColorSchemeOption } from "../options/SetPreferredColorSchemeOption";
 

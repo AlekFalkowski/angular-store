@@ -1,9 +1,19 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, Signal, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    Input,
+    Signal,
+    ViewEncapsulation
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 
 @Component({
-    imports: [ RouterModule, SpacerBlock ],
+    imports: [
+        RouterModule,
+        SpacerBlock
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -20,15 +30,15 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
     `,
     selector: 'app-service-info',
     template: `
-        <h3>Service information:</h3>
-        <div>windowInnerWidth: {{ windowInnerWidth() }}</div>
-        <div>windowInnerHeight: {{ windowInnerHeight() }}</div>
-        <div>documentOffsetWidth: {{ documentOffsetWidth() }}</div>
-        <div>documentClientHeight: {{ documentClientHeight() }}</div>
-        <div>documentScrollbarWidth: {{ documentScrollbarWidth() }}</div>
-        <div>isMobileInPortraitOnly: {{ isMobileInPortraitOnly() }}</div>
-        <div>isMobileInLandscapeOnly: {{ isMobileInLandscapeOnly() }}</div>
-        <div>isMobileInAllOrientations: {{ isMobileInAllOrientations() }}</div>
+        <h3 >Service information:</h3 >
+        <div >windowInnerWidth: {{ windowInnerWidth() }}</div >
+        <div >windowInnerHeight: {{ windowInnerHeight() }}</div >
+        <div >documentOffsetWidth: {{ documentOffsetWidth() }}</div >
+        <div >documentClientHeight: {{ documentClientHeight() }}</div >
+        <div >documentScrollbarWidth: {{ documentScrollbarWidth() }}</div >
+        <div >isMobileInPortraitOnly: {{ isMobileInPortraitOnly() }}</div >
+        <div >isMobileInLandscapeOnly: {{ isMobileInLandscapeOnly() }}</div >
+        <div >isMobileInAllOrientations: {{ isMobileInAllOrientations() }}</div >
     `,
 })
 export class AppServiceInfo {

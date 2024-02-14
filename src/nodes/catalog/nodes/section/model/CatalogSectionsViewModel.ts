@@ -1,19 +1,26 @@
 import { inject, Injectable } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { TCardCollection } from "@/shared/types/TCardCollection";
+import { GetCatalogSectionStableContentOption } from "../options/GetCatalogSectionStableContentOption";
+import { TCatalogSectionStableContent } from "@/nodes/catalog/nodes/section/types/TCatalogSectionStableContent";
 
 @Injectable()
 export class CatalogSectionsViewModel {
     #_route: ActivatedRoute = inject(ActivatedRoute)
+    #_getStableContentOption: GetCatalogSectionStableContentOption = inject(GetCatalogSectionStableContentOption)
+    public stableContent: TCatalogSectionStableContent | undefined
+    readonly catalogNavId!: string
     readonly catalogSectionNavId!: string
     readonly fakeStableContent!: { htmlHeadTitle: string, pageTitle: string }
     readonly fakeAssortmentCardList!: TCardCollection
+    readonly fakeCatalogProductCardList!: TCardCollection
 
     constructor() {
-        this.catalogSectionNavId = this.#_route.snapshot.params['catalogSectionNavId']
+        this.catalogNavId = this.#_route.snapshot.params['catalogNavId']
+        this.catalogSectionNavId = this.#_route.snapshot.params['catalogSectionNavId'] ?? '0'
         this.fakeStableContent = {
-            htmlHeadTitle: `Секция каталога № ${ this.catalogSectionNavId }`,
-            pageTitle: `Секция каталога № ${ this.catalogSectionNavId }`
+            htmlHeadTitle: `Секция каталога № `,
+            pageTitle: `Секция каталога № `
         }
         this.fakeAssortmentCardList = [
             {
@@ -148,6 +155,289 @@ export class CatalogSectionsViewModel {
                 title: "Zia",
                 description: "Оборачиваемые мойки из искусственного камня",
                 outLink: "/catalogs/29"
+            },
+        ]
+        this.fakeCatalogProductCardList = [
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                // outLink: "/catalogs/289"
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 1",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/31"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 2",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 3",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/32"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 4",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/34"
+            },
+            {
+                T: "TCatalogProductCard",
+                imageUrl: "/assets/images/catalog-card.jpg",
+                title: "Мойка 5",
+                price: "40000 руб.",
+                outLink: "/catalogs/25/products/35"
             },
         ]
     }

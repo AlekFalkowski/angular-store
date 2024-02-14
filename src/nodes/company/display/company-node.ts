@@ -8,23 +8,27 @@ import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 
 @Component({
-    imports: [ CommonModule, PageBreadcrumbs, PageTitle ],
+    imports: [
+        CommonModule,
+        PageBreadcrumbs,
+        PageTitle
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        company-node {
             max-width: $base-max-width;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-        }
-        :host > div {
-            grid-column: 2;
-            padding-inline: var(--inline-padding);
+
+            & > [data-e="content"] {
+                padding-inline: var(--inline-padding);
+            }
         }
     `,
     selector: 'company-node',
@@ -32,7 +36,7 @@ import { PageTitle } from "@/shared/display/rows/page-title";
     template: `
         <page-breadcrumbs />
         <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div >
+        <div data-e="content" >
             COMPANY_PAGE_CONTENT
         </div >
     `,

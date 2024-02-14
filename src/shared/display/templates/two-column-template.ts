@@ -15,7 +15,9 @@ import {
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { fromEvent, Subscription, throttleTime } from "rxjs";
-import { TPreferredSidePanelView } from "@/nodes/catalog/nodes/0/types/TPreferredSidePanelView";
+import { TPreferredSidePanelView } from "@/shared/types/TPreferredSidePanelView";
+import { LayoutViewModel } from "@/layout/model/LayoutViewModel";
+import { SharedViewModel } from "@/shared/model/SharedViewModel";
 
 @Component({
     imports: [ CommonModule, RouterLinkActive, RouterLink ],
@@ -27,6 +29,7 @@ import { TPreferredSidePanelView } from "@/nodes/catalog/nodes/0/types/TPreferre
         @import "all-config";
         $end-column-width: 300px;
         $breakpoint: 1000px;
+        // two-column-template
         :host {
             grid-column: 1/-1;
             display: grid;
@@ -165,7 +168,7 @@ import { TPreferredSidePanelView } from "@/nodes/catalog/nodes/0/types/TPreferre
     selector: 'two-column-template',
     host: {},
     template: `
-        <div data-e="main-column" [class.full-width]="preferredSidePanelView() == 'hidden'" >
+        <div data-e="main-column" [class.full-width]="viewModel.preferredSidePanelView() == 'hidden'" >
             <div data-e="button-row" ></div >
             <ng-content select="main-column-slot" />
         </div >
@@ -174,17 +177,17 @@ import { TPreferredSidePanelView } from "@/nodes/catalog/nodes/0/types/TPreferre
              (click)="closeSidePanel()" >
         </div >
         <div data-e="end-column"
-             [class.hidden-on-tablets]="preferredSidePanelView() == 'hidden'"
+             [class.hidden-on-tablets]="viewModel.preferredSidePanelView() == 'hidden'"
              [class.visible-on-mobile]="isSidePanelOpenInMobile()" >
             <ng-content select="end-column-slot" />
         </div >
         <md-filled-button data-e="open-button"
                           [style.--open-button-top-indent]="openButtonTopIndent()"
                           (click)="openSidePanel()" >
-            Показать Фильтр
+            {{ openButtonText }}
         </md-filled-button >
         <md-filled-icon-button data-e="close-button"
-                               [class.hidden-on-tablets]="preferredSidePanelView() == 'hidden'"
+                               [class.hidden-on-tablets]="viewModel.preferredSidePanelView() == 'hidden'"
                                [class.visible-on-mobile]="isSidePanelOpenInMobile()"
                                (click)="closeSidePanel()" >
             <md-icon >double_arrow</md-icon >
@@ -192,9 +195,10 @@ import { TPreferredSidePanelView } from "@/nodes/catalog/nodes/0/types/TPreferre
     `,
 })
 export class TwoColumnTemplate {
-    @Input() preferredSidePanelView!: Signal<TPreferredSidePanelView>
-    @Output() setPreferredSidePanelView: EventEmitter<TPreferredSidePanelView> = new EventEmitter()
-
+    @Input() openButtonText!: string
+    readonly viewModel: SharedViewModel = inject(SharedViewModel)
+    // @Input() preferredSidePanelView!: Signal<TPreferredSidePanelView>
+    // @Output() setPreferredSidePanelView: EventEmitter<TPreferredSidePanelView> = new EventEmitter()
 
     isSidePanelOpenInMobile: WritableSignal<boolean> = signal(false)
     openButtonTopIndent: WritableSignal<"0px" | "70px"> = signal("70px")
@@ -204,7 +208,7 @@ export class TwoColumnTemplate {
         if (window.innerWidth <= 1000) { // Синхронно с @media (max-width: 1000px).
             this.isSidePanelOpenInMobile.set(true)
         } else {
-            this.setPreferredSidePanelView.emit('visible')
+            this.viewModel.setPreferredSidePanelView('visible')
         }
     }
 
@@ -213,7 +217,7 @@ export class TwoColumnTemplate {
         if (window.innerWidth <= 1000) { // Синхронно с @media (max-width: 1000px).
             this.isSidePanelOpenInMobile.set(false)
         } else {
-            this.setPreferredSidePanelView.emit('hidden')
+            this.viewModel.setPreferredSidePanelView('hidden')
         }
     }
 
@@ -240,7 +244,6 @@ export class TwoColumnTemplate {
             this.#_closeSidePanelOnMobileByResizeWindow?.unsubscribe()
         }
     }
-
 
     #_scrollY: number = 0
     #_scrollDirection: number = 0

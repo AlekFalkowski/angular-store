@@ -11,7 +11,7 @@ export class KeyValueLocalStorage {
         if (isPlatformBrowser(this.#_platformId)) {
             // https://developer.mozilla.org/en-US/docs/Web/API/Window/storage_event
             window.addEventListener('storage', (event) => {
-                this.#_lastSetKeyValue.set({ key: event.key ?? '', value: event.newValue ?? '' })
+                this.#_lastSetKeyValue.set({ key: event.key, value: event.newValue })
             })
         }
     }
@@ -20,8 +20,10 @@ export class KeyValueLocalStorage {
 
     setValueByKey(keyValueItem: TKeyValue): void {
         try {
-            localStorage.setItem(keyValueItem.key, keyValueItem.value)
-            this.#_lastSetKeyValue.set({ key: keyValueItem.key, value: keyValueItem.value })
+            if (keyValueItem.key !== null && keyValueItem.value !== null) {
+                localStorage.setItem(keyValueItem.key, keyValueItem.value)
+                this.#_lastSetKeyValue.set({ key: keyValueItem.key, value: keyValueItem.value })
+            }
         } catch (error) {
             throw error
         }

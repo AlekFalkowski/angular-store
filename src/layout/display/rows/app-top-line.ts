@@ -5,7 +5,8 @@ import {
     CUSTOM_ELEMENTS_SCHEMA,
     ElementRef,
     inject,
-    PLATFORM_ID, ViewEncapsulation
+    PLATFORM_ID,
+    ViewEncapsulation
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
@@ -14,7 +15,11 @@ import { TStringLink } from "@/shared/types/TStringLink";
 import { isPlatformBrowser } from "@angular/common";
 
 @Component({
-    imports: [ RouterModule, SpacerBlock, HeaderLogo ],
+    imports: [
+        RouterModule,
+        SpacerBlock,
+        HeaderLogo
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

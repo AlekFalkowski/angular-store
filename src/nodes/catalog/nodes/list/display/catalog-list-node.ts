@@ -3,8 +3,6 @@ import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { CatalogViewModel } from "../model/CatalogViewModel";
-import { ObservePreferredSidePanelViewOption } from "../options/ObservePreferredSidePanelViewOption";
-import { SetPreferredSidePanelViewOption } from "../options/SetPreferredSidePanelViewOption";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
@@ -26,7 +24,7 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
         :host {
@@ -37,17 +35,14 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
             flex-direction: column;
         }
     `,
-    selector: 'catalog-index-node',
+    selector: 'catalog-list-node',
     host: { 'role': 'main' },
     template: `
         <page-breadcrumbs />
         <page-title
               [title]="viewModel.fakeStableContent.pageTitle"
         />
-        <two-column-template
-              [preferredSidePanelView]="viewModel.preferredSidePanelView"
-              (setPreferredSidePanelView)="viewModel.setPreferredSidePanelView($event)"
-        >
+        <two-column-template openButtonText="Показать Фильтр">
             <main-column-slot >
                 <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
             </main-column-slot >
@@ -103,12 +98,10 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
         </two-column-template >
     `,
     providers: [
-        CatalogViewModel,
-        ObservePreferredSidePanelViewOption,
-        SetPreferredSidePanelViewOption,
+        CatalogViewModel
     ]
 })
-export class CatalogIndexNode {
+export class CatalogListNode {
     viewModel: CatalogViewModel = inject(CatalogViewModel)
     htmlHeadTitleService: Title = inject(Title)
     private router: Router = inject(Router)

@@ -7,19 +7,28 @@ import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 
 @Component({
-    imports: [ CommonModule, RouterModule, PageBreadcrumbs, PageTitle ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        PageBreadcrumbs,
+        PageTitle
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        order-product-node {
             max-width: $base-max-width;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
+
+            & > [data-e="content"] {
+                padding-inline: var(--inline-padding);
+            }
         }
     `,
     selector: 'order-product-node',
@@ -27,6 +36,9 @@ import { PageTitle } from "@/shared/display/rows/page-title";
     template: `
         <page-breadcrumbs />
         <page-title [title]="viewModel.fakeStableContent.pageTitle" />
+        <div data-e="content" >
+            ORDER_PRODUCT
+        </div >
     `,
     providers: [ OrderProductViewModel ]
 })

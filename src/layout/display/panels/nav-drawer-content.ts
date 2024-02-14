@@ -16,7 +16,13 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
-    imports: [ CommonModule, RouterModule, SpacerBlock, FormsModule, ReactiveFormsModule ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        SpacerBlock,
+        FormsModule,
+        ReactiveFormsModule
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -59,45 +65,54 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         <hr />
         <h3 data-e="title" >Contacts</h3 >
         <hr />
-        <div data-e="lorem">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
         <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
         <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
         <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
         <div data-e="lorem" >
             <input type="text" style="height: 36px;" >
         </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum. Architecto
+        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
+            Architecto
             consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
             porro rerum sequi tempora, veritatis?
         </div >

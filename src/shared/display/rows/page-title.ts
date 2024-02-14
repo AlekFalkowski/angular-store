@@ -6,25 +6,23 @@ import { CommonModule } from "@angular/common";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-
-        :host {
-
-            grid-column: 2;
+        page-title {
             padding-inline: var(--inline-padding);
             display: flex;
             justify-content: center;
             margin-block: 20px;
             align-items: center;
-        }
-        [data-e="headline"] {
-            color: var(--md-sys-color-primary);
-            @include MD3_DISPLAY_S_FONT_RULE_SET;
-            text-transform: uppercase;
-            text-align: center;
-            text-wrap: balance;
+
+            & > [data-e="headline"] {
+                color: var(--md-sys-color-primary);
+                @include MD3_DISPLAY_S_FONT_RULE_SET;
+                text-transform: uppercase;
+                text-align: center;
+                text-wrap: balance;
+            }
         }
     `,
     selector: 'page-title',

@@ -1,9 +1,9 @@
 import { afterNextRender, computed, inject, Injectable, Signal } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { fromEvent, Subscription, throttleTime } from "rxjs";
-import { ObservePreferredSidePanelViewOption } from "../options/ObservePreferredSidePanelViewOption";
-import { SetPreferredSidePanelViewOption } from "../options/SetPreferredSidePanelViewOption";
-import { TPreferredSidePanelView } from "../types/TPreferredSidePanelView";
+import { ObservePreferredSidePanelViewOption } from "@/shared/options/ObservePreferredSidePanelViewOption";
+import { SetPreferredSidePanelViewOption } from "@/shared/options/SetPreferredSidePanelViewOption";
+import { TPreferredSidePanelView } from "@/shared/types/TPreferredSidePanelView";
 import { TCardCollection } from "@/shared/types/TCardCollection";
 
 @Injectable()

@@ -1,4 +1,4 @@
 export type TKeyValue = {
-    key: string
-    value: string
+    key: string | null
+    value: string | null
 }

@@ -26,6 +26,7 @@ const bootstrap =
                           routes,
                           withEnabledBlockingInitialNavigation(),
                           withRouterConfig({
+                              paramsInheritanceStrategy: 'always',
                               onSameUrlNavigation: 'reload',
                           }),
                           withInMemoryScrolling({

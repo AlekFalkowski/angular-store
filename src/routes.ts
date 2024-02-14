@@ -5,9 +5,10 @@ import { ArticlesNode } from "@/nodes/articles/display/articles-node";
 import { BookmarksNode } from "@/nodes/bookmarks/display/bookmarks-node";
 import { CartNode } from "@/nodes/cart/display/cart-node";
 import { CatalogLayout } from "@/nodes/catalog/layout/display/catalog-layout";
-import { CatalogIndexNode } from "@/nodes/catalog/nodes/0/display/catalog-index-node";
+import { CatalogListNode } from "@/nodes/catalog/nodes/list/display/catalog-list-node";
 import { CatalogProductNode } from "@/nodes/catalog/nodes/product/display/catalog-product-node";
 import { CatalogSectionNode } from "@/nodes/catalog/nodes/section/display/catalog-section-node";
+import { CatalogNotFoundNode } from "@/nodes/catalog/nodes/404/display/catalog-not-found-node";
 import { CompanyNode } from "@/nodes/company/display/company-node";
 import { ContactsNode } from "@/nodes/contacts/display/contacts-node";
 import { DeliveryNode } from "@/nodes/delivery/display/delivery-node";
@@ -53,20 +54,28 @@ const routes: Routes = [
     //     component: CatalogSectionsPage,
     // },
     {
-        path: 'catalogs/:catalogNavId',
-        component: CatalogLayout, // this is the component with the <router-outlet> in the template
+        path: 'catalogs',
+        component: CatalogLayout,
         children: [
             {
                 path: '',
-                component: CatalogIndexNode,
+                component: CatalogListNode,
             },
             {
-                path: 'products/:catalogProductNavId',
+                path: ':catalogNavId', // section 0
+                component: CatalogSectionNode,
+            },
+            {
+                path: ':catalogNavId/sections/:catalogSectionNavId',
+                component: CatalogSectionNode,
+            },
+            {
+                path: ':catalogNavId/products/:catalogProductNavId',
                 component: CatalogProductNode,
             },
             {
-                path: 'sections/:catalogSectionNavId',
-                component: CatalogSectionNode,
+                path: '**',
+                component: CatalogNotFoundNode,
             },
         ],
     },

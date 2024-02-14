@@ -1,5 +1,5 @@
 export type TCardCollection = {
-    T: string
+    T: string // "TAssortmentCard" | "TCatalogProductCard"
     imageUrl: string
     title: string
     outLink: string

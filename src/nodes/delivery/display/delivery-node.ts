@@ -12,19 +12,19 @@ import { PageTitle } from "@/shared/display/rows/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        delivery-node {
             max-width: $base-max-width;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-        }
-        :host > div {
-            grid-column: 2;
-            padding-inline: var(--inline-padding);
+
+            & > [data-e="content"] {
+                padding-inline: var(--inline-padding);
+            }
         }
     `,
     selector: 'delivery-node',
@@ -32,7 +32,7 @@ import { PageTitle } from "@/shared/display/rows/page-title";
     template: `
         <page-breadcrumbs />
         <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div >
+        <div data-e="content" >
             DELIVERY_PAGE_CONTENT
         </div >
     `,

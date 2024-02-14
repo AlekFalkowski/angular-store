@@ -9,20 +9,20 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
-            grid-column: 2;
-        }
-        [data-e="title"] {
-            margin-bottom: 56px;
-            padding-inline: var(--inline-padding);
-            color: var(--md-sys-color-primary);
-            @include MD3_HEADLINE_L_FONT_RULE_SET;
-            text-transform: uppercase;
-            text-align: center;
-            text-wrap: balance;
+        store-assortment {
+
+            & > [data-e="title"] {
+                margin-bottom: 56px;
+                padding-inline: var(--inline-padding);
+                color: var(--md-sys-color-primary);
+                @include MD3_HEADLINE_L_FONT_RULE_SET;
+                text-transform: uppercase;
+                text-align: center;
+                text-wrap: balance;
+            }
         }
     `,
     selector: 'store-assortment',

@@ -2,12 +2,12 @@ import {
     ChangeDetectionStrategy,
     Component,
     CUSTOM_ELEMENTS_SCHEMA,
-    ViewEncapsulation,
     EventEmitter,
     Input,
     Output,
     signal,
     Signal,
+    ViewEncapsulation,
 } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterModule } from '@angular/router';
@@ -15,7 +15,13 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @Component({
-    imports: [ CommonModule, RouterModule, SpacerBlock, FormsModule, ReactiveFormsModule ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        SpacerBlock,
+        FormsModule,
+        ReactiveFormsModule
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -98,9 +104,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         }
     `,
     selector: 'nav-drawer',
-    host: {
-        '[class.visible]': "visible()"
-    },
+    host: { '[class.visible]': "visible()" },
     template: `
         <div data-e="backdrop" (click)="closeNavDrawer.emit()" ></div >
         <div data-e="slot" role="navigation" aria-label="Site" >
