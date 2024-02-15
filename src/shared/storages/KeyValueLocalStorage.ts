@@ -1,4 +1,4 @@
-import { inject, Injectable, PLATFORM_ID, Signal, signal, WritableSignal } from "@angular/core";
+import { computed, inject, Injectable, PLATFORM_ID, Signal, signal, WritableSignal } from "@angular/core";
 import { TKeyValue } from "../types/TKeyValue";
 import { isPlatformBrowser } from "@angular/common";
 
@@ -44,4 +44,26 @@ export class KeyValueLocalStorage {
     // deleteAll(): void {
     //     localStorage.clear();
     // }
+
+    observeValueByKeyOption(key: string): Signal<string | null> {
+        let bufferedValue: string | null = this.getValueByKey(key)
+        return computed(() => {
+            const lastSetKeyValue: TKeyValue = this.lastSetKeyValue()
+            if (lastSetKeyValue.key === null || lastSetKeyValue.key === key) {
+                console.log(`${key} updated`)
+                bufferedValue = lastSetKeyValue.value
+            }
+            return bufferedValue
+        })
+    }
+
+    setValueByKeyOption(key: string): (value: string) => void {
+        return (value: string): void => {
+            console.log(`set ${key}`)
+            this.setValueByKey({
+                key: key,
+                value: value
+            })
+        }
+    }
 }

@@ -13,11 +13,13 @@ import { provideServiceWorker } from '@angular/service-worker';
 import { isDevMode } from '@angular/core';
 import { AppRouteReuseStrategy } from "./AppRouteReuseStrategy";
 import routes from "./routes";
+import { provideHttpClient, withFetch } from "@angular/common/http";
 
 bootstrapApplication(
       AppLayout,
       {
           providers: [
+              provideHttpClient(withFetch()),
               { provide: RouteReuseStrategy, useClass: AppRouteReuseStrategy },
               provideRouter(
                     routes,

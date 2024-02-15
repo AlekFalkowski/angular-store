@@ -1,63 +1,39 @@
-import { inject, Injectable } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { TCardCollection } from "@/shared/types/TCardCollection";
+import { inject, Injectable, NgZone, Signal, signal, WritableSignal } from "@angular/core";
+import { GetHomeStableContentOption } from "../options/GetHomeStableContent";
+import { THomeStableContent } from "../types/THomeStableContent";
 
 @Injectable()
 export class HomeViewModel {
-    private route: ActivatedRoute = inject(ActivatedRoute)
-    // private getStableContentOption: GetStableContentOption = inject(GetStableContentOption)
-    // stableContent: StableContent | undefined
-    readonly fakeStableContent!: { htmlHeadTitle: string, pageTitle: string }
-    // readonly fakeAssortmentCardList!: TAssortmentCard[]
-    // readonly fakeAssortmentCardList!: TCatalogProductCard[]
-    // readonly fakeAssortmentCardList!: (TCatalogProductCard | TAssortmentCard)[]
-    readonly fakeAssortmentCardList!: TCardCollection
+    #_ngZone: NgZone = inject(NgZone)
+    #_getStableContentOption: GetHomeStableContentOption = inject(GetHomeStableContentOption)
 
+    /** Stable Content. */
+    #_stableContentState: WritableSignal<"loading" | "success" | "error"> = signal("error")
+    stableContentState: Signal<"loading" | "success" | "error"> = this.#_stableContentState.asReadonly()
+    #_stableContent: WritableSignal<THomeStableContent | null> = signal(null)
+    stableContent: Signal<THomeStableContent | null> = this.#_stableContent.asReadonly()
+
+    /** Initialization Block. */
     constructor() {
-        // this.getStableContentOption.invoke().then((content) => {
-        //     this.stableContent = content
-        // })
-        this.fakeStableContent = {
-            htmlHeadTitle: "Магазин Blanco в Москве",
-            pageTitle: "Магазин Blanco в Москве"
+        this.doStartInitialization()
+    }
+
+    doStartInitialization(): void {
+        if (this.#_stableContentState() === "loading") {
+            return
         }
-        this.fakeAssortmentCardList = [
-            {
-                T: "TAssortmentCard",
-                imageUrl: "/assets/images/home-sink.png",
-                // imageUrl: "/assets/images/catalog-card.jpg",
-                title: "Мойки для кухни",
-                description: "Продуманные и качественные мойки",
-                outLink: "catalogs/25/sections/25"
-            },
-            {
-                T: "TAssortmentCard",
-                imageUrl: "/assets/images/home-tap.png",
-                title: "Смесители для кухни",
-                description: "Надежные и качественные смесители",
-                outLink: "/catalogs/26"
-            },
-            {
-                T: "TAssortmentCard",
-                imageUrl: "/assets/images/home-waste.png",
-                title: "Мусорные системы",
-                description: "Удобные контейнеры для отходов",
-                outLink: "/catalogs/27"
-            },
-            {
-                T: "TAssortmentCard",
-                imageUrl: "/assets/images/home-care.png",
-                title: "Средства по уходу",
-                description: "Правильный уход за любыми вещами",
-                outLink: "/catalogs/28"
-            },
-            {
-                T: "TAssortmentCard",
-                imageUrl: "/assets/images/home-accessories.png",
-                title: "Акксесуары",
-                description: "Правильное решение для любых требований",
-                outLink: "/catalogs/29"
-            },
-        ]
+        this.#_ngZone.run(() => {
+            this.#_stableContentState.set("loading")
+            this.#_getStableContentOption.invoke().subscribe({
+                next: (stableContent) => {
+                    this.#_stableContent.set(stableContent)
+                    this.#_stableContentState.set("success")
+                    console.log('HomePage SUCCESS')
+                },
+                error: (err) => {
+                    this.#_stableContentState.set("error")
+                }
+            })
+        })
     }
 }

@@ -25,7 +25,7 @@ import { PageTitle } from "@/shared/display/rows/page-title";
         }
     `,
     selector: 'not-found-node',
-    host: { 'role': 'main' },
+    host: {},
     template: `
         <page-breadcrumbs />
         <page-title title="404 Not Found" />

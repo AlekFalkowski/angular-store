@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, Vie
 import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import { CatalogViewModel } from "../model/CatalogViewModel";
+import { CatalogListViewModel } from "../model/CatalogListViewModel";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
@@ -27,87 +27,37 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
     encapsulation: ViewEncapsulation.None,
     styles: `
         @import "all-config";
-        :host {
+        catalog-list-node {
             max-width: $base-max-width;
             width: 100%;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
+
+            & > [data-e="content"] {
+                padding-inline: var(--inline-padding);
+            }
         }
     `,
     selector: 'catalog-list-node',
     host: { 'role': 'main' },
     template: `
         <page-breadcrumbs />
-        <page-title
-              [title]="viewModel.fakeStableContent.pageTitle"
-        />
-        <two-column-template openButtonText="Показать Фильтр">
-            <main-column-slot >
-                <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
-            </main-column-slot >
-            <end-column-slot >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <div style="padding-inline: 40px;" >
-                    <input type="text" style="height: 36px;" >
-                </div >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <h3 style="margin: 30px 50px;" >THIS_IS_A_FILTER</h3 >
-                <div style="padding-inline: 40px;" >
-                    <input type="text" style="height: 36px;" >
-                </div >
-            </end-column-slot >
-        </two-column-template >
+        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
+        <div data-e="content" >
+            CATALOG_LIST_PAGE_CONTENT
+        </div >
     `,
     providers: [
-        CatalogViewModel
+        CatalogListViewModel
     ]
 })
 export class CatalogListNode {
-    viewModel: CatalogViewModel = inject(CatalogViewModel)
+    viewModel: CatalogListViewModel = inject(CatalogListViewModel)
     htmlHeadTitleService: Title = inject(Title)
     private router: Router = inject(Router)
 
     constructor() {
         this.htmlHeadTitleService.setTitle(this.viewModel.fakeStableContent.htmlHeadTitle)
-        // console.log("CONSTRUCTOR") // Запускается, когда Angular создает экземпляр компонента.
     }
 }

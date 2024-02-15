@@ -19,6 +19,7 @@ import { CommonModule } from "@angular/common";
             & > [data-e="headline"] {
                 color: var(--md-sys-color-primary);
                 @include MD3_DISPLAY_S_FONT_RULE_SET;
+                margin: 0;
                 text-transform: uppercase;
                 text-align: center;
                 text-wrap: balance;

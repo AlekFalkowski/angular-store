@@ -14,6 +14,7 @@ import { provideServiceWorker } from "@angular/service-worker";
 import { isDevMode } from "@angular/core";
 import { AppRouteReuseStrategy } from "./AppRouteReuseStrategy";
 import routes from "./routes";
+import { provideHttpClient, withFetch } from "@angular/common/http";
 
 const bootstrap =
       () => bootstrapApplication(
@@ -21,6 +22,7 @@ const bootstrap =
             {
                 providers: [
                     provideServerRendering(),
+                    provideHttpClient(withFetch()),
                     { provide: RouteReuseStrategy, useClass: AppRouteReuseStrategy },
                     provideRouter(
                           routes,
