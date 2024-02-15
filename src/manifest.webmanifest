@@ -4,7 +4,7 @@
   "theme_color": "#333399",
   "background_color": "#fffbff",
   "display": "standalone",
-  "description": "Официальный магазин Blanco в Москве",
+  "description": "Магазин Blanco в Москве",
   "scope": "https://kesrest.dev",
   "start_url": "https://kesrest.dev",
   "icons": [

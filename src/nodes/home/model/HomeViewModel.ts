@@ -28,7 +28,6 @@ export class HomeViewModel {
                 next: (stableContent) => {
                     this.#_stableContent.set(stableContent)
                     this.#_stableContentState.set("success")
-                    console.log('HomePage SUCCESS')
                 },
                 error: (err) => {
                     this.#_stableContentState.set("error")

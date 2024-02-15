@@ -50,7 +50,6 @@ export class KeyValueLocalStorage {
         return computed(() => {
             const lastSetKeyValue: TKeyValue = this.lastSetKeyValue()
             if (lastSetKeyValue.key === null || lastSetKeyValue.key === key) {
-                console.log(`${key} updated`)
                 bufferedValue = lastSetKeyValue.value
             }
             return bufferedValue
@@ -59,7 +58,6 @@ export class KeyValueLocalStorage {
 
     setValueByKeyOption(key: string): (value: string) => void {
         return (value: string): void => {
-            console.log(`set ${key}`)
             this.setValueByKey({
                 key: key,
                 value: value

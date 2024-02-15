@@ -465,7 +465,6 @@ export class CatalogSectionsViewModel {
                     // getDynamicContent()
                     this.#_stableContent.set(stableContent)
                     this.#_stableContentState.set("success")
-                    // console.log('CatalogSectionPage SUCCESS')
                 },
                 error: (err) => {
                     if(err.status === 404) {
