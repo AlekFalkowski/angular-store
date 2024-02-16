@@ -10,7 +10,6 @@ import { HomeRemoteStorage } from "@/nodes/home/storages/HomeRemoteStorage";
 import { GetHomeStableContentOption } from "@/nodes/home/options/GetHomeStableContent";
 import { CardCollection } from "@/shared/display/panels/card-collection";
 import { CatalogNotFoundNode } from "@/nodes/catalog/nodes/404/display/catalog-not-found-node";
-import { CatalogSectionAssortment } from "@/nodes/catalog/nodes/section/display/rows/catalog-section-assortment";
 import { EndColumnSlot } from "@/shared/display/templates/end-column-slot";
 import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
@@ -26,7 +25,6 @@ import { LoadingError } from "@/shared/display/rows/loading-error";
         StoreAssortment,
         CardCollection,
         CatalogNotFoundNode,
-        CatalogSectionAssortment,
         EndColumnSlot,
         MainColumnSlot,
         TwoColumnTemplate,

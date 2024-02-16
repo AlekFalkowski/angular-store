@@ -74,11 +74,8 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not
                             <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
                         </main-column-slot >
                         <end-column-slot >
-                            <div style="padding-inline: 40px;" >
-                                <input type="text" style="height: 36px;" >
-                            </div >
-                            <div style="padding-inline: 40px;" >
-                                <input type="text" style="height: 36px;" >
+                            <div style="padding: 40px;" >
+                                FILTER_COLUMN
                             </div >
                         </end-column-slot >
                     </two-column-template >

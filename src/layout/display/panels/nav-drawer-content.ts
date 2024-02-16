@@ -62,10 +62,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     selector: 'nav-drawer-content',
     host: {},
     template: `
-        <h3 data-e="title" >Каталог</h3 >
+        <h3 data-e="title" >О магазине</h3 >
         <div data-e="lorem" ></div >
         <hr />
-        <h3 data-e="title" >О магазине</h3 >
+        <h3 data-e="title" >Каталог</h3 >
         <div data-e="lorem" ></div >
         <hr />
         <h3 data-e="title" >Аккаунт</h3 >
