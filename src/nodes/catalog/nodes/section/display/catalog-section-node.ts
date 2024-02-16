@@ -3,7 +3,6 @@ import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { CatalogSectionsViewModel } from "../model/CatalogSectionsViewModel";
 import { Title } from "@angular/platform-browser";
-import { CatalogSectionAssortment } from "./rows/catalog-section-assortment";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 import { CardCollection } from "@/shared/display/panels/card-collection";
@@ -22,7 +21,6 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not
         RouterLink,
         PageBreadcrumbs,
         PageTitle,
-        CatalogSectionAssortment,
         CardCollection,
         EndColumnSlot,
         MainColumnSlot,
@@ -69,7 +67,7 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not
                 <page-breadcrumbs />
                 <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
                 @if (viewModel.stableContent()?.filterConfig === undefined) {
-                    <catalog-section-assortment [cardCollection]="viewModel.fakeAssortmentCardList" />
+                    <card-collection [cardCollection]="viewModel.fakeAssortmentCardList" />
                 } @else {
                     <two-column-template openButtonText="Показать Фильтр" >
                         <main-column-slot >
