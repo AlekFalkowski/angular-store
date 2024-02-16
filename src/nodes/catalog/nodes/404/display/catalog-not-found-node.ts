@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Title } from "@angular/platform-browser";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
 
 @Component({
     imports: [
         CommonModule,
-        PageBreadcrumbs,
-        PageTitle
+        CatalogNotFound
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -25,10 +23,9 @@ import { PageTitle } from "@/shared/display/rows/page-title";
         }
     `,
     selector: 'catalog-not-found-node',
-    host: {},
+    host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title title="404 Not Found" />
+        <catalog-not-found />
     `,
     providers: []
 })

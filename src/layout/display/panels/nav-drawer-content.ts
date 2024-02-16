@@ -42,6 +42,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
             }
             & > [data-e="lorem"] {
                 margin: 4px 12px;
+                padding-bottom: 96px;
                 padding-inline-start: 16px;
             }
             & > hr {
@@ -61,62 +62,14 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     selector: 'nav-drawer-content',
     host: {},
     template: `
-        <h3 data-e="title" >Catalog</h3 >
+        <h3 data-e="title" >Каталог</h3 >
+        <div data-e="lorem" ></div >
         <hr />
-        <h3 data-e="title" >Contacts</h3 >
+        <h3 data-e="title" >О магазине</h3 >
+        <div data-e="lorem" ></div >
         <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <hr />
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <div data-e="lorem" >
-            <input type="text" style="height: 36px;" >
-        </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <div data-e="lorem" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, magnam, voluptatum.
-            Architecto
-            consectetur debitis deserunt rerum ut! Accusantium, alias aliquid consequuntur, deserunt iure nisi nobis
-            porro rerum sequi tempora, veritatis?
-        </div >
-        <div data-e="lorem" >isDarkTheme: {{ colorScheme() | uppercase }}</div >
+        <h3 data-e="title" >Аккаунт</h3 >
+        <div data-e="lorem" ></div >
         <hr />
         <h3 data-e="title" >Настройки</h3 >
         <label data-e="color-theme-switch-label" >
@@ -131,11 +84,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
             <!-- <md-switch aria-label="Dark Theme" [formControl]="isDarkTheme"></md-switch> -->
             <!-- <input type="checkbox" [formControl]="isDarkTheme" checked> -->
         </label >
-        <hr />
-        <h3 data-e="title" >Lorem</h3 >
-        <div data-e="lorem" >
-            <input type="text" style="height: 36px;" >
-        </div >
+        <div data-e="lorem" >isDarkTheme: {{ colorScheme() | uppercase }}</div >
+        <!-- <h3 data-e="title" >Lorem</h3 > -->
+        <!-- <div data-e="lorem" > -->
+        <!--     <input type="text" style="height: 36px;" > -->
+        <!-- </div > -->
         <!-- <div> -->
         <!--     <md-radio name="animals" value="cats"></md-radio> -->
         <!--     <md-radio name="animals" value="dogs"></md-radio> -->

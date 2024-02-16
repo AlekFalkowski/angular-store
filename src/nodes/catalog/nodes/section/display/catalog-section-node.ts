@@ -12,9 +12,9 @@ import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
 import { GetCatalogSectionStableContentOption } from "../options/GetCatalogSectionStableContentOption";
 import { CatalogSectionRemoteStorage } from "../storages/CatalogSectionRemoteStorage";
-import { CatalogNotFoundNode } from "../../404/display/catalog-not-found-node";
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
+import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
 
 @Component({
     imports: [
@@ -27,9 +27,9 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
         EndColumnSlot,
         MainColumnSlot,
         TwoColumnTemplate,
-        CatalogNotFoundNode,
         LoadingError,
-        LoadingProcess
+        LoadingProcess,
+        CatalogNotFound
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -87,7 +87,7 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
                 }
             }
             @case ("404") {
-                <catalog-not-found-node />
+                <catalog-not-found />
             }
             @case ("error") {
                 <loading-error (tryAgain)="viewModel.doStartInitialization()" />
