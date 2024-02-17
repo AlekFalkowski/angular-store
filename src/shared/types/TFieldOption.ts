@@ -1,4 +1,4 @@
-export type TOption = {
+export type TFieldOption = {
     label: string,
     value: string,
     quickInfo?: string,

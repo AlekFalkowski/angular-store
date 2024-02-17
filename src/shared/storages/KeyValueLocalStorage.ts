@@ -1,11 +1,13 @@
 import { computed, inject, Injectable, PLATFORM_ID, Signal, signal, WritableSignal } from "@angular/core";
-import { TKeyValue } from "../types/TKeyValue";
 import { isPlatformBrowser } from "@angular/common";
+import { TKeyValue } from "../types/TKeyValue";
 
 @Injectable({ providedIn: 'root' })
 export class KeyValueLocalStorage {
     #_platformId: Object = inject(PLATFORM_ID)
+
     #_lastSetKeyValue: WritableSignal<TKeyValue> = signal({ key: '', value: '' })
+    lastSetKeyValue: Signal<TKeyValue> = this.#_lastSetKeyValue.asReadonly()
 
     constructor() {
         if (isPlatformBrowser(this.#_platformId)) {
@@ -16,9 +18,16 @@ export class KeyValueLocalStorage {
         }
     }
 
-    lastSetKeyValue: Signal<TKeyValue> = this.#_lastSetKeyValue.asReadonly()
+    createSetValueMethod(key: string): (value: string) => void {
+        return (value: string): void => {
+            this.#_setValueByKey({
+                key: key,
+                value: value
+            })
+        }
+    }
 
-    setValueByKey(keyValueItem: TKeyValue): void {
+    #_setValueByKey(keyValueItem: TKeyValue): void {
         try {
             if (keyValueItem.key !== null && keyValueItem.value !== null) {
                 localStorage.setItem(keyValueItem.key, keyValueItem.value)
@@ -29,24 +38,8 @@ export class KeyValueLocalStorage {
         }
     }
 
-    getValueByKey(key: string): string | null {
-        if (isPlatformBrowser(this.#_platformId)) {
-            return localStorage.getItem(key)
-        } else {
-            return null
-        }
-    }
-
-    // deleteValueByKey(key: string): void {
-    //     localStorage.removeItem(key)
-    // }
-
-    // deleteAll(): void {
-    //     localStorage.clear();
-    // }
-
-    observeValueByKeyOption(key: string): Signal<string | null> {
-        let bufferedValue: string | null = this.getValueByKey(key)
+    createObserveValueMethod(key: string): Signal<string | null> {
+        let bufferedValue: string | null = this.#_getValueByKey(key)
         return computed(() => {
             const lastSetKeyValue: TKeyValue = this.lastSetKeyValue()
             if (lastSetKeyValue.key === null || lastSetKeyValue.key === key) {
@@ -56,12 +49,35 @@ export class KeyValueLocalStorage {
         })
     }
 
-    setValueByKeyOption(key: string): (value: string) => void {
-        return (value: string): void => {
-            this.setValueByKey({
-                key: key,
-                value: value
-            })
+    #_getValueByKey(key: string): string | null {
+        if (isPlatformBrowser(this.#_platformId)) {
+            return localStorage.getItem(key)
+        } else {
+            return null
         }
     }
+
+    createRemoveValueMethod(key: string): () => void {
+        return (): void => {
+            this.#_removeValueByKey(key)
+        }
+    }
+
+    #_removeValueByKey(key: string): void {
+        try {
+            localStorage.removeItem(key)
+            this.#_lastSetKeyValue.set({ key: key, value: null })
+        } catch (error) {
+            throw error
+        }
+    }
+
+    // removeAll(): void {
+    //     try {
+    //         localStorage.clear()
+    //         this.#_lastSetKeyValue.set({ key: null, value: null })
+    //     } catch (error) {
+    //         throw error
+    //     }
+    // }
 }

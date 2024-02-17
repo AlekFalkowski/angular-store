@@ -1,20 +1,20 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import { ViewModel } from "../model/ViewModel";
 import { Title } from "@angular/platform-browser";
+import { ViewModel } from "../model/ViewModel";
+import { GetDynamicContentOption } from "../options/GetDynamicContenOption";
+import { GetStableContentOption } from "../options/GetStableContentOption";
+import { RemoteStorage } from "../storages/RemoteStorage";
+import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 import { CardCollection } from "@/shared/display/panels/card-collection";
 import { EndColumnSlot } from "@/shared/display/templates/end-column-slot";
 import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
-import { GetStableContentOption } from "../options/GetStableContentOption";
-import { RemoteStorage } from "../storages/RemoteStorage";
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
-import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
-import { GetDynamicContentOption } from "@/nodes/catalog/nodes/section/options/GetDynamicContenOption";
 
 @Component({
     imports: [

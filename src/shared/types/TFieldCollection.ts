@@ -1,4 +1,4 @@
-import { TOption } from "./TOption";
+import { TFieldOption } from "./TFieldOption";
 
 export type TFieldCollection = (TMultiChoiceField | TSingleChoiceField | TRangeField | TTextField)[]
 
@@ -6,7 +6,7 @@ type TMultiChoiceField = {
     type: "TMultiChoiceField"
     label: string,
     name: string,
-    options: TOption[],
+    options: TFieldOption[],
     //
     placeholder?: string,
     helpText?: string,
@@ -17,7 +17,7 @@ type TSingleChoiceField = {
     type: "TSingleChoiceField"
     label: string,
     name: string,
-    options: TOption[],
+    options: TFieldOption[],
     //
     placeholder?: string,
     helpText?: string,

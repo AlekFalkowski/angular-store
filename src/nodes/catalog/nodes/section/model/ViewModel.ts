@@ -427,17 +427,14 @@ export class ViewModel {
         },
     ]
 
-    /** Dependencies */
     #_route: ActivatedRoute = inject(ActivatedRoute)
     #_ngZone: NgZone = inject(NgZone)
     #_getStableContentOption: GetStableContentOption = inject(GetStableContentOption)
     #_getDynamicContentOption: GetDynamicContentOption = inject(GetDynamicContentOption)
 
-    /** Route Arguments */
     #_catalogNavId!: string
     #_catalogSectionNavId!: string
 
-    /** Initialization Block */
     constructor() {
         this.#_catalogNavId = this.#_route.snapshot.params['catalogNavId']
         this.#_catalogSectionNavId = this.#_route.snapshot.params['catalogSectionNavId'] ?? '0'
