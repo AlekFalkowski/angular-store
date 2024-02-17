@@ -101,7 +101,7 @@ import { TCardCollection } from "../../types/TCardCollection";
     host: {},
     template: `
         @for (card of cardCollection; track card.title; let last = $last) {
-            @switch (card.T) {
+            @switch (card.type) {
                 @case ("TAssortmentCard") {
                     <a
                           data-e="card"

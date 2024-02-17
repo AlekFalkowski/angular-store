@@ -55,10 +55,8 @@ import { LoadingError } from "@/shared/display/rows/loading-error";
             @case ("success") {
                 <page-breadcrumbs />
                 <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
-                <!-- @if (viewModel.stableContent() !== null) { -->
-                <store-assortment [cardCollection]="viewModel.stableContent()?.assortmentCardList ?? [{ T: 'TAssortmentCard', imageUrl: '', title: '', outLink: ''}]" />
-                <!-- } -->
-                      <!-- <div style="margin-top: 40px; padding-inline: var(&#45;&#45;inline-padding);" > -->
+                <store-assortment [cardCollection]="viewModel.stableContent()?.assortmentCardList ?? []" />
+                <!-- <div style="margin-top: 40px; padding-inline: var(&#45;&#45;inline-padding);" > -->
                       <!--     <div style="padding-block: 16px; display: flex; flex-direction: column;" > -->
                       <!--         <a [routerLink]="['/catalogs', 10]" >Go To Catalog 10</a > -->
                       <!--         <a [routerLink]="['/catalogs', 15]" >Go To Catalog 15</a > -->
