@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
-import { CatalogSectionsViewModel } from "../model/CatalogSectionsViewModel";
+import { ViewModel } from "../model/ViewModel";
 import { Title } from "@angular/platform-browser";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
@@ -9,11 +9,12 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
 import { EndColumnSlot } from "@/shared/display/templates/end-column-slot";
 import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
-import { GetCatalogSectionStableContentOption } from "../options/GetCatalogSectionStableContentOption";
-import { CatalogSectionRemoteStorage } from "../storages/CatalogSectionRemoteStorage";
+import { GetStableContentOption } from "../options/GetStableContentOption";
+import { RemoteStorage } from "../storages/RemoteStorage";
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
 import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
+import { GetDynamicContentOption } from "@/nodes/catalog/nodes/section/options/GetDynamicContenOption";
 
 @Component({
     imports: [
@@ -41,19 +42,6 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-
-            & > [data-e="loading"],
-            & > [data-e="error"] {
-                margin-top: 74px;
-                color: var(--md-sys-color-primary);
-                @include MD3_DISPLAY_S_FONT_RULE_SET;
-                text-transform: uppercase;
-                text-align: center;
-                text-wrap: balance;
-            }
-            & > [data-e="try-loading-button"] {
-                margin-top: 48px;
-            }
         }
     `,
     selector: 'catalog-section-node',
@@ -90,16 +78,18 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not
         }
     `,
     providers: [
-        CatalogSectionsViewModel,
-        GetCatalogSectionStableContentOption,
-        CatalogSectionRemoteStorage
+        ViewModel,
+        GetStableContentOption,
+        GetDynamicContentOption,
+        RemoteStorage
     ]
 })
 export class CatalogSectionNode {
-    viewModel: CatalogSectionsViewModel = inject(CatalogSectionsViewModel)
+    viewModel: ViewModel = inject(ViewModel)
     htmlHeadTitleService: Title = inject(Title)
 
     constructor() {
         this.htmlHeadTitleService.setTitle(this.viewModel.stableContent()?.htmlHeadTitle ?? '')
+
     }
 }

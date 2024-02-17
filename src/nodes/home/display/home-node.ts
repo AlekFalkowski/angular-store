@@ -3,11 +3,8 @@ import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
-import { HomeViewModel } from "../model/HomeViewModel";
 import { Meta, Title } from "@angular/platform-browser";
 import { StoreAssortment } from "./rows/store-assortment";
-import { HomeRemoteStorage } from "@/nodes/home/storages/HomeRemoteStorage";
-import { GetHomeStableContentOption } from "@/nodes/home/options/GetHomeStableContent";
 import { CardCollection } from "@/shared/display/panels/card-collection";
 import { CatalogNotFoundNode } from "@/nodes/catalog/nodes/404/display/catalog-not-found-node";
 import { EndColumnSlot } from "@/shared/display/templates/end-column-slot";
@@ -15,6 +12,9 @@ import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
 import { LoadingError } from "@/shared/display/rows/loading-error";
+import { ViewModel } from "../model/ViewModel";
+import { GetStableContentOption } from "../options/GetStableContentOption";
+import { RemoteStorage } from "../storages/RemoteStorage";
 
 @Component({
     imports: [
@@ -55,10 +55,8 @@ import { LoadingError } from "@/shared/display/rows/loading-error";
             @case ("success") {
                 <page-breadcrumbs />
                 <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
-                <!-- @if (viewModel.stableContent() !== null) { -->
-                <store-assortment [cardCollection]="viewModel.stableContent()?.assortmentCardList ?? [{ T: 'TAssortmentCard', imageUrl: '', title: '', outLink: ''}]" />
-                <!-- } -->
-                      <!-- <div style="margin-top: 40px; padding-inline: var(&#45;&#45;inline-padding);" > -->
+                <store-assortment [cardCollection]="viewModel.stableContent()?.assortmentCardList ?? []" />
+                <!-- <div style="margin-top: 40px; padding-inline: var(&#45;&#45;inline-padding);" > -->
                       <!--     <div style="padding-block: 16px; display: flex; flex-direction: column;" > -->
                       <!--         <a [routerLink]="['/catalogs', 10]" >Go To Catalog 10</a > -->
                       <!--         <a [routerLink]="['/catalogs', 15]" >Go To Catalog 15</a > -->
@@ -76,13 +74,13 @@ import { LoadingError } from "@/shared/display/rows/loading-error";
         }
     `,
     providers: [
-        HomeViewModel,
-        GetHomeStableContentOption,
-        HomeRemoteStorage
+        ViewModel,
+        GetStableContentOption,
+        RemoteStorage
     ]
 })
 export class HomeNode {
-    viewModel: HomeViewModel = inject(HomeViewModel)
+    viewModel: ViewModel = inject(ViewModel)
     htmlHeadTitleService: Title = inject(Title)
     // meta: Meta = inject(Meta)
 

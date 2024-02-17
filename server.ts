@@ -19,6 +19,11 @@ export function app(): express.Express {
 
     // Example Express Rest API endpoints
     // server.get('/api/**', (req, res) => { });
+    // <MY TEMPORARY CODE>
+    server.get('/api/**', express.static(browserDistFolder, {
+        maxAge: '1s'
+    }));
+    // </MY TEMPORARY CODE>
     // Serve static files from /browser
     server.get('*.*', express.static(browserDistFolder, {
         maxAge: '1y'

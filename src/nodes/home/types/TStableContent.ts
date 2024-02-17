@@ -1,6 +1,6 @@
 import { TCardCollection } from "@/shared/types/TCardCollection";
 
-export type THomeStableContent = {
+export type TStableContent = {
     htmlHeadTitle: string,
     pageTitle: string,
     assortmentCardList: TCardCollection
