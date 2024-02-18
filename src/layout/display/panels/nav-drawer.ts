@@ -118,7 +118,4 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 export class NavDrawer {
     @Input() visible: Signal<boolean> = signal(false)
     @Output() closeNavDrawer: EventEmitter<void> = new EventEmitter()
-
-    constructor() {
-    }
 }

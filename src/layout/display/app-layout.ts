@@ -11,17 +11,18 @@ import {
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import "@material/web/all"
+import { IndexStateProvider } from "@/frame/IndexStateProvider";
 import { AppTopLine } from "./rows/app-top-line";
 import { AppTopToolbar } from "./rows/app-top-toolbar";
 import { AppFooter } from "./rows/app-footer";
-import { NavDrawer } from "./panels/nav-drawer";
-import "@material/web/all"
-import { LayoutViewModel } from "../model/LayoutViewModel";
 import { AppServiceInfo } from "./rows/app-service-info";
-import { IndexStateProvider } from "@/frame/IndexStateProvider";
+import { NavDrawer } from "./panels/nav-drawer";
+import { NavDrawerContent } from "./panels/nav-drawer-content";
+import { ViewModel } from "../model/ViewModel";
 import { ObservePreferredColorSchemeOption } from "../options/ObservePreferredColorSchemeOption";
 import { SetPreferredColorSchemeOption } from "../options/SetPreferredColorSchemeOption";
-import { NavDrawerContent } from "./panels/nav-drawer-content";
+import { LocalStorage } from "../resources/LocalStorage";
 import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 
 @Component({
@@ -110,14 +111,15 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
         </nav-drawer >
     `,
     providers: [
-        LayoutViewModel,
+        ViewModel,
         ObservePreferredColorSchemeOption,
-        SetPreferredColorSchemeOption
+        SetPreferredColorSchemeOption,
+        LocalStorage
     ]
 })
 export class AppLayout {
     readonly indexStateProvider: IndexStateProvider = inject(IndexStateProvider)
-    readonly viewModel: LayoutViewModel = inject(LayoutViewModel)
+    readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_injector: Injector = inject(Injector)
     #_router: Router = inject(Router)

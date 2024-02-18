@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { BookmarksViewModel } from "../model/BookmarksViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetBookmarksStableContentOption } from "../options/GetBookmarksStableContentOption";
-import { BookmarksRemoteStorage } from "../storages/BookmarksRemoteStorage";
+import { BookmarksRemoteStorage } from "../resources/BookmarksRemoteStorage";
 import { PageTitle } from "@/shared/display/rows/page-title";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 

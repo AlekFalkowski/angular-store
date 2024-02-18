@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TCompanyStableContent } from "../types/TCompanyStableContent";
-import { CompanyRemoteStorage } from "../storages/CompanyRemoteStorage";
+import { CompanyRemoteStorage } from "../resources/CompanyRemoteStorage";
 
 @Injectable()
 export class GetCompanyStableContentOption {

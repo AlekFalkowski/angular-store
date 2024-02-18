@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { NewsViewModel } from "../model/NewsViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetNewsStableContentOption } from "../options/GetNewsStableContentOption";
-import { NewsRemoteStorage } from "../storages/NewsRemoteStorage";
+import { NewsRemoteStorage } from "../resources/NewsRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

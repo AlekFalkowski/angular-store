@@ -1,11 +1,14 @@
-import { inject, Injectable, NgZone, signal, Signal, WritableSignal } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { TCardCollection } from "@/shared/types/TCardCollection";
+import { computed, inject, Injectable, NgZone, PLATFORM_ID, signal, Signal, WritableSignal } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { GetDynamicContentOption } from "../options/GetDynamicContenOption";
 import { GetStableContentOption } from "../options/GetStableContentOption";
+import { ObserveQueryStringOption } from "../options/ObserveQueryStringOption";
+import { SaveQueryStringOption } from "../options/SaveQueryStringOption";
 import { TDynamicContent } from "../types/TDynamicContent";
 import { TStableContent } from "../types/TStableContent";
+import { TCardCollection } from "@/shared/types/TCardCollection";
 import { TFieldSet } from "@/shared/types/TFieldSet";
+import { Location } from "@angular/common";
 
 @Injectable()
 export class ViewModel {
@@ -427,18 +430,33 @@ export class ViewModel {
         },
     ]
 
-    #_route: ActivatedRoute = inject(ActivatedRoute)
     #_ngZone: NgZone = inject(NgZone)
-    #_getStableContentOption: GetStableContentOption = inject(GetStableContentOption)
-    #_getDynamicContentOption: GetDynamicContentOption = inject(GetDynamicContentOption)
+    #_route: ActivatedRoute = inject(ActivatedRoute)
+    #_router: Router = inject(Router)
+    #_location: Location = inject(Location)
 
-    #_catalogNavId!: string
-    #_catalogSectionNavId!: string
+    #_getDynamicContentOption: GetDynamicContentOption = inject(GetDynamicContentOption)
+    #_getStableContentOption: GetStableContentOption = inject(GetStableContentOption)
+    #_observeQueryStringOption: ObserveQueryStringOption = inject(ObserveQueryStringOption)
+    #_saveQueryStringOption: SaveQueryStringOption = inject(SaveQueryStringOption)
 
     constructor() {
-        this.#_catalogNavId = this.#_route.snapshot.params['catalogNavId']
-        this.#_catalogSectionNavId = this.#_route.snapshot.params['catalogSectionNavId'] ?? '0'
         this.doStartInitialization()
+        // console.log(this.#_route.snapshot.params)
+        // console.log(this.#_route.snapshot.queryParams)
+        // console.log(this.#_route.snapshot.queryParamMap)
+        // console.log(location.href)
+        // this.#_router.navigate([], {
+        //           relativeTo: this.#_route,
+        //           queryParams: { myParam: 'myNewValue' },
+        //           queryParamsHandling: 'merge'
+        //       }
+        // )
+        // this.#_router.navigate([], {
+        //     queryParams: { myParam: 'myNewValue' },
+        //     queryParamsHandling: 'merge',
+        //     replaceUrl: true
+        // })
     }
 
     doStartInitialization(): void {
@@ -447,17 +465,13 @@ export class ViewModel {
         }
         this.#_ngZone.run(() => {
             this.#_stableContentState.set("loading")
-            this.#_getStableContentOption.invoke(
-                  this.#_catalogNavId,
-                  this.#_catalogSectionNavId,
-                  ""
-            ).subscribe({
+            this.#_getStableContentOption.invoke("").subscribe({
                 next: (stableContent) => {
-                    // this.#_initFieldsStates(
-                    //       filterConfig = stableContent.filterConfig,
-                    //       queryString = queryStringState.value,
-                    // )
-                    this.getDynamicContent()
+                    this.#_initFieldStates(
+                          stableContent?.filterConfig ?? [],
+                          this.#_observeQueryStringOption.invoke() ?? ""
+                    )
+                    // this.getDynamicContent()
                     this.#_stableContent.set(stableContent)
                     this.#_stableContentState.set("success")
                 },
@@ -472,56 +486,53 @@ export class ViewModel {
         })
     }
 
-    /** Query String - Query Map */
-
-
     /** Stable Content */
     #_stableContentState: WritableSignal<"loading" | "success" | "404" | "error"> = signal("error")
     stableContentState: Signal<"loading" | "success" | "404" | "error"> = this.#_stableContentState.asReadonly()
     #_stableContent: WritableSignal<TStableContent | null> = signal(null)
     stableContent: Signal<TStableContent | null> = this.#_stableContent.asReadonly()
 
-    /** Fields States */
-    // val textFieldsStates = mutableMapOf<String, TextFieldState>()
-    // val textFieldsStates = mutableMapOf<String, MutableState<String>>()
-    // val singleChoiceFieldsStates = mutableMapOf<String, MutableState<String>>()
-    // val multiChoiceFieldsStates = mutableMapOf<String, MutableState<Set<String>>>()
-    //
-    #_initFieldsStates(filterConfig: TFieldSet[], queryString: string) {
-        //     val queryMap = convertQueryStringToQueryMap(queryString)
-        //     filterConfig.map { fieldSet ->
-        //           fieldSet.fieldList.map { field ->
-        //           when (field.type) {
-        //         "singleChoice" -> {
-        //             singleChoiceFieldsStates[field.name] =
-        //                   mutableStateOf(queryMap[field.name]?.first() ?: "")
-        //         }
-        //
-        //         "multiChoice" -> {
-        //             multiChoiceFieldsStates[field.name] = mutableStateOf(
-        //                   field.options?.map { option ->
-        //                   option.value
-        //             }?.filter { optionValue ->
-        //                   queryMap[field.name]?.contains(optionValue) ?: false
-        //             }?.toSet() ?: setOf()
-        //         )
-        //         }
-        //
-        //         // text
-        //         // range
-        //     else -> {
-        //             textFieldsStates[field.name] =
-        //                   // TextFieldState(initialText = queryMap[field.name]?.get(0) ?: "")
-        //                   mutableStateOf(queryMap[field.name]?.first() ?: "")
-        //             field.endName?.let {
-        //                 textFieldsStates[field.endName] =
-        //                       // TextFieldState(initialText = queryMap[field.endName]?.get(0) ?: "")
-        //                       mutableStateOf(queryMap[field.endName]?.first() ?: "")
-        //             }
-        //         }
-        //     }
-        //     }
-        //     }
+    multiChoiceFieldStates: Map<string, Set<string>> = new Map()
+    singleChoiceFieldStates: Map<string, string> = new Map()
+    singleChoiceFieldDefaultValues: Map<string, string> = new Map()
+    textFieldStates: Map<string, string> = new Map()
+    #_initFieldStates(filterConfig: TFieldSet[], queryString: string): void {
+        const queryMap = this.#_convertQueryStringToQueryMap(queryString)
+        filterConfig.map(fieldSet => {
+            fieldSet.fieldList.map(field => {
+                switch (field.type) {
+                    case "TMultiChoiceField":
+                        this.multiChoiceFieldStates.set(field.name, new Set(
+                              field.options
+                                    ?.map(option => {
+                                        return option.value
+                                    })
+                                    ?.filter(optionValue => {
+                                        return queryMap.get(field.name)?.has(optionValue)
+                                    })
+                        ))
+                        break
+                    case "TSingleChoiceField":
+                        // this.singleChoiceFieldsStates.set(field.name, queryMap.get(field.name)?.values()?.next()?.value ?? "")
+                        this.singleChoiceFieldStates.set(field.name, queryMap.get(field.name)?.values()?.next()?.value ?? field.defaultOptionValue)
+                        this.singleChoiceFieldDefaultValues.set(field.name, field.defaultOptionValue ?? "")
+                        break
+
+                    case "TRangeField":
+                        this.textFieldStates.set(field.name, queryMap.get(field.name)?.values()?.next()?.value ?? "")
+                        if (field.endName) {
+                            this.textFieldStates.set(field.endName, queryMap.get(field.endName)?.values()?.next()?.value ?? "")
+                        }
+                        break
+                    case "TTextField":
+                        this.textFieldStates.set(field.name, queryMap.get(field.name)?.values()?.next()?.value ?? "")
+                        break
+                }
+            })
+        })
+        // console.table(this.multiChoiceFieldsStates)
+        // console.table(this.singleChoiceFieldsStates)
+        // console.table(this.textFieldsStates)
     }
 
     /** Dynamic Content */
@@ -531,18 +542,19 @@ export class ViewModel {
     dynamicContent: Signal<TDynamicContent | null> = this.#_dynamicContent.asReadonly()
 
     getDynamicContent(): void {
+        // this.#_router.navigate([], {
+        //     queryParams: { myParam: Array.from(new Set(['myNewValue', 'myNewValue', 'myNewValue'])) },
+        //     queryParamsHandling: 'merge',
+        //     replaceUrl: true,
+        // })
         if (this.#_dynamicContentState() === "loading") {
             return
         }
         this.#_ngZone.run(() => {
             this.#_dynamicContentState.set("loading")
-            // const queryString = convertQueryMapToQueryString()
-            // setQueryString(queryString)
-            this.#_getDynamicContentOption.invoke(
-                  this.#_catalogNavId,
-                  this.#_catalogSectionNavId,
-                  ""
-            ).subscribe({
+            const queryString = this.#_convertFilterStateToQueryString()
+            this.#_saveQueryStringOption.invoke(queryString)
+            this.#_getDynamicContentOption.invoke("").subscribe({
                 next: (dynamicContent) => {
                     this.#_dynamicContent.set(dynamicContent)
                     this.#_dynamicContentState.set("success")
@@ -554,4 +566,40 @@ export class ViewModel {
         })
     }
 
+    /** Query Converters */
+    #_convertQueryStringToQueryMap(queryString: string): Map<string, Set<string>> {
+        const queryMap: Map<string, Set<string>> = new Map()
+        queryString
+              .trim()
+              .replaceAll("%5B", "[")
+              .replaceAll("%5D", "]")
+              .split("&")
+              .forEach(querySector => {
+                  const queryKV: string[] = querySector.trim().split("=")
+                  if (queryKV.length > 1) {
+                      if (queryMap.get(queryKV[0])) {
+                          queryMap.get(queryKV[0])?.add(queryKV[1])
+                      } else {
+                          queryMap.set(queryKV[0], new Set([ queryKV[1] ]))
+                      }
+                  }
+              })
+        return queryMap
+    }
+
+    #_convertFilterStateToQueryString(): string {
+        const queryList: string[] = []
+        this.multiChoiceFieldStates.forEach((value, name) => {
+            value.forEach(value => {
+                if (value !== "") queryList.push(`${ name }=${ value }`)
+            })
+        })
+        this.singleChoiceFieldStates.forEach((value, name) => {
+            if (value !== this.singleChoiceFieldDefaultValues.get(name)) queryList.push(`${ name }=${ value }`)
+        })
+        this.textFieldStates.forEach((value, name) => {
+            if (value !== "") queryList.push(`${ name }=${ value }`)
+        })
+        return queryList.join("&")
+    }
 }

@@ -1,11 +1,9 @@
 import { inject, Injectable, Signal } from "@angular/core";
-import { Keys } from "@/shared/storages/Keys";
-import { KeyValueLocalStorage } from "@/shared/storages/KeyValueLocalStorage";
+import { LocalStorage } from "../resources/LocalStorage";
 
 @Injectable()
 export class ObservePreferredColorSchemeOption {
-    #_keyValueLocalStorage: KeyValueLocalStorage = inject(KeyValueLocalStorage)
+    #_localStorage: LocalStorage = inject(LocalStorage)
 
-    invoke: Signal<string | null> =
-          this.#_keyValueLocalStorage.createObserveValueMethod(Keys.PREFERRED_COLOR_SCHEME)
+    invoke: Signal<string | null> = this.#_localStorage.observePreferredColorScheme
 }

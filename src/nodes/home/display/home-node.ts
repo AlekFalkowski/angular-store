@@ -14,7 +14,7 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { ViewModel } from "../model/ViewModel";
 import { GetStableContentOption } from "../options/GetStableContentOption";
-import { RemoteStorage } from "../storages/RemoteStorage";
+import { RemoteStorage } from "../resources/RemoteStorage";
 
 @Component({
     imports: [

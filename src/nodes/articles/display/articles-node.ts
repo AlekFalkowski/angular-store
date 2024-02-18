@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { ArticlesViewModel } from "../model/ArticlesViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetArticlesStableContentOption } from "../options/GetArticlesStableContentOption";
-import { ArticlesRemoteStorage } from "../storages/ArticlesRemoteStorage";
+import { ArticlesRemoteStorage } from "../resources/ArticlesRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
-import { ViewModel } from "../model/ViewModel";
-import { GetDynamicContentOption } from "../options/GetDynamicContenOption";
-import { GetStableContentOption } from "../options/GetStableContentOption";
-import { RemoteStorage } from "../storages/RemoteStorage";
+import { CatalogSectionFilter } from "./panels/catalog-section-filter";
 import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
@@ -15,6 +13,13 @@ import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
+import { ViewModel } from "../model/ViewModel";
+import { GetStableContentOption } from "../options/GetStableContentOption";
+import { GetDynamicContentOption } from "../options/GetDynamicContenOption";
+import { ObserveQueryStringOption } from "../options/ObserveQueryStringOption";
+import { SaveQueryStringOption } from "../options/SaveQueryStringOption";
+import { LocalStorage } from "../resources/LocalStorage";
+import { RemoteStorage } from "../resources/RemoteStorage";
 
 @Component({
     imports: [
@@ -28,7 +33,9 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
         TwoColumnTemplate,
         LoadingError,
         LoadingProcess,
-        CatalogNotFound
+        CatalogNotFound,
+        FormsModule,
+        CatalogSectionFilter
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,20 +60,27 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
             }
             @case ("success") {
                 <page-breadcrumbs />
+                <a routerLink="/catalogs/1/sections/1" >Go To /catalogs/1/sections/1</a >
+                <a routerLink="/catalogs/1/sections/2" >Go To /catalogs/1/sections/2</a >
+                <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a >
                 <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
-                @if (viewModel.stableContent()?.filterConfig === undefined) {
-                    <card-collection [cardCollection]="viewModel.fakeAssortmentCardList" />
-                } @else {
+                @if (viewModel.stableContent()?.filterConfig) {
                     <two-column-template openButtonText="Показать Фильтр" >
                         <main-column-slot >
                             <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
                         </main-column-slot >
                         <end-column-slot >
-                            <div style="padding: 40px;" >
-                                FILTER_COLUMN
-                            </div >
+                            <catalog-section-filter
+                                  [filterConfig]="viewModel.stableContent()?.filterConfig ?? []"
+                                  [multiChoiceFieldsStates]="viewModel.multiChoiceFieldStates"
+                                  [singleChoiceFieldsStates]="viewModel.singleChoiceFieldStates"
+                                  [textFieldsStates]="viewModel.textFieldStates"
+                                  (submitFilter)="viewModel.getDynamicContent()"
+                            />
                         </end-column-slot >
                     </two-column-template >
+                } @else {
+                    <card-collection [cardCollection]="viewModel.fakeAssortmentCardList" />
                 }
             }
             @case ("404") {
@@ -79,9 +93,12 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
     `,
     providers: [
         ViewModel,
-        GetStableContentOption,
         GetDynamicContentOption,
-        RemoteStorage
+        GetStableContentOption,
+        ObserveQueryStringOption,
+        SaveQueryStringOption,
+        RemoteStorage,
+        LocalStorage
     ]
 })
 export class CatalogSectionNode {
@@ -90,6 +107,5 @@ export class CatalogSectionNode {
 
     constructor() {
         this.htmlHeadTitleService.setTitle(this.viewModel.stableContent()?.htmlHeadTitle ?? '')
-
     }
 }

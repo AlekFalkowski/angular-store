@@ -43,7 +43,4 @@ import {
 })
 export class LoadingProcess {
     @Output() tryAgain: EventEmitter<void> = new EventEmitter()
-
-    constructor() {
-    }
 }

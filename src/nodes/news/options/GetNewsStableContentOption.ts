@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TNewsStableContent } from "../types/TNewsStableContent";
-import { NewsRemoteStorage } from "../storages/NewsRemoteStorage";
+import { NewsRemoteStorage } from "../resources/NewsRemoteStorage";
 
 @Injectable()
 export class GetNewsStableContentOption {

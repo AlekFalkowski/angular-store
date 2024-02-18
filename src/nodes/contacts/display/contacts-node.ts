@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { ContactsViewModel } from "../model/ContactsViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetContactsStableContentOption } from "../options/GetContactsStableContentOption";
-import { ContactsRemoteStorage } from "../storages/ContactsRemoteStorage";
+import { ContactsRemoteStorage } from "../resources/ContactsRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

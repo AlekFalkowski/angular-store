@@ -1,11 +1,11 @@
 import { inject, Injectable } from "@angular/core";
-import { Keys } from "@/shared/storages/Keys";
-import { KeyValueLocalStorage } from "@/shared/storages/KeyValueLocalStorage";
+import { LocalStorage } from "../resources/LocalStorage";
 
 @Injectable()
 export class SetPreferredColorSchemeOption {
-    #_keyValueLocalStorage: KeyValueLocalStorage = inject(KeyValueLocalStorage)
+    #_localStorage: LocalStorage = inject(LocalStorage)
 
-    invoke: (value: string) => void =
-          this.#_keyValueLocalStorage.createSetValueMethod(Keys.PREFERRED_COLOR_SCHEME)
+    invoke(value: string): void {
+        this.#_localStorage.setPreferredColorScheme(value)
+    }
 }

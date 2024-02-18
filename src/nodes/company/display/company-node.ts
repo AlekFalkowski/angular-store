@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { CompanyViewModel } from "../model/CompanyViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetCompanyStableContentOption } from "../options/GetCompanyStableContentOption";
-import { CompanyRemoteStorage } from "../storages/CompanyRemoteStorage";
+import { CompanyRemoteStorage } from "../resources/CompanyRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

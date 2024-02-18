@@ -6,19 +6,17 @@ import { TOrderStableContent } from "../types/TOrderStableContent";
 @Injectable()
 export class OrderViewModel {
     private route: ActivatedRoute = inject(ActivatedRoute)
-    readonly orderNavId!: string
-    private getStableContentOption: GetOrderStableContentOption = inject(GetOrderStableContentOption)
-    public stableContent: TOrderStableContent | undefined
-    readonly fakeStableContent!: { htmlHeadTitle: string, pageTitle: string }
+    readonly orderNavId = this.route.snapshot.params['orderNavId']
+    #_getStableContentOption: GetOrderStableContentOption = inject(GetOrderStableContentOption)
+    stableContent: TOrderStableContent | undefined
+    readonly fakeStableContent = {
+        htmlHeadTitle: `Заказ № ${ this.orderNavId }`,
+        pageTitle: `Заказ № ${ this.orderNavId }`
+    }
 
     constructor() {
-        this.orderNavId = this.route.snapshot.params['orderNavId']
-        this.getStableContentOption.invoke().then((content) => {
+        this.#_getStableContentOption.invoke().then((content) => {
             this.stableContent = content
         })
-        this.fakeStableContent = {
-            htmlHeadTitle: `Заказ № ${ this.orderNavId }`,
-            pageTitle: `Заказ № ${ this.orderNavId }`
-        }
     }
 }

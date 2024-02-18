@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { TStableContent } from "../types/TStableContent";
-import { API_BASE_URL } from "@/shared/storages/API_BASE_URL";
+import { API_BASE_URL } from "@/shared/resources/API_BASE_URL";
 
 @Injectable()
 export class RemoteStorage {

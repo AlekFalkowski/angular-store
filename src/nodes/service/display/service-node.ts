@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { ServiceViewModel } from "../model/ServiceViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetServiceStableContentOption } from "../options/GetServiceStableContentOption";
-import { ServiceRemoteStorage } from "../storages/ServiceRemoteStorage";
+import { ServiceRemoteStorage } from "../resources/ServiceRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

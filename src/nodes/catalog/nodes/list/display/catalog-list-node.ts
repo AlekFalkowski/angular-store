@@ -55,7 +55,6 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
 export class CatalogListNode {
     viewModel: CatalogListViewModel = inject(CatalogListViewModel)
     htmlHeadTitleService: Title = inject(Title)
-    private router: Router = inject(Router)
 
     constructor() {
         this.htmlHeadTitleService.setTitle(this.viewModel.fakeStableContent.htmlHeadTitle)

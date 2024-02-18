@@ -49,7 +49,4 @@ import {
 })
 export class LoadingError {
     @Output() tryAgain: EventEmitter<void> = new EventEmitter()
-
-    constructor() {
-    }
 }

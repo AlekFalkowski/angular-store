@@ -6,7 +6,4 @@ export class PaymentViewModel {
         htmlHeadTitle: `Способы оплаты`,
         pageTitle: `Способы оплаты`
     }
-
-    constructor() {
-    }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { PaymentViewModel } from "../model/PaymentViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetPaymentStableContentOption } from "../options/GetPaymentStableContentOption";
-import { PaymentRemoteStorage } from "../storages/PaymentRemoteStorage";
+import { PaymentRemoteStorage } from "../resources/PaymentRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

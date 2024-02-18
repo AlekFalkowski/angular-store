@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TContactsStableContent } from "../types/TContactsStableContent";
-import { ContactsRemoteStorage } from "../storages/ContactsRemoteStorage";
+import { ContactsRemoteStorage } from "../resources/ContactsRemoteStorage";
 
 @Injectable()
 export class GetContactsStableContentOption {

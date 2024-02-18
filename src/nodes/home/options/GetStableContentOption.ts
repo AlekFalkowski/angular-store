@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { RemoteStorage } from "../storages/RemoteStorage";
+import { RemoteStorage } from "../resources/RemoteStorage";
 import { TStableContent } from "../types/TStableContent";
 
 @Injectable()

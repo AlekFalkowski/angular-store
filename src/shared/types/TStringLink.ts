@@ -1,4 +1,4 @@
 export type TStringLink = {
-    url: string,
-    label: string,
+    url: string
+    label: string
 }

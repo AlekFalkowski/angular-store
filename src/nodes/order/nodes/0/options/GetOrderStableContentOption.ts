@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TOrderStableContent } from "../types/TOrderStableContent";
-import { OrderRemoteStorage } from "../storages/OrderRemoteStorage";
+import { OrderRemoteStorage } from "../resources/OrderRemoteStorage";
 
 @Injectable()
 export class GetOrderStableContentOption {

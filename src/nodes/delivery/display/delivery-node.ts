@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { DeliveryViewModel } from "../model/DeliveryViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetDeliveryStableContentOption } from "../options/GetDeliveryStableContentOption";
-import { DeliveryRemoteStorage } from "../storages/DeliveryRemoteStorage";
+import { DeliveryRemoteStorage } from "../resources/DeliveryRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

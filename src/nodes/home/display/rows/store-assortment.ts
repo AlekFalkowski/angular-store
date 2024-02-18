@@ -34,7 +34,4 @@ import { CardCollection } from "@/shared/display/panels/card-collection";
 })
 export class StoreAssortment {
     @Input() cardCollection!: TCardCollection
-
-    constructor() {
-    }
 }

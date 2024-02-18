@@ -1,6 +1,6 @@
 export type TFieldOption = {
-    label: string,
-    value: string,
-    quickInfo?: string,
-    blockingOptionIds?: string[],
+    label: string
+    value: string
+    quickInfo?: string
+    blockingOptionIds?: string[]
 }

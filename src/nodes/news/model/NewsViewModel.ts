@@ -5,18 +5,8 @@ import { TNewsStableContent } from "../types/TNewsStableContent";
 
 @Injectable()
 export class NewsViewModel {
-    private route: ActivatedRoute = inject(ActivatedRoute)
-    private getStableContentOption: GetNewsStableContentOption = inject(GetNewsStableContentOption)
-    public stableContent: TNewsStableContent | undefined
-    readonly fakeStableContent!: { htmlHeadTitle: string, pageTitle: string }
-
-    constructor() {
-        // this.getStableContentOption.invoke().then((content) => {
-        //     this.stableContent = content
-        // })
-        this.fakeStableContent = {
-            htmlHeadTitle: `Новости`,
-            pageTitle: `Новости`
-        }
+    readonly fakeStableContent= {
+        htmlHeadTitle: `Новости`,
+        pageTitle: `Новости`
     }
 }

@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TReturnStableContent } from "../types/TReturnStableContent";
-import { ReturnRemoteStorage } from "../storages/ReturnRemoteStorage";
+import { ReturnRemoteStorage } from "../resources/ReturnRemoteStorage";
 
 @Injectable()
 export class GetReturnStableContentOption {

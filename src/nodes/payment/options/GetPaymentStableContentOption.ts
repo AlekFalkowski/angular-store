@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TPaymentStableContent } from "../types/TPaymentStableContent";
-import { PaymentRemoteStorage } from "../storages/PaymentRemoteStorage";
+import { PaymentRemoteStorage } from "../resources/PaymentRemoteStorage";
 
 @Injectable()
 export class GetPaymentStableContentOption {

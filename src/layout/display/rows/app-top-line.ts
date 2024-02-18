@@ -136,19 +136,4 @@ export class AppTopLine {
         { url: "/service", label: "Сервис" },
         { url: "/contacts", label: "Контакты" },
     ]
-
-    #_platformId: Object = inject(PLATFORM_ID)
-    #_hostElementRef: ElementRef = inject(ElementRef)
-
-    constructor() {
-        if (isPlatformBrowser(this.#_platformId)) {
-        }
-        afterNextRender(() => {
-        })
-    }
-
-    ngOnDestroy(): void {
-        if (isPlatformBrowser(this.#_platformId)) {
-        }
-    }
 }

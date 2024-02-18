@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TArticlesStableContent } from "../types/TArticlesStableContent";
-import { ArticlesRemoteStorage } from "../storages/ArticlesRemoteStorage";
+import { ArticlesRemoteStorage } from "../resources/ArticlesRemoteStorage";
 
 @Injectable()
 export class GetArticlesStableContentOption {

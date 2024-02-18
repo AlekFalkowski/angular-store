@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { CartViewModel } from "../model/CartViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetCartStableContentOption } from "../options/GetCartStableContentOption";
-import { CartRemoteStorage } from "../storages/CartRemoteStorage";
+import { CartRemoteStorage } from "../resources/CartRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

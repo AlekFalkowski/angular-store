@@ -2,21 +2,17 @@ import {
     ChangeDetectionStrategy,
     Component,
     CUSTOM_ELEMENTS_SCHEMA,
-    EventEmitter,
     inject,
     Input,
     NgZone,
-    Output,
     PLATFORM_ID,
     signal,
-    Signal,
-    WritableSignal, ViewEncapsulation
+    ViewEncapsulation,
+    WritableSignal
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { fromEvent, Subscription, throttleTime } from "rxjs";
-import { TPreferredSidePanelView } from "@/shared/types/TPreferredSidePanelView";
-import { LayoutViewModel } from "@/layout/model/LayoutViewModel";
 import { SharedViewModel } from "@/shared/model/SharedViewModel";
 
 @Component({
@@ -168,7 +164,7 @@ import { SharedViewModel } from "@/shared/model/SharedViewModel";
     selector: 'two-column-template',
     host: {},
     template: `
-        <div data-e="main-column" [class.full-width]="viewModel.preferredSidePanelView() == 'hidden'" >
+        <div data-e="main-column" [class.full-width]="viewModel.preferredSidePanelView() === 'hidden'" >
             <div data-e="button-row" ></div >
             <ng-content select="main-column-slot" />
         </div >
@@ -177,7 +173,7 @@ import { SharedViewModel } from "@/shared/model/SharedViewModel";
              (click)="closeSidePanel()" >
         </div >
         <div data-e="end-column"
-             [class.hidden-on-tablets]="viewModel.preferredSidePanelView() == 'hidden'"
+             [class.hidden-on-tablets]="viewModel.preferredSidePanelView() === 'hidden'"
              [class.visible-on-mobile]="isSidePanelOpenInMobile()" >
             <ng-content select="end-column-slot" />
         </div >
@@ -187,7 +183,7 @@ import { SharedViewModel } from "@/shared/model/SharedViewModel";
             {{ openButtonText }}
         </md-filled-button >
         <md-filled-icon-button data-e="close-button"
-                               [class.hidden-on-tablets]="viewModel.preferredSidePanelView() == 'hidden'"
+                               [class.hidden-on-tablets]="viewModel.preferredSidePanelView() === 'hidden'"
                                [class.visible-on-mobile]="isSidePanelOpenInMobile()"
                                (click)="closeSidePanel()" >
             <md-icon >double_arrow</md-icon >

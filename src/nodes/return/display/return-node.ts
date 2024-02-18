@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { ReturnViewModel } from "../model/ReturnViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetReturnStableContentOption } from "../options/GetReturnStableContentOption";
-import { ReturnRemoteStorage } from "../storages/ReturnRemoteStorage";
+import { ReturnRemoteStorage } from "../resources/ReturnRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

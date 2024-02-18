@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TCartStableContent } from "../types/TCartStableContent";
-import { CartRemoteStorage } from "../storages/CartRemoteStorage";
+import { CartRemoteStorage } from "../resources/CartRemoteStorage";
 
 @Injectable()
 export class GetCartStableContentOption {

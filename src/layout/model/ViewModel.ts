@@ -3,15 +3,12 @@ import { ObservePreferredColorSchemeOption } from "../options/ObservePreferredCo
 import { SetPreferredColorSchemeOption } from "../options/SetPreferredColorSchemeOption";
 
 @Injectable()
-export class LayoutViewModel {
-    private observePreferredColorSchemeOption: ObservePreferredColorSchemeOption = inject(ObservePreferredColorSchemeOption)
-    private setPreferredColorSchemeOption: SetPreferredColorSchemeOption = inject(SetPreferredColorSchemeOption)
-
-    constructor() {
-    }
+export class ViewModel {
+    #_observePreferredColorSchemeOption: ObservePreferredColorSchemeOption = inject(ObservePreferredColorSchemeOption)
+    #_setPreferredColorSchemeOption: SetPreferredColorSchemeOption = inject(SetPreferredColorSchemeOption)
 
     colorScheme: Signal<"auto" | "light" | "dark"> = computed(() => {
-        const inputValue: string | null = this.observePreferredColorSchemeOption.invoke()
+        const inputValue: string | null = this.#_observePreferredColorSchemeOption.invoke()
         switch (inputValue) {
             case "light":
             case "dark":
@@ -22,6 +19,6 @@ export class LayoutViewModel {
     })
 
     setColorScheme(value: "auto" | "light" | "dark"): void {
-        this.setPreferredColorSchemeOption.invoke(value)
+        this.#_setPreferredColorSchemeOption.invoke(value)
     }
 }

@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { AccountViewModel } from "../model/AccountViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetAccountStableContentOption } from "../options/GetAccountStableContentOption";
-import { AccountRemoteStorage } from "../storages/AccountRemoteStorage";
+import { AccountRemoteStorage } from "../resources/AccountRemoteStorage";
 import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/rows/page-title";
 

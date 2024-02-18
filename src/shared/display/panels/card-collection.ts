@@ -134,7 +134,4 @@ import { TCardCollection } from "../../types/TCardCollection";
 })
 export class CardCollection {
     @Input() cardCollection!: TCardCollection
-
-    constructor() {
-    }
 }

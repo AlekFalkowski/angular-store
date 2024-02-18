@@ -5,14 +5,11 @@ import { TPreferredSidePanelView } from "@/shared/types/TPreferredSidePanelView"
 
 @Injectable({ providedIn: 'root' })
 export class SharedViewModel {
-    private observePreferredSidePanelViewOption: ObservePreferredSidePanelViewOption = inject(ObservePreferredSidePanelViewOption)
-    private setPreferredSidePanelViewOption: SetPreferredSidePanelViewOption = inject(SetPreferredSidePanelViewOption)
-
-    constructor() {
-    }
+    #_observePreferredSidePanelViewOption: ObservePreferredSidePanelViewOption = inject(ObservePreferredSidePanelViewOption)
+    #_setPreferredSidePanelViewOption: SetPreferredSidePanelViewOption = inject(SetPreferredSidePanelViewOption)
 
     preferredSidePanelView: Signal<TPreferredSidePanelView> = computed(() => {
-        const inputValue: string | null = this.observePreferredSidePanelViewOption.invoke()
+        const inputValue: string | null = this.#_observePreferredSidePanelViewOption.invoke()
         switch (inputValue) {
             case "hidden":
                 return inputValue
@@ -22,6 +19,6 @@ export class SharedViewModel {
     })
 
     setPreferredSidePanelView(value: TPreferredSidePanelView): void {
-        this.setPreferredSidePanelViewOption.invoke(value)
+        this.#_setPreferredSidePanelViewOption.invoke(value)
     }
 }

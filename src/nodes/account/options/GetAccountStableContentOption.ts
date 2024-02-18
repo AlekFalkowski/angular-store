@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TAccountStableContent } from "../types/TAccountStableContent";
-import { AccountRemoteStorage } from "../storages/AccountRemoteStorage";
+import { AccountRemoteStorage } from "../resources/AccountRemoteStorage";
 
 @Injectable()
 export class GetAccountStableContentOption {

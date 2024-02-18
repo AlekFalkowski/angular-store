@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TBookmarksStableContent } from "../types/TBookmarksStableContent";
-import { BookmarksRemoteStorage } from "../storages/BookmarksRemoteStorage";
+import { BookmarksRemoteStorage } from "../resources/BookmarksRemoteStorage";
 
 @Injectable()
 export class GetBookmarksStableContentOption {

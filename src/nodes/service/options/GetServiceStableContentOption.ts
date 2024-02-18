@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { TServiceStableContent } from "../types/TServiceStableContent";
-import { ServiceRemoteStorage } from "../storages/ServiceRemoteStorage";
+import { ServiceRemoteStorage } from "../resources/ServiceRemoteStorage";
 
 @Injectable()
 export class GetServiceStableContentOption {

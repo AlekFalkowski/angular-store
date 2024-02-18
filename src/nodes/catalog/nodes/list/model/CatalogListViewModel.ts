@@ -6,7 +6,4 @@ export class CatalogListViewModel {
         htmlHeadTitle: `Список каталогов`,
         pageTitle: `Список каталогов`
     }
-
-    constructor() {
-    }
 }
