@@ -73,7 +73,7 @@ import { SharedViewModel } from "@/shared/model/SharedViewModel";
             grid-column: 3;
             grid-row: 1;
             contain: layout size style;
-            border-block: 1px solid var(--md-sys-color-surface-container);
+            border: 1px solid var(--md-sys-color-surface-container);
             background-color: var(--md-sys-color-surface-container-low);
             transition-property: transform, opacity, visibility;
             transition-duration: 200ms;

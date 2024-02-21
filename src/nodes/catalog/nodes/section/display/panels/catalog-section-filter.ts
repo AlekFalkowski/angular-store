@@ -45,12 +45,22 @@ import console from "node:console";
         catalog-section-filter {
             display: flex;
             flex-direction: column;
+
+            & > [data-e="actions-line"] {
+                position: sticky;
+                bottom: 0;
+                height: 56px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-top: 1px solid var(--md-sys-color-surface-container);
+                background-color: var(--md-sys-color-surface-container-low);
+            }
         }
     `,
     selector: 'catalog-section-filter',
     host: {},
     template: `
-        <div style="padding: 40px;" > FILTER_COLUMN</div >
         @for (fieldSet of filterConfig; track fieldSet.label; let index = $index) {
             @if (index > 0) {
                 <hr />
@@ -135,7 +145,7 @@ import console from "node:console";
                 }
             }
         }
-        <div style="display: flex;" >
+        <div data-e="actions-line" >
             <md-filled-button data-e="submit-button"
                               (click)="submitFilter.emit()" >
                 Применить
