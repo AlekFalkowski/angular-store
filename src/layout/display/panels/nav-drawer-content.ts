@@ -1,6 +1,6 @@
 import {
     ChangeDetectionStrategy,
-    Component,
+    Component, computed,
     CUSTOM_ELEMENTS_SCHEMA,
     ElementRef,
     EventEmitter,
@@ -14,6 +14,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSlideToggle } from "@angular/material/slide-toggle";
+import { MatCheckbox } from "@angular/material/checkbox";
 
 @Component({
     imports: [
@@ -21,7 +23,9 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         RouterModule,
         SpacerBlock,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatSlideToggle,
+        MatCheckbox
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -72,50 +76,41 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
         <div data-e="lorem" ></div >
         <hr />
         <h3 data-e="title" >Настройки</h3 >
+        <!-- <label data-e="color-theme-switch-label" > -->
+        <!--     Тёмная тема -->
+        <!--     <md-checkbox -->
+        <!--           [attr.checked]="colorScheme() === 'dark' ? '' : null" -->
+        <!--           (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
+        <!--           touch-target="wrapper" -->
+        <!--     ></md-checkbox> -->
+        <!-- </label > -->
         <label data-e="color-theme-switch-label" >
             Тёмная тема
-            <!-- <input type="checkbox" [(ngModel)]="isDarkTheme" checked> -->
-            <!-- <md-checkbox touch-target="wrapper"></md-checkbox> -->
             <md-switch
-                  [attr.selected]="this.colorScheme() == 'dark' ? '' : null"
+                  [attr.selected]="colorScheme() === 'dark' ? '' : null"
+                  (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')"
                   aria-label="Dark Theme"
-                  (input)="inputHandler($event)"
             ></md-switch >
-            <!-- <md-switch aria-label="Dark Theme" [formControl]="isDarkTheme"></md-switch> -->
-            <!-- <input type="checkbox" [formControl]="isDarkTheme" checked> -->
         </label >
+        <!-- <mat-slide-toggle -->
+        <!--       [ngModel]="colorScheme() === 'dark'" -->
+        <!--       (ngModelChange)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
+        <!-- > -->
+        <!--     Slide Toggle Checked: {{ colorScheme() | uppercase }} -->
+        <!-- </mat-slide-toggle > -->
+        <!-- <mat-checkbox -->
+        <!--       [ngModel]="colorScheme() === 'dark'" -->
+        <!--       (ngModelChange)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
+        <!-- > -->
+        <!--     Dark theme -->
+        <!-- </mat-checkbox> -->
         <div data-e="lorem" >isDarkTheme: {{ colorScheme() | uppercase }}</div >
-        <!-- <h3 data-e="title" >Lorem</h3 > -->
-        <!-- <div data-e="lorem" > -->
-        <!--     <input type="text" style="height: 36px;" > -->
-        <!-- </div > -->
-        <!-- <div> -->
-        <!--     <md-radio name="animals" value="cats"></md-radio> -->
-        <!--     <md-radio name="animals" value="dogs"></md-radio> -->
-        <!--     <md-radio name="animals" value="birds" checked></md-radio> -->
-        <!-- </div> -->
     `,
 })
 export class NavDrawerContent {
     @Input() colorScheme!: Signal<"auto" | "light" | "dark">
     @Output() setColorScheme: EventEmitter<"auto" | "light" | "dark"> = new EventEmitter()
-    // isDarkTheme: FormControl<boolean | null> = new FormControl(false)
-    //document.querySelector("md-switch").shadowRoot.querySelector("div")
-
-    elementRef: ElementRef = inject(ElementRef)
 
     constructor() {
-        // afterNextRender(() => {
-        //     elementRef
-        //           .nativeElement.querySelector('[data-e="dark-theme-switch-label"] > md-switch')
-        //           .shadowRoot.querySelector("div > input").className =
-        //           this.colorScheme() == 'dark' ? "switch selected" : "switch unselected"
-        // })
-    }
-
-    inputHandler(event: Event): void {
-        //@ts-ignore
-        const value = !!event.target?.shadowRoot?.querySelector("div.unselected") ? "dark" : "light"
-        this.setColorScheme.emit(value)
     }
 }

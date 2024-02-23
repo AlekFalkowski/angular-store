@@ -7,7 +7,7 @@ export class ViewModel {
     #_observePreferredColorSchemeOption: ObservePreferredColorSchemeOption = inject(ObservePreferredColorSchemeOption)
     #_setPreferredColorSchemeOption: SetPreferredColorSchemeOption = inject(SetPreferredColorSchemeOption)
 
-    colorScheme: Signal<"auto" | "light" | "dark"> = computed(() => {
+    preferredColorScheme: Signal<"auto" | "light" | "dark"> = computed(() => {
         const inputValue: string | null = this.#_observePreferredColorSchemeOption.invoke()
         switch (inputValue) {
             case "light":
@@ -18,7 +18,7 @@ export class ViewModel {
         }
     })
 
-    setColorScheme(value: "auto" | "light" | "dark"): void {
+    setPreferredColorScheme(value: "auto" | "light" | "dark"): void {
         this.#_setPreferredColorSchemeOption.invoke(value)
     }
 }

@@ -1,13 +1,13 @@
 import {
     afterNextRender,
     ChangeDetectionStrategy,
-    Component,
+    Component, computed,
     CUSTOM_ELEMENTS_SCHEMA,
     effect,
     inject,
     Injector,
-    PLATFORM_ID,
-    ViewEncapsulation
+    PLATFORM_ID, signal, Signal,
+    ViewEncapsulation, WritableSignal
 } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from "@angular/common";
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
@@ -81,7 +81,9 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
         }
     `,
     selector: 'app-layout',
-    host: {},
+    host: {
+        '[class.dark]': 'colorScheme() === "dark"'
+    },
     template: `
         <div data-e="loading-cover" >Loading...</div >
         <app-top-line />
@@ -105,8 +107,8 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
               (closeNavDrawer)="indexStateProvider.navDrawerShown.set(false)"
         >
             <nav-drawer-content
-                  [colorScheme]="viewModel.colorScheme"
-                  (setColorScheme)="viewModel.setColorScheme($event)"
+                  [colorScheme]="colorScheme"
+                  (setColorScheme)="viewModel.setPreferredColorScheme($event)"
             />
         </nav-drawer >
     `,
@@ -122,96 +124,54 @@ export class AppLayout {
     readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_injector: Injector = inject(Injector)
-    #_router: Router = inject(Router)
 
     constructor() {
         if (isPlatformBrowser(this.#_platformId)) {
-        }
-        // this.#_router.events.pipe(
-        //       filter((e: Event | RouterEvent): e is RouterEvent => e instanceof RouterEvent)
-        // ).subscribe((e: RouterEvent) => {
-        //     // Do something
-        // })
-        afterNextRender(() => {
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-                this.#_onChangeColorSchemeInBrowser(event)
-            })
-            effect(() => {
-                this.#_onChangeColorSchemeInApp(this.viewModel.colorScheme())
-            }, { injector: this.#_injector })
-        })
-    }
-
-    // ngOnInit() {
-    //     this.#_router.events.subscribe((event) => {
-    //         // console.log(event)
-    //         if (event instanceof NavigationStart) {
-    //             // Navigation is starting... show a loading spinner perhaps?
-    //             // blog on that here: ultimatecourses.com/blog/angular-loading-spinners-with-router-events
-    //         }
-    //         if (event instanceof NavigationEnd) {
-    //             // We've finished navigating
-    //         }
-    //         if (event instanceof NavigationError) {
-    //             // something went wrong, log the error
-    //             console.log(event.error);
-    //         }
-    //     });
-    // }
-    // ngOnInit() {
-    //     this.#_router.events.pipe(
-    //           filter((event) => event instanceof NavigationStart)
-    //     ).subscribe((event) => {
-    //         // this only fires for `NavigationStart` and no other events
-    //     });
-    // }
-
-    #_onChangeColorSchemeInApp(colorScheme: string): void {
-        if (colorScheme === 'dark' || colorScheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-color-scheme', 'dark')
-        } else {
-            document.documentElement.removeAttribute('data-color-scheme')
+            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                this.#_browserColorScheme.set("dark")
+            }
+            window.matchMedia('(prefers-color-scheme: dark)')
+                  .addEventListener('change', (event) => {
+                      console.log("event")
+                      this.#_browserColorScheme.set(event.matches ? "dark" : "light")
+                      // this.#_setColorSchemeOnChangeColorSchemeInBrowser(event)
+                  })
+            // effect(() => {
+            //     this.#_setColorSchemeOnChangeColorSchemeInApp(this.viewModel.preferredColorScheme())
+            // }, { injector: this.#_injector })
         }
     }
 
-    #_onChangeColorSchemeInBrowser(event: MediaQueryListEvent): void {
-        if (this.viewModel.colorScheme() === 'light' || this.viewModel.colorScheme() === 'dark') {
-            return
+    #_browserColorScheme: WritableSignal<"light" | "dark"> = signal("light")
+
+    colorScheme: Signal<"light" | "dark"> = computed(() => {
+        switch (this.viewModel.preferredColorScheme()) {
+            case "light":
+                return "light"
+            case "dark":
+                return "dark"
+            default:
+                return this.#_browserColorScheme()
         }
-        if (event.matches) {
-            document.documentElement.setAttribute('data-color-scheme', 'dark')
-        } else {
-            document.documentElement.removeAttribute('data-color-scheme')
-        }
-    }
-    // ngOnInit() { // Запускается один раз после того, как Angular инициализирует все входные данные компонента.
-    //     console.log("NG_ON_INIT")
+    })
+
+    // #_setColorSchemeOnChangeColorSchemeInApp(preferredColorScheme: string): void {
+    //     if (preferredColorScheme === 'dark' || preferredColorScheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    //         document.documentElement.setAttribute('data-color-scheme', 'dark')
+    //     } else {
+    //         document.documentElement.removeAttribute('data-color-scheme')
+    //     }
     // }
-    // ngOnChanges() { // Запускается каждый раз, когда входные данные компонента изменяются.
-    //     console.log("NG_ON_CHANGES")
-    // }
-    // ngDoCheck() { // Запускается каждый раз, когда этот компонент проверяется на наличие изменений.
-    //     console.log("NG_DO_CHECK")
-    // }
-    // ngAfterViewInit() { // Запускается один раз после инициализации представления компонента.
-    //     console.log("NG_AFTER_VIEW_INIT")
-    // }
-    // ngAfterContentInit() { // Запускается один раз после инициализации содержимого компонента.
-    //     console.log("NG_AFTER_CONTENT_INIT")
-    // }
-    // ngAfterViewChecked() { // Запускается каждый раз, когда представление компонента проверяется на наличие изменений.
-    //     console.log("NG_AFTER_VIEW_CHECKED")
-    // }
-    // ngAfterContentChecked() { // Запускается каждый раз, когда содержимое этого компонента проверяется на наличие изменений.
-    //     console.log("NG_AFTER_CONTENT_CHECKED")
-    // }
-    // afterNextRender() { // Запускается один раз, когда в следующий раз **все* компоненты будут отображены в DOM.
-    //     console.log("NG_AFTER_NEXT_RENDER")
-    // }
-    // afterRender() { // Запускается каждый раз, когда **все** компоненты визуализируются в DOM.
-    //     console.log("NG_AFTER_RENDER")
-    // }
-    // ngOnDestroy() { // Запускается один раз, прежде чем компонент будет уничтожен.
-    //     console.log("NG_ON_DESTROY")
+    //
+    // #_setColorSchemeOnChangeColorSchemeInBrowser(colorScheme: "light" | "dark"): void {
+    //     this.#_browserPreferredColorScheme.set(colorScheme)
+    //     if (this.viewModel.preferredColorScheme() === 'light' || this.viewModel.preferredColorScheme() === 'dark') {
+    //         return
+    //     }
+    //     if (colorScheme === "dark") {
+    //         document.documentElement.setAttribute('data-color-scheme', 'dark')
+    //     } else {
+    //         document.documentElement.removeAttribute('data-color-scheme')
+    //     }
     // }
 }

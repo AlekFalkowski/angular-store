@@ -1,4 +1,26 @@
+@use "sass:map";
+@use "@angular/material" as mat;
+@use "@angular/material-experimental" as matx;
 @import "all-config";
+
+//< angular-material-experimental >
+@include mat.core();
+$light-theme: matx.define-theme((
+      color: (
+            theme-type: light,
+            primary: matx.$m3-azure-palette,
+      )
+));
+$dark-theme: matx.define-theme((
+      color: (
+            theme-type: dark,
+            primary: matx.$m3-azure-palette,
+      )
+));
+html {
+    @include mat.all-component-themes($light-theme);
+}
+//</ angular-material-experimental >
 
 html {
     height: 100%;
@@ -6,12 +28,22 @@ html {
     // scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
     @include MD3_ELEVATION_TOKEN_SET;
-    background-color: var(--md-sys-color-surface);
     @include MD3_LIGHT_SC_THEME_COLOR_TOKEN_SET;
+    background-color: var(--md-sys-color-surface);
     @include MD3_TYPOGRAPHY_TOKEN_SET;
     @include LAYOUT_SIDE_PADDING_RULE_SET;
     transition-property: background-color;
     transition-duration: 200ms;
+}
+// html:has([data-e="dark-theme-switch-label"].selected) {
+html[data-color-scheme="dark"],
+html:has(app-layout.dark) {
+    @include mat.all-component-colors($dark-theme);
+    color-scheme: dark;
+    @include MD3_DARK_SC_THEME_COLOR_TOKEN_SET;
+}
+html.disable-transitions * {
+    transition: none !important;
 }
 html:has(app-layout.loading) {
     overflow-y: clip;
@@ -20,15 +52,6 @@ html:has(nav-drawer.visible),
 html:has([data-e="end-column"].visible-on-mobile) {
     overflow-y: clip;
     background-color: var(--html-shaded-color);
-}
-
-// html:has([data-e="dark-theme-switch-label"].selected) {
-html[data-color-scheme="dark"] {
-    color-scheme: dark;
-    @include MD3_DARK_SC_THEME_COLOR_TOKEN_SET;
-}
-html.disable-transitions * {
-    transition: none !important;
 }
 body {
     height: 100%;
