@@ -1,0 +1,1090 @@
+@import "all-config";
+
+$toggleTransitionDuration: 200ms; // and hover, and focus, not overlay // RELATED VALUES in JS: toggleTransitionDuration
+fieldset-popup {
+    margin: 8px 4px;
+    max-width: 100%;
+    --dm: 1;
+
+    // BUTTON all-variants STATIC
+    & > [data-e="button"] {
+        contain: layout;
+        appearance: none;
+        position: relative;
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        width: 100%;
+        height: 56px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        user-select: none;
+        transition-property: border-color, box-shadow;
+        transition-duration: calc($toggleTransitionDuration * var(--dm));
+
+        & > [data-e="overlay"] {
+            content: "";
+            contain: layout paint size;
+            position: absolute;
+            background-color: var(--md-sys-color-on-surface);
+            opacity: 0;
+            transition: opacity 150ms;
+        }
+
+        & > [data-e="input"] {
+            position: relative;
+            margin-inline-end: auto;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: var(--md-sys-color-on-surface);
+            @include MD3_BODY_L_FONT_RULE_SET;
+        }
+
+        & > [data-e="label"] {
+            position: absolute;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: var(--md-sys-color-on-surface-variant);
+            @include MD3_BODY_L_FONT_RULE_SET;
+            transition-property: font-size, line-height, color;
+            transition-duration: calc($toggleTransitionDuration * var(--dm));
+        }
+
+        & > [data-e="count"] {
+            overflow-wrap: normal;
+            //color: var(--md-sys-color-on-surface-variant);
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_M_FONT_RULE_SET;
+        }
+
+        & > [data-e="icon"] {
+            flex-shrink: 0;
+            color: var(--md-sys-color-on-surface-variant);
+            transition-property: transform;
+            transition-duration: calc($toggleTransitionDuration * var(--dm));
+        }
+    }
+    & > [data-e="button"].framed {
+        padding-inline-start: 15px;
+        padding-inline-end: 11px;
+        border-radius: var(--md-sys-shape-corner-extra-small);
+        border-inline: 1px solid var(--md-sys-color-outline);
+        border-top: 1px solid var(--md-sys-color-outline);
+        border-bottom: 1px solid var(--md-sys-color-outline);
+        background-color: transparent;
+
+        & > [data-e="overlay"] {
+            inset: -1px;
+            border-radius: var(--md-sys-shape-corner-extra-small);
+        }
+
+        & > [data-e="label"] {
+            top: -8px;
+            inset-inline-start: -1px;
+            display: flex;
+            width: calc(100% + 2px);
+            max-height: 100%;
+            line-height: 70px;
+
+            &::before,
+            &::after {
+                content: "";
+                display: block;
+                margin-top: 7px;
+                border-top: 1px solid transparent;
+                min-width: 12px;
+                height: 8px;
+                pointer-events: none;
+                box-shadow: inset transparent 0 1px;
+                transition-property: border-color, box-shadow;
+                transition-duration: calc($toggleTransitionDuration * var(--dm));
+            }
+
+            &::before {
+                margin-inline-end: 4px;
+                border-inline-start: 1px solid transparent;
+                border-start-start-radius: var(--md-sys-shape-corner-extra-small);
+            }
+
+            &::after {
+                margin-inline-start: 4px;
+                border-inline-end: 1px solid transparent;
+                border-start-end-radius: var(--md-sys-shape-corner-extra-small);
+                width: 100%;
+            }
+        }
+    }
+    & > [data-e="button"].tonal {
+        padding-inline-start: 16px;
+        padding-inline-end: 12px;
+        border-radius: var(--md-sys-shape-corner-extra-small) var(--md-sys-shape-corner-extra-small) 0 0;
+        border-inline: none;
+        border-top: none;
+        border-bottom: 1px solid var(--md-sys-color-on-surface-variant);
+        background-color: var(--md-sys-color-surface-variant);
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset-inline-start: 0;
+            bottom: -1px;
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--md-sys-color-surface-variant);
+            transform-origin: center bottom;
+            transform: scaleX(0);
+            transition-property: transform;
+            transition-duration: calc($toggleTransitionDuration * var(--dm));
+        }
+
+        & > [data-e="overlay"] {
+            inset: 0;
+            border-radius: var(--md-sys-shape-corner-extra-small) var(--md-sys-shape-corner-extra-small) 0 0;
+        }
+
+        & > [data-e="input"] {
+            top: 0.5em;
+        }
+
+        & > [data-e="label"] {
+            top: 8px;
+            line-height: 38px;
+        }
+    }
+
+    // BUTTON framed-variant DYNAMIC
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-surface);
+            border-bottom-color: var(--md-sys-color-on-surface);
+            border-top-color: var(--md-sys-color-on-surface);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked {
+        border-top-color: transparent;
+        > [data-e="label"] {
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-outline);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-surface);
+            border-bottom-color: var(--md-sys-color-on-surface);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="label"]::before, > [data-e="label"]::after {
+                border-top-color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked) {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-error-container);
+            border-bottom-color: var(--md-sys-color-on-error-container);
+            border-top-color: var(--md-sys-color-on-error-container);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-error-container);
+            border-bottom-color: var(--md-sys-color-on-error-container);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="label"]::before, > [data-e="label"]::after {
+                border-top-color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error):not(.checked) {
+        outline: none;
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: var(--md-sys-color-primary);
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary), inset 0 1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error).checked {
+        outline: none;
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-primary);
+            box-shadow: inset 0 1px var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible.error:not(.checked) {
+        outline: none;
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: var(--md-sys-color-error);
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error), inset 0 1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible.error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible.error.checked {
+        outline: none;
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+            box-shadow: inset 0 1px var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):focus-visible.error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error):not(.checked) {
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-primary);
+            box-shadow: inset 0 1px var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error).checked {
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-primary);
+            box-shadow: inset 0 1px var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error:not(.checked) {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+            box-shadow: inset 0 1px var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error.checked {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+            box-shadow: inset 0 1px var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].framed:disabled:not(.checked) {
+        border-inline-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-top-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        > [data-e="label"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="input"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="count"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="icon"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+    }
+    & > [data-e="button"].framed:disabled.checked {
+        border-inline-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-top-color: transparent;
+        > [data-e="label"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="input"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="count"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="icon"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+    }
+
+    // BUTTON tonal-variant DYNAMIC
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-bottom-color: var(--md-sys-color-on-surface);
+            > [data-e="overlay"] {
+                opacity: 0.04;
+            }
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked {
+        > [data-e="label"] {
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-bottom-color: var(--md-sys-color-on-surface);
+            > [data-e="overlay"] {
+                opacity: 0.04;
+            }
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked) {
+        border-bottom-color: var(--md-sys-color-error);
+        &::after {
+            background-color: var(--md-sys-color-error);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-bottom-color: var(--md-sys-color-on-error-container);
+            &::after {
+                background-color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="overlay"] {
+                opacity: 0.04;
+            }
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked {
+        border-bottom-color: var(--md-sys-color-error);
+        &::after {
+            background-color: var(--md-sys-color-error);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-bottom-color: var(--md-sys-color-on-error-container);
+            &::after {
+                background-color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="overlay"] {
+                opacity: 0.04;
+            }
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error):not(.checked) {
+        outline: none;
+        border-bottom-color: var(--md-sys-color-primary);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-primary);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error).checked {
+        outline: none;
+        border-bottom-color: var(--md-sys-color-primary);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-primary);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible.error:not(.checked) {
+        outline: none;
+        border-bottom-color: var(--md-sys-color-error);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-error);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible.error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible.error.checked {
+        outline: none;
+        border-bottom-color: var(--md-sys-color-error);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-error);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):focus-visible.error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error):not(.checked) {
+        border-bottom-color: var(--md-sys-color-primary);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-primary);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error).checked {
+        border-bottom-color: var(--md-sys-color-primary);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-primary);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error:not(.checked) {
+        border-bottom-color: var(--md-sys-color-error);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-error);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error.checked {
+        border-bottom-color: var(--md-sys-color-error);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-error);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+            transform: scaleY(-1);
+        }
+    }
+    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > [data-e="button"].tonal:disabled:not(.checked) {
+        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        > [data-e="label"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="input"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="count"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="icon"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+    }
+    & > [data-e="button"].tonal:disabled.checked {
+        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        > [data-e="label"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="input"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="count"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="icon"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+    }
+
+    // help-text
+    & > [data-e="help-text"] {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        min-height: 16px;
+        margin: 4px 16px 0;
+        @include MD3_BODY_S_FONT_RULE_SET;
+    }
+    & > :not(:disabled):not(.error) + [data-e="help-text"] {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    & > :not(:disabled).error + [data-e="help-text"] {
+        color: var(--md-sys-color-error);
+    }
+    & > :disabled + [data-e="help-text"] {
+        color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+    }
+
+    // dialog
+    // & > [data-e="dialog"][open] {
+    //     contain: layout paint;
+    //     display: flex;
+    //     flex-direction: column;
+    //     max-width: min(560px, calc(100vw - var(--side-padding) * 2));
+    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
+    //         position: absolute;
+    //         min-height: auto;
+    //         max-height: min(560px, 80vh);
+    //         padding: 8px 0;
+    //         box-shadow: var(--md-sys-elevation-1);
+    //     }
+    //     @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
+    //         position: sticky;
+    //         bottom: 56px;
+    //         min-height: 35vh;
+    //         height: max-content;
+    //         max-height: 70vh;
+    //         margin-inline: auto;
+    //     }
+    //     margin: 0;
+    //     border: none;
+    //     border-radius: var(--md-sys-shape-corner-extra-small);
+    //     background-color: var(--md-sys-color-surface);
+    //     transition-property: transform, opacity;
+    //     transition-duration: calc($toggleTransitionDuration * var(--dm));
+    //     opacity: 1;
+    //     pointer-events: auto;
+    // }
+    // & > [data-e="dialog"].hidden {
+    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
+    //         transform: scale(0.9);
+    //     }
+    //     @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
+    //         //transform: translateY(-75%) scale(0.8);
+    //         transform: scale(0.8);
+    //     }
+    //     opacity: 0;
+    //     pointer-events: none;
+    // }
+    & > [data-e="dialog"] {
+        animation: fade-out 1s ease-out;
+        contain: layout paint;
+        background-color: var(--md-sys-color-surface);
+        max-width: min(560px, calc(100vw - var(--side-padding) * 2));
+        max-height: 80svh;
+        position: fixed;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: var(--md-sys-shape-corner-extra-small);
+        // transform: scale(0.7);
+        // opacity: 0;
+        // pointer-events: none;
+        // transition-property: transform, opacity;
+        // // transition-duration: calc($toggleTransitionDuration * var(--dm));
+        // transition-duration: 4000ms;
+    }
+    & > [data-e="dialog"].tonal {
+        background-color: var(--md-sys-color-surface-high);
+    }
+    & > [data-e="dialog"][open] {
+        animation: fade-in 1s ease-out;
+        // display: flex;
+        // transform: scale(1);
+        // opacity: 1;
+        // pointer-events: auto;
+    }
+    // @starting-style {
+    //     & > [data-e="dialog"][open] {
+    //         transform: scale(0.7);
+    //         opacity: 0;
+    //         pointer-events: none;
+    //     }
+    // }
+
+    // & > [data-e="dialog"]::backdrop {
+    //     background-color: black;
+    //     opacity: 0.2;
+    // }
+
+    /* Transition the :backdrop when the dialog modal is promoted to the top layer */
+    // & > [data-e="dialog"]::backdrop {
+        // background-color: black;
+    //     background-color: rgb(0 0 0 / 0%);
+    //     opacity: 0;
+    //     // transition-property: display, overlay, opacity;
+    //     // transition-duration: 1000ms;
+    //     // transition-behavior: allow-discrete;
+    //     transition: display 0.7s allow-discrete, overlay 0.7s allow-discrete, background-color 0.7s;
+    //     /* Equivalent to
+    //     transition: all 0.7s allow-discrete; */
+    // }
+
+    & > [data-e="dialog"][open]::backdrop {
+        animation: backdrop-fade-in 1s ease-out forwards;
+            // background-color: black;
+        // background-color: rgb(0 0 0 / 25%);
+        // // opacity: 0.25;
+        // @starting-style {
+        //     // opacity: 0;
+        //     background-color: rgb(0 0 0 / 0%);
+        // }
+    }
+    /* This starting-style rule cannot be nested inside the above selector
+    because the nesting selector cannot represent pseudo-elements. */
+
+
+
+    // dialog {
+    //     animation: fade-out 0.7s ease-out;
+    // }
+    //
+    // dialog[open] {
+    //     animation: fade-in 0.7s ease-out;
+    // }
+    //
+    // dialog[open]::backdrop {
+    // }
+
+    /* Animation keyframes */
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0;
+            transform: scale(0.7);
+            display: none;
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+            display: flex;
+        }
+    }
+
+    @keyframes fade-out {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+            display: flex;
+        }
+
+        100% {
+            opacity: 0;
+            transform: scale(0.7);
+            display: none;
+        }
+    }
+
+    @keyframes backdrop-fade-in {
+        0% {
+            background-color: rgb(0 0 0 / 0%);
+            // backdrop-filter: none;
+        }
+
+        100% {
+            background-color: rgb(0 0 0 / 25%);
+            // backdrop-filter: blur(3px);
+        }
+    }
+
+
+    // // fieldset (dialog body)
+    // & > [data-e="dialog"] > [data-e="fieldset"] {
+    //     flex-grow: 1;
+    //     display: grid; // For automatic scrolling to input on Tab.
+    //     grid-template-columns: 0 auto;
+    //     overflow-y: auto;
+    //     overscroll-behavior: contain;
+    //     scroll-behavior: smooth;
+    // }
+    //
+    // // dialog header +
+    // & > [data-e="dialog"] > [data-e="header"] {
+    //     flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
+    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
+    //         display: none;
+    //     }
+    //     //@include ONLY_FOR_MOBILE_IN_LANDSCAPE {
+    //     //  display: none;
+    //     //}
+    //     display: flex;
+    //     flex-direction: column;
+    //     justify-content: center;
+    //     min-height: 57px; // If close button is used.
+    //     padding: 8px 24px; // 24px 24px 16px;
+    //     border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    // }
+    // & > [data-e="dialog"] > [data-e="header"] > [data-e="title"] {
+    //     overflow: hidden;
+    //     white-space: nowrap;
+    //     text-overflow: ellipsis;
+    //     font-weight: bold;
+    //     padding-inline-end: 32px; // If close button is used.
+    //     color: var(--md-sys-color-on-surface);
+    //     @include MD3_TITLE_L_FONT_RULE_SET; // headline-small;
+    //     margin: 0;
+    // }
+    // & > [data-e="dialog"] > [data-e="header"] > button {
+    //     position: absolute;
+    //     inset-inline-end: 4px;
+    //     top: 4px;
+    //     color: var(--md-sys-color-secondary);
+    // }
+    // & > [data-e="dialog"] > [data-e="header"] > [data-e="help-text"] {
+    //     //padding-top: 16px;
+    //     //color: var(--md-sys-color-on-surface-variant);
+    //     //@include body-medium;
+    // }
+    //
+    // // dialog actions +
+    // & > [data-e="dialog"] > [data-e="actions"] {
+    //     flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
+    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
+    //         display: none;
+    //     }
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: flex-end;
+    //     padding: 8px 16px; // 24px;
+    //     border-top: 1px solid var(--md-sys-color-outline-variant);
+    // }
+    // & > [data-e="dialog"] > [data-e="actions"] > button {
+    //     flex-grow: 1;
+    //     flex-basis: 50%;
+    // }
+
+    // // tag input (visually-hidden)
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input {
+    //     contain: layout paint size;
+    //     appearance: none;
+    //     opacity: 0;
+    //     margin: 0;
+    // }
+    //
+    // // field
+    // & > [data-e="dialog"] > [data-e="fieldset"] > label {
+    //     contain: layout paint;
+    //     position: relative;
+    //     display: flex;
+    //     align-items: center;
+    //     gap: 8px;
+    //     height: 48px;
+    //     min-width: 112px;
+    //     padding: 0 12px;
+    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
+    //         height: 40px;
+    //     }
+    //     @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
+    //         padding-inline-start: 20px;
+    //     }
+    //     user-select: none;
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label {
+    //     color: var(--md-sys-color-on-surface);
+    //     cursor: pointer;
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled):checked + label {
+    //     background-color: var(--md-sys-color-secondary-container);
+    //     color: var(--md-sys-color-on-secondary-container);
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:disabled + label {
+    //     color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38)
+    // }
+    //
+    // // field overlay
+    // & > [data-e="dialog"] > [data-e="fieldset"] > label::before {
+    //     content: "";
+    //     position: absolute;
+    //     inset: 0;
+    //     opacity: 0;
+    //     //background-color: var(--md-sys-color-on-surface);
+    //     transition: opacity 150ms;
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:checked) + label::before {
+    //     background-color: var(--md-sys-color-on-surface);
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::before {
+    //     background-color: var(--md-sys-color-on-secondary-container);
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:hover::before {
+    //     @include ONLY_FOR_HOVERING_POINTER {
+    //         opacity: 0.08;
+    //     }
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:active::before {
+    //     opacity: 0.12;
+    // }
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:focus-visible + label::before {
+    //     opacity: 0.12;
+    // }
+    //
+    // // field checkbox
+    // & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::after {
+    //     z-index: 1;
+    //     content: "check";
+    //     position: absolute;
+    //     width: 20px;
+    //     height: 20px;
+    //     font-size: 20px;
+    //     line-height: 20px;
+    //     font-family: "Material Symbols Outlined";
+    // }
+    //
+    // // field label
+    // & > [data-e="dialog"] > [data-e="fieldset"] > label > span {
+    //     order: 2;
+    //     contain: layout paint;
+    //     overflow: hidden;
+    //     white-space: nowrap;
+    //     text-overflow: ellipsis;
+    //     margin-inline-start: 28px;
+    //     @include MD3_LABEL_L_FONT_RULE_SET;
+    // }
+}

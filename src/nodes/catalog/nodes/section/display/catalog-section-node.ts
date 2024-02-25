@@ -60,9 +60,9 @@ import { RemoteStorage } from "../resources/RemoteStorage";
             }
             @case ("success") {
                 <page-breadcrumbs />
-                <a routerLink="/catalogs/1/sections/1" >Go To /catalogs/1/sections/1</a >
-                <a routerLink="/catalogs/1/sections/2" >Go To /catalogs/1/sections/2</a >
-                <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a >
+                <!-- <a routerLink="/catalogs/1/sections/1" >Go To /catalogs/1/sections/1</a > -->
+                <!-- <a routerLink="/catalogs/1/sections/2" >Go To /catalogs/1/sections/2</a > -->
+                <!-- <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a > -->
                 <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
                 @if (viewModel.stableContent()?.filterConfig) {
                     <two-column-template openButtonText="Показать Фильтр" >

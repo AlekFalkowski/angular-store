@@ -19,7 +19,7 @@ import { TwoColumnTemplate } from "@/shared/display/templates/two-column-templat
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
 import { TFieldSet } from "@/shared/types/TFieldSet";
-import console from "node:console";
+import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-popup";
 
 @Component({
     imports: [
@@ -34,7 +34,8 @@ import console from "node:console";
         LoadingError,
         LoadingProcess,
         CatalogNotFound,
-        FormsModule
+        FormsModule,
+        FieldsetPopup
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -53,8 +54,9 @@ import console from "node:console";
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                border-top: 1px solid var(--md-sys-color-surface-container);
-                background-color: var(--md-sys-color-surface-container-low);
+                border-block: 1px solid var(--md-sys-color-surface-container);
+                // background-color: var(--md-sys-color-surface-container-low);
+                backdrop-filter: blur(3px);
             }
         }
     `,
@@ -73,35 +75,68 @@ import console from "node:console";
             @for (field of fieldSet.fieldList; track field.label) {
                 @switch (field.type) {
                     @case ("TMultiChoiceField") {
-                        @for (option of field.options; track option.label) {
-                            <label style="display: flex;" >
-                                <input type="checkbox"
-                                       [name]="field.name"
-                                       [value]="option.value"
-                                       [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
-                                       (ngModelChange)="
+                        <fieldset-popup
+                              [label]="field.label"
+                              [inputText]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? 'выбрано ' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + ' из ' + field.options.length.toString() : ''"
+                        >
+                            @for (option of field.options; track option.label) {
+                                <label style="display: flex;" >
+                                    <!-- <input type="checkbox" -->
+                                    <!--        [name]="field.name" -->
+                                    <!--        [value]="option.value" -->
+                                    <!--        [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)" -->
+                                    <!--        (ngModelChange)=" -->
+                                    <!--        multiChoiceFieldsStates.get(field.name)?.has(option.value) -->
+                                    <!--            ? multiChoiceFieldsStates.get(field.name)?.delete(option.value) -->
+                                    <!--            : multiChoiceFieldsStates.get(field.name)?.add(option.value) -->
+                                    <!--        " -->
+                                    <!-- /> -->
+                                    <md-checkbox
+                                          [attr.checked]="multiChoiceFieldsStates.get(field.name)?.has(option.value) ? '' : null"
+                                          (change)="
                                            multiChoiceFieldsStates.get(field.name)?.has(option.value)
                                                ? multiChoiceFieldsStates.get(field.name)?.delete(option.value)
                                                : multiChoiceFieldsStates.get(field.name)?.add(option.value)
                                            "
-                                />
-                                <span >{{ option.label }}</span >
-                            </label >
-                        }
+                                          touch-target="wrapper"
+                                    ></md-checkbox >
+                                    <span >{{ option.label }}</span >
+                                </label >
+                            }
+                        </fieldset-popup >
                     }
                     @case ("TSingleChoiceField") {
-                        @for (option of field.options; track option.label) {
-                            <label style="display: flex;" >
-                                <input type="radio"
-                                       [name]="field.name"
-                                       [value]="option.value"
-                                       [ngModel]="singleChoiceFieldsStates.get(field.name)"
-                                       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
-                                />
-                                <span >{{ option.label }}</span >
-                            </label >
-                        }
-                        <!-- <select -->
+                        <fieldset-popup
+                              [label]="field.label"
+                              [inputText]="singleChoiceFieldsStates.get(field.name)"
+                        >
+                            @for (option of field.options; track option.label) {
+                                <label style="display: flex;" >
+                                    <!-- <input type="radio" -->
+                                    <!--        [name]="field.name" -->
+                                    <!--        [value]="option.value" -->
+                                    <!--        [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
+                                    <!--        (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
+                                    <!-- /> -->
+                                    <md-radio
+                                          [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null"
+                                          (change)="singleChoiceFieldsStates.set(field.name, option.value)"
+                                    ></md-radio >
+                                    <span >{{ option.label }}</span >
+                                </label >
+                            }
+                        </fieldset-popup >
+                        <!-- <md-outlined-select -->
+                              <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
+                              <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
+                              <!-- > -->
+                              <!--     @for (option of field.options; track option.label) { -->
+                              <!--     <md-select-option [value]="option.value"> -->
+                              <!--         <div slot="headline">{{ option.label }}</div> -->
+                              <!--     </md-select-option> -->
+                              <!--     } -->
+                              <!-- </md-outlined-select> -->
+                              <!-- <select -->
                               <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
                               <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
                               <!-- > -->

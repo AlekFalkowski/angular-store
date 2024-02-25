@@ -16,3 +16,8 @@ $MAX_PHONE_VIEWPORT_HEIGHT: 1000px;
         @content;
     }
 }
+@mixin ONLY_FOR_TABLET_AND_DESKTOP {
+    @media (width >= $MAX_PHONE_VIEWPORT_HEIGHT) or ((width >= $MAX_PHONE_VIEWPORT_WIDTH) and (height >= $MAX_PHONE_VIEWPORT_WIDTH)) {
+        @content;
+    }
+}

@@ -49,6 +49,7 @@ html:has(app-layout.loading) {
     overflow-y: clip;
 }
 html:has(nav-drawer.visible),
+// html:has(dialog[open]),
 html:has([data-e="end-column"].visible-on-mobile) {
     overflow-y: clip;
     background-color: var(--html-shaded-color);

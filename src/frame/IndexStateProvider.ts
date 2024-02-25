@@ -43,6 +43,9 @@ export class IndexStateProvider {
     isMobileInAllOrientations: Signal<boolean> = computed(() => {
         return this.#_windowInnerWidth() < MAX_PHONE_VIEWPORT_WIDTH || (this.#_windowInnerWidth() < MAX_PHONE_VIEWPORT_HEIGHT && this.#_windowInnerHeight() < MAX_PHONE_VIEWPORT_WIDTH)
     })
+    isTabletOrDesktop: Signal<boolean> = computed(() => {
+        return this.#_windowInnerWidth() >= MAX_PHONE_VIEWPORT_HEIGHT || (this.#_windowInnerWidth() >= MAX_PHONE_VIEWPORT_WIDTH && this.#_windowInnerHeight() >= MAX_PHONE_VIEWPORT_WIDTH)
+    })
 
     constructor() {
         if (isPlatformBrowser(this.#_platformId)) {
