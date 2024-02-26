@@ -775,10 +775,9 @@ popup-fieldset {
     // & > [data-e="dialog"] { // Experimental technology that only works in Chrome.
     //     contain: layout paint;
     //     max-width: min(560px, calc(100vw - var(--side-padding) * 2));
-    //     max-height: 80svh;
+    //     max-height: 90svh;
     //     position: fixed;
-    //     top: 0;
-    //     left: 0;
+    //     overscroll-behavior: contain;
     //     flex-direction: column;
     //     margin: 0;
     //     padding: 0;
@@ -813,11 +812,10 @@ popup-fieldset {
     & > [data-e="dialog"] {
         contain: layout paint;
         max-width: min(560px, calc(100vw - var(--side-padding) * 2));
-        max-height: 80svh;
+        max-height: 90svh;
         position: fixed;
-        top: 0;
-        left: 0;
         flex-direction: column;
+        overscroll-behavior: contain;
         margin: 0;
         padding: 0;
         border: none;
@@ -861,162 +859,163 @@ popup-fieldset {
             // backdrop-filter: none;
         }
         100% {
-            background-color: rgb(0 0 0 / 15%);
-            // backdrop-filter: blur(2px);
+            background-color: rgb(0 0 0 / 50%);
+            // backdrop-filter: blur(1px);
         }
     }
 
 
-    // // fieldset (dialog body)
-    // & > [data-e="dialog"] > [data-e="fieldset"] {
-    //     flex-grow: 1;
-    //     display: grid; // For automatic scrolling to input on Tab.
-    //     grid-template-columns: 0 auto;
-    //     overflow-y: auto;
-    //     overscroll-behavior: contain;
-    //     scroll-behavior: smooth;
-    // }
-    //
-    // // dialog header +
-    // & > [data-e="dialog"] > [data-e="header"] {
-    //     flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
-    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
-    //         display: none;
-    //     }
-    //     //@include ONLY_FOR_MOBILE_IN_LANDSCAPE {
-    //     //  display: none;
-    //     //}
-    //     display: flex;
-    //     flex-direction: column;
-    //     justify-content: center;
-    //     min-height: 57px; // If close button is used.
-    //     padding: 8px 24px; // 24px 24px 16px;
-    //     border-bottom: 1px solid var(--md-sys-color-outline-variant);
-    // }
-    // & > [data-e="dialog"] > [data-e="header"] > [data-e="title"] {
-    //     overflow: hidden;
-    //     white-space: nowrap;
-    //     text-overflow: ellipsis;
-    //     font-weight: bold;
-    //     padding-inline-end: 32px; // If close button is used.
-    //     color: var(--md-sys-color-on-surface);
-    //     @include MD3_TITLE_L_FONT_RULE_SET; // headline-small;
-    //     margin: 0;
-    // }
-    // & > [data-e="dialog"] > [data-e="header"] > button {
-    //     position: absolute;
-    //     inset-inline-end: 4px;
-    //     top: 4px;
-    //     color: var(--md-sys-color-secondary);
-    // }
-    // & > [data-e="dialog"] > [data-e="header"] > [data-e="help-text"] {
-    //     //padding-top: 16px;
-    //     //color: var(--md-sys-color-on-surface-variant);
-    //     //@include body-medium;
-    // }
-    //
-    // // dialog actions +
-    // & > [data-e="dialog"] > [data-e="actions"] {
-    //     flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
-    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
-    //         display: none;
-    //     }
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: flex-end;
-    //     padding: 8px 16px; // 24px;
-    //     border-top: 1px solid var(--md-sys-color-outline-variant);
-    // }
-    // & > [data-e="dialog"] > [data-e="actions"] > button {
-    //     flex-grow: 1;
-    //     flex-basis: 50%;
-    // }
 
-    // // tag input (visually-hidden)
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input {
-    //     contain: layout paint size;
-    //     appearance: none;
-    //     opacity: 0;
-    //     margin: 0;
-    // }
-    //
-    // // field
-    // & > [data-e="dialog"] > [data-e="fieldset"] > label {
-    //     contain: layout paint;
-    //     position: relative;
-    //     display: flex;
-    //     align-items: center;
-    //     gap: 8px;
-    //     height: 48px;
-    //     min-width: 112px;
-    //     padding: 0 12px;
-    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
-    //         height: 40px;
-    //     }
-    //     @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
-    //         padding-inline-start: 20px;
-    //     }
-    //     user-select: none;
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label {
-    //     color: var(--md-sys-color-on-surface);
-    //     cursor: pointer;
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled):checked + label {
-    //     background-color: var(--md-sys-color-secondary-container);
-    //     color: var(--md-sys-color-on-secondary-container);
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:disabled + label {
-    //     color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38)
-    // }
-    //
-    // // field overlay
-    // & > [data-e="dialog"] > [data-e="fieldset"] > label::before {
-    //     content: "";
-    //     position: absolute;
-    //     inset: 0;
-    //     opacity: 0;
-    //     //background-color: var(--md-sys-color-on-surface);
-    //     transition: opacity 150ms;
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:checked) + label::before {
-    //     background-color: var(--md-sys-color-on-surface);
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::before {
-    //     background-color: var(--md-sys-color-on-secondary-container);
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:hover::before {
-    //     @include ONLY_FOR_HOVERING_POINTER {
-    //         opacity: 0.08;
-    //     }
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:active::before {
-    //     opacity: 0.12;
-    // }
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:focus-visible + label::before {
-    //     opacity: 0.12;
-    // }
-    //
-    // // field checkbox
-    // & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::after {
-    //     z-index: 1;
-    //     content: "check";
-    //     position: absolute;
-    //     width: 20px;
-    //     height: 20px;
-    //     font-size: 20px;
-    //     line-height: 20px;
-    //     font-family: "Material Symbols Outlined";
-    // }
-    //
-    // // field label
-    // & > [data-e="dialog"] > [data-e="fieldset"] > label > span {
-    //     order: 2;
-    //     contain: layout paint;
-    //     overflow: hidden;
-    //     white-space: nowrap;
-    //     text-overflow: ellipsis;
-    //     margin-inline-start: 28px;
-    //     @include MD3_LABEL_L_FONT_RULE_SET;
-    // }
+    // dialog header +
+    & > [data-e="dialog"] > [data-e="header"] {
+        flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
+        @include ONLY_FOR_TABLET_AND_DESKTOP {
+            display: none;
+        }
+        //@include ONLY_FOR_MOBILE_IN_LANDSCAPE {
+        //  display: none;
+        //}
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 57px; // If close button is used.
+        padding: 8px 24px; // 24px 24px 16px;
+        border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    }
+    & > [data-e="dialog"] > [data-e="header"] > [data-e="title"] {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-weight: bold;
+        padding-inline-end: 32px; // If close button is used.
+        color: var(--md-sys-color-on-surface);
+        @include MD3_TITLE_L_FONT_RULE_SET; // headline-small;
+        margin: 0;
+    }
+    & > [data-e="dialog"] > [data-e="header"] > button {
+        position: absolute;
+        inset-inline-end: 4px;
+        top: 4px;
+        color: var(--md-sys-color-secondary);
+    }
+    & > [data-e="dialog"] > [data-e="header"] > [data-e="help-text"] {
+        //padding-top: 16px;
+        //color: var(--md-sys-color-on-surface-variant);
+        //@include body-medium;
+    }
+
+    // dialog actions +
+    & > [data-e="dialog"] > [data-e="actions"] {
+        flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
+        @include ONLY_FOR_TABLET_AND_DESKTOP {
+            display: none;
+        }
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 8px 16px; // 24px;
+        border-top: 1px solid var(--md-sys-color-outline-variant);
+    }
+    & > [data-e="dialog"] > [data-e="actions"] > button {
+        flex-grow: 1;
+        flex-basis: 50%;
+    }
+
+    // tag input (visually-hidden)
+    & > [data-e="dialog"] > [data-e="fieldset"] > input {
+        contain: layout paint size;
+        appearance: none;
+        opacity: 0;
+        margin: 0;
+    }
+
+    // fieldset (dialog body)
+    & > [data-e="dialog"] > [data-e="fieldset"] {
+        flex-grow: 1;
+        display: grid; // For automatic scrolling to input on Tab.
+        grid-template-columns: 0 auto;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scroll-behavior: smooth;
+    }
+
+    // field
+    & > [data-e="dialog"] > [data-e="fieldset"] > label {
+        contain: layout paint;
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 48px;
+        min-width: 112px;
+        padding: 0 12px;
+        @include ONLY_FOR_TABLET_AND_DESKTOP {
+            height: 40px;
+        }
+        @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
+            padding-inline-start: 20px;
+        }
+        user-select: none;
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label {
+        color: var(--md-sys-color-on-surface);
+        cursor: pointer;
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled):checked + label {
+        background-color: var(--md-sys-color-secondary-container);
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:disabled + label {
+        color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38)
+    }
+
+    // field overlay
+    & > [data-e="dialog"] > [data-e="fieldset"] > label::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        //background-color: var(--md-sys-color-on-surface);
+        transition: opacity 150ms;
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:checked) + label::before {
+        background-color: var(--md-sys-color-on-surface);
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::before {
+        background-color: var(--md-sys-color-on-secondary-container);
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:hover::before {
+        @include ONLY_FOR_HOVERING_POINTER {
+            opacity: 0.08;
+        }
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:active::before {
+        opacity: 0.12;
+    }
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:focus-visible + label::before {
+        opacity: 0.12;
+    }
+
+    // field checkbox
+    & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::after {
+        z-index: 1;
+        content: "check";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        font-size: 20px;
+        line-height: 20px;
+        font-family: "Material Symbols Outlined";
+    }
+
+    // field label
+    & > [data-e="dialog"] > [data-e="fieldset"] > label > span {
+        order: 2;
+        contain: layout paint;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-inline-start: 28px;
+        @include MD3_LABEL_L_FONT_RULE_SET;
+    }
 }

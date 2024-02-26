@@ -21,6 +21,7 @@ import { LoadingProcess } from "@/shared/display/rows/loading-process";
 import { TFieldSet } from "@/shared/types/TFieldSet";
 import { PopupFieldset } from "@/shared/display/blocks/popup-fieldset/popup-fieldset";
 import { TextField } from "@/shared/display/blocks/text-field/text-field";
+import { ColumnFieldset } from "@/shared/display/blocks/column-fieldset/column-fieldset";
 
 @Component({
     imports: [
@@ -37,7 +38,8 @@ import { TextField } from "@/shared/display/blocks/text-field/text-field";
         CatalogNotFound,
         FormsModule,
         PopupFieldset,
-        TextField
+        TextField,
+        ColumnFieldset
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -101,30 +103,22 @@ import { TextField } from "@/shared/display/blocks/text-field/text-field";
                               [label]="field.label"
                               [inputText]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? 'выбрано ' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + ' из ' + field.options.length.toString() : ''"
                         >
-                            @for (option of field.options; track option.label) {
-                                <label style="display: flex;" >
-                                    <input type="checkbox"
-                                           [name]="field.name"
-                                           [value]="option.value"
-                                           [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
-                                           (ngModelChange)="
-                                           multiChoiceFieldsStates.get(field.name)?.has(option.value)
+                            <column-fieldset >
+                                @for (option of field.options; track option.label) {
+                                    <label >
+                                        <input type="checkbox"
+                                               [name]="field.name"
+                                               [value]="option.value"
+                                               [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
+                                               (ngModelChange)="multiChoiceFieldsStates.get(field.name)?.has(option.value)
                                                ? multiChoiceFieldsStates.get(field.name)?.delete(option.value)
                                                : multiChoiceFieldsStates.get(field.name)?.add(option.value)
                                            "
-                                    />
-                                    <!-- <md-checkbox -->
-                                    <!--       [attr.checked]="multiChoiceFieldsStates.get(field.name)?.has(option.value) ? '' : null" -->
-                                    <!--       (change)=" -->
-                                    <!--        multiChoiceFieldsStates.get(field.name)?.has(option.value) -->
-                                    <!--            ? multiChoiceFieldsStates.get(field.name)?.delete(option.value) -->
-                                    <!--            : multiChoiceFieldsStates.get(field.name)?.add(option.value) -->
-                                    <!--        " -->
-                                    <!--       touch-target="wrapper" -->
-                                    <!-- ></md-checkbox > -->
-                                    <span >{{ option.label }}</span >
-                                </label >
-                            }
+                                        />
+                                        <span >{{ option.label }}</span >
+                                    </label >
+                                }
+                            </column-fieldset >
                         </popup-fieldset >
                     }
                     @case ("TSingleChoiceField") {
@@ -132,21 +126,23 @@ import { TextField } from "@/shared/display/blocks/text-field/text-field";
                               [label]="field.label"
                               [inputText]="singleChoiceFieldsStates.get(field.name)"
                         >
-                            @for (option of field.options; track option.label) {
-                                <label style="display: flex;" >
-                                    <input type="radio"
-                                           [name]="field.name"
-                                           [value]="option.value"
-                                           [ngModel]="singleChoiceFieldsStates.get(field.name)"
-                                           (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
-                                    />
-                                    <!-- <md-radio -->
-                                    <!--       [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null" -->
-                                    <!--       (change)="singleChoiceFieldsStates.set(field.name, option.value)" -->
-                                    <!-- ></md-radio > -->
-                                    <span >{{ option.label }}</span >
-                                </label >
-                            }
+                            <column-fieldset >
+                                @for (option of field.options; track option.label) {
+                                    <label >
+                                        <input type="radio"
+                                               [name]="field.name"
+                                               [value]="option.value"
+                                               [ngModel]="singleChoiceFieldsStates.get(field.name)"
+                                               (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
+                                        />
+                                        <!-- <md-radio -->
+                                        <!--       [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null" -->
+                                        <!--       (change)="singleChoiceFieldsStates.set(field.name, option.value)" -->
+                                        <!-- ></md-radio > -->
+                                        <span >{{ option.label }}</span >
+                                    </label >
+                                }
+                            </column-fieldset >
                         </popup-fieldset >
                         <!-- <md-outlined-select -->
                               <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
@@ -204,16 +200,23 @@ import { TextField } from "@/shared/display/blocks/text-field/text-field";
                         </div >
                     }
                     @case ("TTextField") {
-                        <label style="display: flex;" >
-                            <input
-                                  type="text"
-                                  [name]="field.name"
-                                  [value]="field.value"
-                                  [ngModel]="textFieldsStates.get(field.name)"
-                                  (ngModelChange)="textFieldsStates.set(field.name, $event)"
-                            />
-                            <span >{{ field.label }}</span >
-                        </label >
+                        <!-- <label style="display: flex;" > -->
+                              <!--     <input -->
+                              <!--           type="text" -->
+                              <!--           [name]="field.name" -->
+                              <!--           [value]="field.value" -->
+                              <!--           [ngModel]="textFieldsStates.get(field.name)" -->
+                              <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
+                              <!--     /> -->
+                              <!--     <span >{{ field.label }}</span > -->
+                              <!-- </label > -->
+                        <text-field
+                              [label]="field.label"
+                              [name]="field.name"
+                              [value]="field.value"
+                              [currentValue]="textFieldsStates.get(field.name)"
+                              (changeValue)="textFieldsStates.set(field.name, $event)"
+                        ></text-field >
                     }
                 }
             }

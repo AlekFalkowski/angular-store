@@ -86,7 +86,6 @@ export class PopupFieldset {
     dialogIsOpen: WritableSignal<boolean> = signal(false)
 
     // dialogIsVisible: WritableSignal<boolean> = signal(false)
-    //
     openDialog(): void {
         this.dialog?.nativeElement.showModal()
         this.dialogIsOpen.set(true)

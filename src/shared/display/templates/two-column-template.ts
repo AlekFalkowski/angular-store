@@ -98,6 +98,7 @@ import { SharedViewModel } from "@/shared/model/SharedViewModel";
                 // height: 100dvh;
                 bottom: 0;
                 overflow-y: auto;
+                overscroll-behavior: contain;
                 opacity: 0;
                 visibility: hidden;
                 pointer-events: none;

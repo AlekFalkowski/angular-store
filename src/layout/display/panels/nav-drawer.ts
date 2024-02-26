@@ -59,6 +59,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
                 height: 100dvh;
                 margin-inline-start: -$nav-drawer-width;
                 overflow-y: auto;
+                overscroll-behavior: contain;
                 background-color: var(--md-sys-color-surface-container-low);
                 opacity: 0;
                 visibility: hidden;
