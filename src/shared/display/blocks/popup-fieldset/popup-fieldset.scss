@@ -1,7 +1,7 @@
 @import "all-config";
 
-$toggleTransitionDuration: 200ms; // and hover, and focus, not overlay // RELATED VALUES in JS: toggleTransitionDuration
-fieldset-popup {
+$toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDuration
+popup-fieldset {
     margin: 8px 4px;
     max-width: 100%;
     --dm: 1;
@@ -73,7 +73,8 @@ fieldset-popup {
         border-inline: 1px solid var(--md-sys-color-outline);
         border-top: 1px solid var(--md-sys-color-outline);
         border-bottom: 1px solid var(--md-sys-color-outline);
-        background-color: transparent;
+        // background-color: transparent;
+        background-color: var(--md-sys-color-surface);
 
         & > [data-e="overlay"] {
             inset: -1px;
@@ -771,166 +772,97 @@ fieldset-popup {
     }
 
     // dialog
-    // & > [data-e="dialog"][open] {
+    // & > [data-e="dialog"] { // Experimental technology that only works in Chrome.
     //     contain: layout paint;
-    //     display: flex;
-    //     flex-direction: column;
     //     max-width: min(560px, calc(100vw - var(--side-padding) * 2));
-    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
-    //         position: absolute;
-    //         min-height: auto;
-    //         max-height: min(560px, 80vh);
-    //         padding: 8px 0;
-    //         box-shadow: var(--md-sys-elevation-1);
-    //     }
-    //     @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
-    //         position: sticky;
-    //         bottom: 56px;
-    //         min-height: 35vh;
-    //         height: max-content;
-    //         max-height: 70vh;
-    //         margin-inline: auto;
-    //     }
+    //     max-height: 80svh;
+    //     position: fixed;
+    //     top: 0;
+    //     left: 0;
+    //     flex-direction: column;
     //     margin: 0;
+    //     padding: 0;
     //     border: none;
     //     border-radius: var(--md-sys-shape-corner-extra-small);
     //     background-color: var(--md-sys-color-surface);
-    //     transition-property: transform, opacity;
-    //     transition-duration: calc($toggleTransitionDuration * var(--dm));
-    //     opacity: 1;
-    //     pointer-events: auto;
-    // }
-    // & > [data-e="dialog"].hidden {
-    //     @include ONLY_FOR_TABLET_AND_DESKTOP {
-    //         transform: scale(0.9);
+    //     &.tonal {
+    //         background-color: var(--md-sys-color-surface-high);
     //     }
-    //     @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
-    //         //transform: translateY(-75%) scale(0.8);
-    //         transform: scale(0.8);
-    //     }
+    //     transition: opacity 0.7s ease-out, transform 0.7s ease-out, overlay 0.7s ease-out allow-discrete, display 0.7s ease-out allow-discrete;
     //     opacity: 0;
-    //     pointer-events: none;
+    //     transform: scale(0.7);
+    //     &[open] {
+    //         @starting-style {
+    //             opacity: 0;
+    //             transform: scale(0.7);
+    //         }
+    //         opacity: 1;
+    //         transform: scale(1);
+    //     }
+    //     &::backdrop {
+    //         transition: display 0.7s allow-discrete, overlay 0.7s allow-discrete, background-color 0.7s;
+    //         background-color: rgb(0 0 0 / 0%);
+    //     }
+    //     &[open]::backdrop {
+    //         @starting-style {
+    //             background-color: rgb(0 0 0 / 0%);
+    //         }
+    //         background-color: rgb(0 0 0 / 25%);
+    //     }
     // }
     & > [data-e="dialog"] {
-        animation: fade-out 1s ease-out;
         contain: layout paint;
-        background-color: var(--md-sys-color-surface);
         max-width: min(560px, calc(100vw - var(--side-padding) * 2));
         max-height: 80svh;
         position: fixed;
+        top: 0;
+        left: 0;
         flex-direction: column;
         margin: 0;
         padding: 0;
         border: none;
         border-radius: var(--md-sys-shape-corner-extra-small);
-        // transform: scale(0.7);
-        // opacity: 0;
-        // pointer-events: none;
-        // transition-property: transform, opacity;
-        // // transition-duration: calc($toggleTransitionDuration * var(--dm));
-        // transition-duration: 4000ms;
+        background-color: var(--md-sys-color-surface);
+        &.tonal {
+            background-color: var(--md-sys-color-surface-high);
+        }
+        // animation: popup-fieldset-fade-out 0.2s ease-out;
+        &[open] {
+            display: flex;
+            animation: popup-fieldset-fade-in 0.2s ease-out;
+        }
+        &[open]::backdrop {
+            animation: popup-fieldset-backdrop-fade-in 0.2s ease-out forwards;
+        }
     }
-    & > [data-e="dialog"].tonal {
-        background-color: var(--md-sys-color-surface-high);
-    }
-    & > [data-e="dialog"][open] {
-        animation: fade-in 1s ease-out;
-        // display: flex;
-        // transform: scale(1);
-        // opacity: 1;
-        // pointer-events: auto;
-    }
-    // @starting-style {
-    //     & > [data-e="dialog"][open] {
-    //         transform: scale(0.7);
-    //         opacity: 0;
-    //         pointer-events: none;
-    //     }
-    // }
-
-    // & > [data-e="dialog"]::backdrop {
-    //     background-color: black;
-    //     opacity: 0.2;
-    // }
-
-    /* Transition the :backdrop when the dialog modal is promoted to the top layer */
-    // & > [data-e="dialog"]::backdrop {
-        // background-color: black;
-    //     background-color: rgb(0 0 0 / 0%);
-    //     opacity: 0;
-    //     // transition-property: display, overlay, opacity;
-    //     // transition-duration: 1000ms;
-    //     // transition-behavior: allow-discrete;
-    //     transition: display 0.7s allow-discrete, overlay 0.7s allow-discrete, background-color 0.7s;
-    //     /* Equivalent to
-    //     transition: all 0.7s allow-discrete; */
-    // }
-
-    & > [data-e="dialog"][open]::backdrop {
-        animation: backdrop-fade-in 1s ease-out forwards;
-            // background-color: black;
-        // background-color: rgb(0 0 0 / 25%);
-        // // opacity: 0.25;
-        // @starting-style {
-        //     // opacity: 0;
-        //     background-color: rgb(0 0 0 / 0%);
-        // }
-    }
-    /* This starting-style rule cannot be nested inside the above selector
-    because the nesting selector cannot represent pseudo-elements. */
-
-
-
-    // dialog {
-    //     animation: fade-out 0.7s ease-out;
-    // }
-    //
-    // dialog[open] {
-    //     animation: fade-in 0.7s ease-out;
-    // }
-    //
-    // dialog[open]::backdrop {
-    // }
-
-    /* Animation keyframes */
-
-    @keyframes fade-in {
+    @keyframes popup-fieldset-fade-in {
         0% {
             opacity: 0;
             transform: scale(0.7);
-            display: none;
         }
-
         100% {
             opacity: 1;
             transform: scale(1);
-            display: flex;
         }
     }
-
-    @keyframes fade-out {
+    @keyframes popup-fieldset-fade-out {
         0% {
             opacity: 1;
             transform: scale(1);
-            display: flex;
         }
-
         100% {
             opacity: 0;
             transform: scale(0.7);
-            display: none;
         }
     }
-
-    @keyframes backdrop-fade-in {
+    @keyframes popup-fieldset-backdrop-fade-in {
         0% {
             background-color: rgb(0 0 0 / 0%);
             // backdrop-filter: none;
         }
-
         100% {
-            background-color: rgb(0 0 0 / 25%);
-            // backdrop-filter: blur(3px);
+            background-color: rgb(0 0 0 / 15%);
+            // backdrop-filter: blur(2px);
         }
     }
 

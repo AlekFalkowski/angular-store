@@ -16,6 +16,7 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSlideToggle } from "@angular/material/slide-toggle";
 import { MatCheckbox } from "@angular/material/checkbox";
+import { PopupFieldset } from "@/shared/display/blocks/popup-fieldset/popup-fieldset";
 
 @Component({
     imports: [
@@ -25,7 +26,8 @@ import { MatCheckbox } from "@angular/material/checkbox";
         FormsModule,
         ReactiveFormsModule,
         MatSlideToggle,
-        MatCheckbox
+        MatCheckbox,
+        PopupFieldset
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -67,7 +69,11 @@ import { MatCheckbox } from "@angular/material/checkbox";
     host: {},
     template: `
         <h3 data-e="title" >О магазине</h3 >
-        <div data-e="lorem" ></div >
+        <div data-e="lorem" >
+            <!-- <popup-fieldset label="About"> -->
+            <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+            <!-- </popup-fieldset> -->
+        </div >
         <hr />
         <h3 data-e="title" >Каталог</h3 >
         <div data-e="lorem" ></div >
@@ -105,6 +111,11 @@ import { MatCheckbox } from "@angular/material/checkbox";
         <!--     Dark theme -->
         <!-- </mat-checkbox> -->
         <div data-e="lorem" >isDarkTheme: {{ colorScheme() | uppercase }}</div >
+        <div data-e="lorem" >
+            <!-- <popup-fieldset label="bottom"> -->
+            <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+            <!-- </popup-fieldset> -->
+        </div >
     `,
 })
 export class NavDrawerContent {

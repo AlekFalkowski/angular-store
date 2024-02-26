@@ -581,6 +581,18 @@ export class ViewModel {
         })
     }
 
+    cleanFieldStates(): void {
+        this.multiChoiceFieldStates.forEach((value, name) => {
+            value.clear()
+        })
+        this.singleChoiceFieldStates.forEach((value, name, map) => {
+            map.set(name, this.singleChoiceFieldDefaultValues.get(name) ?? '')
+        })
+        this.textFieldStates.forEach((value, name, map) => {
+            map.set(name, '')
+        })
+    }
+
     #_dynamicContentState: WritableSignal<"loading" | "success" | "error"> = signal("error")
     dynamicContentState: Signal<"loading" | "success" | "error"> = this.#_dynamicContentState.asReadonly()
     #_dynamicContent: WritableSignal<TDynamicContent | null> = signal(null)
@@ -661,19 +673,19 @@ export class ViewModel {
                     if (queryParams[name]) {
                         queryParams[name].push(value)
                     } else {
-                        queryParams[name] = [value]
+                        queryParams[name] = [ value ]
                     }
                 }
             })
         })
         this.singleChoiceFieldStates.forEach((value, name) => {
             if (value !== this.singleChoiceFieldDefaultValues.get(name)) {
-                queryParams[name] = [value]
+                queryParams[name] = [ value ]
             }
         })
         this.textFieldStates.forEach((value, name) => {
             if (value !== "") {
-                queryParams[name] = [value]
+                queryParams[name] = [ value ]
             }
         })
         return queryParams

@@ -62,7 +62,7 @@ export class IndexStateProvider {
                   })
             // effect(() => {
             //     this.navDrawerShown() || this.modalWindowShown()
-            //           ? document.documentElement.classList.add('clip-scroll') // Clip запрещает любую прокрутку, включая программную прокрутку.
+            //           ? document.documentElement.classList.add('clip-scroll')
             //           : document.documentElement.classList.remove('clip-scroll')
             // }, {injector: this.#_injector})
             fromEvent(window, 'resize')

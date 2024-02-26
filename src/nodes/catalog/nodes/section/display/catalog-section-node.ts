@@ -76,6 +76,7 @@ import { RemoteStorage } from "../resources/RemoteStorage";
                                   [singleChoiceFieldsStates]="viewModel.singleChoiceFieldStates"
                                   [textFieldsStates]="viewModel.textFieldStates"
                                   (submitFilter)="viewModel.getDynamicContent()"
+                                  (cleanFilter)="viewModel.cleanFieldStates()"
                             />
                         </end-column-slot >
                     </two-column-template >

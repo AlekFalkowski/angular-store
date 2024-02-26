@@ -19,7 +19,8 @@ import { TwoColumnTemplate } from "@/shared/display/templates/two-column-templat
 import { LoadingError } from "@/shared/display/rows/loading-error";
 import { LoadingProcess } from "@/shared/display/rows/loading-process";
 import { TFieldSet } from "@/shared/types/TFieldSet";
-import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-popup";
+import { PopupFieldset } from "@/shared/display/blocks/popup-fieldset/popup-fieldset";
+import { TextField } from "@/shared/display/blocks/text-field/text-field";
 
 @Component({
     imports: [
@@ -35,7 +36,8 @@ import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-p
         LoadingProcess,
         CatalogNotFound,
         FormsModule,
-        FieldsetPopup
+        PopupFieldset,
+        TextField
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,6 +48,25 @@ import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-p
         catalog-section-filter {
             display: flex;
             flex-direction: column;
+            padding-block: 8px;
+
+            & > hr {
+                margin-inline: 24px;
+            }
+
+            & > [data-e="fieldset-label"] {
+                margin: 14px 24px;
+                @include MD3_TITLE_M_FONT_RULE_SET
+            }
+
+            & > popup-fieldset {
+                margin-inline: 24px;
+            }
+
+            & > [data-e="range-field"] {
+                display: flex;
+                margin-inline: 20px;
+            }
 
             & > [data-e="actions-line"] {
                 position: sticky;
@@ -53,7 +74,8 @@ import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-p
                 height: 56px;
                 display: flex;
                 align-items: center;
-                justify-content: center;
+                justify-content: space-between;
+                padding-inline: 24px;
                 border-block: 1px solid var(--md-sys-color-surface-container);
                 // background-color: var(--md-sys-color-surface-container-low);
                 backdrop-filter: blur(3px);
@@ -68,64 +90,64 @@ import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-p
                 <hr />
             }
             @if (fieldSet.label != null) {
-                <div >{{ fieldSet.label }}</div >
+                <div data-e="fieldset-label" >{{ fieldSet.label }}</div >
             } @else {
                 <div style="height: 8px" ></div >
             }
             @for (field of fieldSet.fieldList; track field.label) {
                 @switch (field.type) {
                     @case ("TMultiChoiceField") {
-                        <fieldset-popup
+                        <popup-fieldset
                               [label]="field.label"
                               [inputText]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? 'выбрано ' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + ' из ' + field.options.length.toString() : ''"
                         >
                             @for (option of field.options; track option.label) {
                                 <label style="display: flex;" >
-                                    <!-- <input type="checkbox" -->
-                                    <!--        [name]="field.name" -->
-                                    <!--        [value]="option.value" -->
-                                    <!--        [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)" -->
-                                    <!--        (ngModelChange)=" -->
-                                    <!--        multiChoiceFieldsStates.get(field.name)?.has(option.value) -->
-                                    <!--            ? multiChoiceFieldsStates.get(field.name)?.delete(option.value) -->
-                                    <!--            : multiChoiceFieldsStates.get(field.name)?.add(option.value) -->
-                                    <!--        " -->
-                                    <!-- /> -->
-                                    <md-checkbox
-                                          [attr.checked]="multiChoiceFieldsStates.get(field.name)?.has(option.value) ? '' : null"
-                                          (change)="
+                                    <input type="checkbox"
+                                           [name]="field.name"
+                                           [value]="option.value"
+                                           [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
+                                           (ngModelChange)="
                                            multiChoiceFieldsStates.get(field.name)?.has(option.value)
                                                ? multiChoiceFieldsStates.get(field.name)?.delete(option.value)
                                                : multiChoiceFieldsStates.get(field.name)?.add(option.value)
                                            "
-                                          touch-target="wrapper"
-                                    ></md-checkbox >
+                                    />
+                                    <!-- <md-checkbox -->
+                                    <!--       [attr.checked]="multiChoiceFieldsStates.get(field.name)?.has(option.value) ? '' : null" -->
+                                    <!--       (change)=" -->
+                                    <!--        multiChoiceFieldsStates.get(field.name)?.has(option.value) -->
+                                    <!--            ? multiChoiceFieldsStates.get(field.name)?.delete(option.value) -->
+                                    <!--            : multiChoiceFieldsStates.get(field.name)?.add(option.value) -->
+                                    <!--        " -->
+                                    <!--       touch-target="wrapper" -->
+                                    <!-- ></md-checkbox > -->
                                     <span >{{ option.label }}</span >
                                 </label >
                             }
-                        </fieldset-popup >
+                        </popup-fieldset >
                     }
                     @case ("TSingleChoiceField") {
-                        <fieldset-popup
+                        <popup-fieldset
                               [label]="field.label"
                               [inputText]="singleChoiceFieldsStates.get(field.name)"
                         >
                             @for (option of field.options; track option.label) {
                                 <label style="display: flex;" >
-                                    <!-- <input type="radio" -->
-                                    <!--        [name]="field.name" -->
-                                    <!--        [value]="option.value" -->
-                                    <!--        [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
-                                    <!--        (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
-                                    <!-- /> -->
-                                    <md-radio
-                                          [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null"
-                                          (change)="singleChoiceFieldsStates.set(field.name, option.value)"
-                                    ></md-radio >
+                                    <input type="radio"
+                                           [name]="field.name"
+                                           [value]="option.value"
+                                           [ngModel]="singleChoiceFieldsStates.get(field.name)"
+                                           (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
+                                    />
+                                    <!-- <md-radio -->
+                                    <!--       [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null" -->
+                                    <!--       (change)="singleChoiceFieldsStates.set(field.name, option.value)" -->
+                                    <!-- ></md-radio > -->
                                     <span >{{ option.label }}</span >
                                 </label >
                             }
-                        </fieldset-popup >
+                        </popup-fieldset >
                         <!-- <md-outlined-select -->
                               <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
                               <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
@@ -147,23 +169,39 @@ import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-p
                               <!-- </select > -->
                     }
                     @case ("TRangeField") {
-                        <label style="display: flex;" >
-                            <input
-                                  type="text"
+                        <!-- <label style="display: flex;" > -->
+                              <!--     <input -->
+                              <!--           type="text" -->
+                              <!--           [name]="field.name" -->
+                              <!--           [value]="field.value" -->
+                              <!--           [ngModel]="textFieldsStates.get(field.name)" -->
+                              <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
+                              <!--     /> -->
+                              <!--     <span >{{ field.label }}</span > -->
+                              <!-- </label > -->
+                              <!-- <input -->
+                              <!--       type="text" -->
+                              <!--       [name]="field.name" -->
+                              <!--       [value]="field.value" -->
+                              <!--       [ngModel]="textFieldsStates.get(field.endName)" -->
+                              <!--       (ngModelChange)="textFieldsStates.set(field.endName, $event)" -->
+                              <!-- /> -->
+                        <div data-e="range-field" >
+                            <text-field
+                                  [label]="field.label"
                                   [name]="field.name"
                                   [value]="field.value"
-                                  [ngModel]="textFieldsStates.get(field.name)"
-                                  (ngModelChange)="textFieldsStates.set(field.name, $event)"
-                            />
-                            <span >{{ field.label }}</span >
-                        </label >
-                        <input
-                              type="text"
-                              [name]="field.name"
-                              [value]="field.value"
-                              [ngModel]="textFieldsStates.get(field.endName)"
-                              (ngModelChange)="textFieldsStates.set(field.endName, $event)"
-                        />
+                                  [currentValue]="textFieldsStates.get(field.name)"
+                                  (changeValue)="textFieldsStates.set(field.name, $event)"
+                            ></text-field >
+                            <text-field
+                                  [label]="field.label"
+                                  [name]="field.name"
+                                  [value]="field.value"
+                                  [currentValue]="textFieldsStates.get(field.endName)"
+                                  (changeValue)="textFieldsStates.set(field.endName, $event)"
+                            ></text-field >
+                        </div >
                     }
                     @case ("TTextField") {
                         <label style="display: flex;" >
@@ -180,11 +218,16 @@ import { FieldsetPopup } from "@/shared/display/blocks/fieldset-popup/fieldset-p
                 }
             }
         }
+        <hr />
         <div data-e="actions-line" >
             <md-filled-button data-e="submit-button"
                               (click)="submitFilter.emit()" >
                 Применить
             </md-filled-button >
+            <md-outlined-button data-e="submit-button"
+                                (click)="cleanFilter.emit()" >
+                Очистить
+            </md-outlined-button >
         </div >
     `,
     providers: []
@@ -195,4 +238,5 @@ export class CatalogSectionFilter {
     @Input() singleChoiceFieldsStates!: Map<string, string>
     @Input() textFieldsStates!: Map<string, string>
     @Output() submitFilter: EventEmitter<void> = new EventEmitter()
+    @Output() cleanFilter: EventEmitter<void> = new EventEmitter()
 }

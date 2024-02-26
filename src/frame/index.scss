@@ -46,12 +46,12 @@ html.disable-transitions * {
     transition: none !important;
 }
 html:has(app-layout.loading) {
-    overflow-y: clip;
+    overflow-y: hidden;
 }
 html:has(nav-drawer.visible),
 // html:has(dialog[open]),
 html:has([data-e="end-column"].visible-on-mobile) {
-    overflow-y: clip;
+    overflow-y: hidden;
     background-color: var(--html-shaded-color);
 }
 body {

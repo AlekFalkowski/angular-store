@@ -3,8 +3,8 @@
 $app-min-width: 320px;
 
 $base-max-width: 1480px; // with inline-paddings 40px, with column-gap 80px
-$tablet-inline-padding: 40px; // Падинги для десктоп и таблет 32-40px.
-$mobile-inline-padding: 20px; // Паддинги для мобильных 16-20px.
+$tablet-inline-padding: 24px; // Падинги для десктоп и таблет 32-40px.
+$mobile-inline-padding: 16px; // Паддинги для мобильных 16-20px.
 $content-max-width: $base-max-width - $tablet-inline-padding - $tablet-inline-padding;
 
 $side-column-width: 300px;
