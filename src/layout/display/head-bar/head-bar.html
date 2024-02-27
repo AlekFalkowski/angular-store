@@ -1,0 +1,30 @@
+<head-logo />
+<spacer-block />
+<div data-e="mobile-link-list" >
+    @for (link of linkListForMobile; track link.label; let last = $last) {
+        <a data-e="link"
+           [attr.aria-label]="link.label"
+           [routerLink]="link.url"
+           routerLinkActive="active"
+           ariaCurrentWhenActive="page" >
+            {{ link.label }}
+        </a >
+        @if (!last) {
+            <div data-e="separator" ></div >
+        }
+    }
+</div >
+<div data-e="tablet-link-list" >
+    @for (link of linkListForTablets; track link.label; let last = $last) {
+        <a data-e="link"
+           [attr.aria-label]="link.label"
+           [routerLink]="link.url"
+           routerLinkActive="active"
+           ariaCurrentWhenActive="page" >
+            {{ link.label }}
+        </a >
+        @if (!last) {
+            <div data-e="separator" ></div >
+        }
+    }
+</div >

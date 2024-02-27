@@ -1,0 +1,43 @@
+<md-icon-button
+      aria-label="Menu"
+      (click)="clickOnMainMenu.emit()" >
+    <md-icon translate="no" >
+        menu
+    </md-icon >
+</md-icon-button >
+
+<spacer-block />
+
+<md-filled-tonal-icon-button
+      aria-label="Search" >
+    <md-icon translate="no" >
+        search
+    </md-icon >
+</md-filled-tonal-icon-button >
+<md-filled-tonal-icon-button
+      aria-label="Bookmarks"
+      routerLink="/bookmarks"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page" >
+    <md-icon translate="no" >
+        bookmarks
+    </md-icon >
+</md-filled-tonal-icon-button >
+<md-filled-tonal-icon-button
+      aria-label="Shopping cart"
+      routerLink="/cart"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page" >
+    <md-icon translate="no" >
+        shopping_cart
+    </md-icon >
+</md-filled-tonal-icon-button >
+<md-filled-tonal-icon-button
+      aria-label="Person"
+      routerLink="/account"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page" >
+    <md-icon translate="no" >
+        person
+    </md-icon >
+</md-filled-tonal-icon-button >

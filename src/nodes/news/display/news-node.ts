@@ -4,8 +4,8 @@ import { NewsViewModel } from "../model/NewsViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetNewsStableContentOption } from "../options/GetNewsStableContentOption";
 import { NewsRemoteStorage } from "../resources/NewsRemoteStorage";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

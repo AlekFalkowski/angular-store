@@ -3,12 +3,12 @@ import { CommonModule } from "@angular/common";
 import { Router, RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { CatalogListViewModel } from "../model/CatalogListViewModel";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
-import { TwoColumnTemplate } from "@/shared/display/templates/two-column-template";
-import { MainColumnSlot } from "@/shared/display/templates/main-column-slot";
-import { EndColumnSlot } from "@/shared/display/templates/end-column-slot";
-import { CardCollection } from "@/shared/display/panels/card-collection";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
+import { TwoColumnTemplate } from "@/shared/display/two-column-template/two-column-template";
+import { MainColumnSlot } from "@/shared/display/two-column-template/main-column-slot";
+import { EndColumnSlot } from "@/shared/display/two-column-template/end-column-slot";
+import { CardCollection } from "@/shared/display/card-collection/card-collection";
 
 @Component({
     imports: [

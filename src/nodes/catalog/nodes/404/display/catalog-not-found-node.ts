@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Title } from "@angular/platform-browser";
-import { CatalogNotFound } from "@/nodes/catalog/shared/display/rows/catalog-not-found";
+import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-found/catalog-not-found";
 
 @Component({
     imports: [

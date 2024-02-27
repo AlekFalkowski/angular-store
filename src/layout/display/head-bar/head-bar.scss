@@ -1,0 +1,58 @@
+@import "all-config";
+
+head-bar {
+    padding-inline: $full-inline-padding;
+    contain: layout paint inline-size style;
+    position: relative;
+    height: 56px;
+    padding-block: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    & > [data-e="mobile-link-list"] {
+        display: none;
+        @media(max-width: 900px) {
+            display: flex;
+        }
+    }
+    & > [data-e="tablet-link-list"] {
+        display: flex;
+        @media(max-width: 900px) {
+            display: none;
+        }
+    }
+    & > [data-e="mobile-link-list"],
+    & > [data-e="tablet-link-list"] {
+        align-items: center;
+
+        & > [data-e="link"] {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: 48px;
+            padding-inline: 8px;
+            white-space: nowrap;
+            color: inherit;
+            @include MD3_BODY_M_FONT_RULE_SET;
+            text-decoration: none;
+            text-align: center;
+
+            &.active {
+                color: var(--md-sys-color-primary);
+                text-decoration: underline;
+            }
+            &:hover {
+                @include ONLY_FOR_HOVERING_POINTER {
+                    text-decoration: underline;
+                }
+            }
+        }
+        & > [data-e="separator"] {
+            margin-inline: 4px;
+            border: 1.7px solid var(--md-sys-color-primary);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+    }
+}

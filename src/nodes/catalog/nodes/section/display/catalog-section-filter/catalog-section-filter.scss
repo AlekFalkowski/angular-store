@@ -1,0 +1,40 @@
+@import "all-config";
+
+catalog-section-filter {
+    display: flex;
+    flex-direction: column;
+    padding-block: 8px;
+
+    & > [data-e="fieldset-label"] {
+        margin: 14px 24px;
+        @include MD3_TITLE_M_FONT_RULE_SET
+    }
+
+    & > popup-fieldset {
+        margin-inline: 24px;
+    }
+
+    & > md-chip-set:has(>md-input-chip) {
+        margin-inline: 32px;
+        margin-bottom: 24px;
+    }
+
+    & > [data-e="range-field"] {
+        display: flex;
+        margin-inline: 20px;
+    }
+
+    & > [data-e="actions-line"] {
+        position: sticky;
+        bottom: 0;
+        // margin-top: 16px;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 24px;
+        // border-block: 1px solid var(--md-sys-color-surface-container);
+        // background-color: var(--md-sys-color-surface-container-low);
+        backdrop-filter: blur(3px);
+    }
+}

@@ -4,8 +4,8 @@ import { ServiceViewModel } from "../model/ServiceViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetServiceStableContentOption } from "../options/GetServiceStableContentOption";
 import { ServiceRemoteStorage } from "../resources/ServiceRemoteStorage";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

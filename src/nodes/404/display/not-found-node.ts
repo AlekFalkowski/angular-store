@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Title } from "@angular/platform-browser";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

@@ -1,0 +1,21 @@
+@import "all-config";
+
+head-logo {
+    contain: layout paint;
+    margin-inline-start: -6px;
+
+    & > [data-e="logo-link"] {
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-inline: 8px;
+        color: var(--md-sys-color-primary);
+
+        &:hover {
+            @include ONLY_FOR_HOVERING_POINTER {
+                cursor: pointer;
+            }
+        }
+    }
+}

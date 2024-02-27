@@ -4,8 +4,8 @@ import { PaymentViewModel } from "../model/PaymentViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetPaymentStableContentOption } from "../options/GetPaymentStableContentOption";
 import { PaymentRemoteStorage } from "../resources/PaymentRemoteStorage";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

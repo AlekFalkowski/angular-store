@@ -1,0 +1,9 @@
+<div data-e="backdrop" (click)="closeNavDrawer.emit()" ></div >
+<div data-e="slot" role="navigation" aria-label="Site" >
+    <ng-content />
+</div >
+<md-filled-icon-button data-e="close-button" (click)="closeNavDrawer.emit()" >
+    <md-icon data-e="icon" >
+        double_arrow
+    </md-icon >
+</md-filled-icon-button >

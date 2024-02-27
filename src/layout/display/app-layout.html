@@ -1,0 +1,29 @@
+<div data-e="loading-cover" >Loading...</div >
+
+<head-bar />
+<nav-bar (clickOnMainMenu)="indexStateProvider.navDrawerShown.set(true)" />
+
+<router-outlet />
+<spacer-block />
+
+<content-info />
+<service-info
+      [windowInnerWidth]="indexStateProvider.windowInnerWidth"
+      [windowInnerHeight]="indexStateProvider.windowInnerHeight"
+      [documentOffsetWidth]="indexStateProvider.documentOffsetWidth"
+      [documentClientHeight]="indexStateProvider.documentClientHeight"
+      [documentScrollbarWidth]="indexStateProvider.documentScrollbarWidth"
+      [isMobileInPortraitOnly]="indexStateProvider.isMobileInPortraitOnly"
+      [isMobileInLandscapeOnly]="indexStateProvider.isMobileInLandscapeOnly"
+      [isMobileInAllOrientations]="indexStateProvider.isMobileInAllOrientations"
+/>
+
+<nav-drawer
+      [visible]="indexStateProvider.navDrawerShown"
+      (closeNavDrawer)="indexStateProvider.navDrawerShown.set(false)"
+>
+    <nav-drawer-content
+          [colorScheme]="colorScheme"
+          (setColorScheme)="viewModel.setPreferredColorScheme($event)"
+    />
+</nav-drawer >

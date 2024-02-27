@@ -1,0 +1,37 @@
+@switch (viewModel.stableContentState()) {
+    @case ("loading") {
+        <loading-process />
+    }
+    @case ("success") {
+        <page-breadcrumbs />
+        <!-- <a routerLink="/catalogs/1/sections/1" >Go To /catalogs/1/sections/1</a > -->
+              <!-- <a routerLink="/catalogs/1/sections/2" >Go To /catalogs/1/sections/2</a > -->
+              <!-- <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a > -->
+        <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
+        @if (viewModel.stableContent()?.filterConfig) {
+            <two-column-template openButtonText="Показать Фильтр" >
+                <main-column-slot >
+                    <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
+                </main-column-slot >
+                <end-column-slot >
+                    <catalog-section-filter
+                          [filterConfig]="viewModel.stableContent()?.filterConfig ?? []"
+                          [multiChoiceFieldsStates]="viewModel.multiChoiceFieldStates"
+                          [singleChoiceFieldsStates]="viewModel.singleChoiceFieldStates"
+                          [textFieldsStates]="viewModel.textFieldStates"
+                          (submitFilter)="viewModel.getDynamicContent()"
+                          (cleanFilter)="viewModel.cleanFieldStates()"
+                    />
+                </end-column-slot >
+            </two-column-template >
+        } @else {
+            <card-collection [cardCollection]="viewModel.fakeAssortmentCardList" />
+        }
+    }
+    @case ("404") {
+        <catalog-not-found />
+    }
+    @case ("error") {
+        <loading-error (tryAgain)="viewModel.doStartInitialization()" />
+    }
+}

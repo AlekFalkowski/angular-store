@@ -4,8 +4,8 @@ import { ArticlesViewModel } from "../model/ArticlesViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetArticlesStableContentOption } from "../options/GetArticlesStableContentOption";
 import { ArticlesRemoteStorage } from "../resources/ArticlesRemoteStorage";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

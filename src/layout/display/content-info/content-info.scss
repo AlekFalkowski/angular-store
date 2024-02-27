@@ -1,0 +1,19 @@
+@import "all-config";
+
+content-info {
+    padding-inline: $full-inline-padding;
+    contain: layout paint size style;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    margin-top: 56px;
+    border-top: 1px solid var(--md-sys-color-surface-container-high);
+    background-color: var(--md-sys-color-surface-container);
+
+    & > [data-e="footer-link"] {
+        margin-left: 12px;
+        margin-right: 12px;
+        text-align: center;
+        color: inherit;
+    }
+}

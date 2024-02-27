@@ -1,25 +1,25 @@
-@use "sass:map";
-@use "@angular/material" as mat;
-@use "@angular/material-experimental" as matx;
+// @use "sass:map";
+// @use "@angular/material" as mat;
+// @use "@angular/material-experimental" as matx;
 @import "all-config";
 
 //< angular-material-experimental >
-@include mat.core();
-$light-theme: matx.define-theme((
-      color: (
-            theme-type: light,
-            primary: matx.$m3-azure-palette,
-      )
-));
-$dark-theme: matx.define-theme((
-      color: (
-            theme-type: dark,
-            primary: matx.$m3-azure-palette,
-      )
-));
-html {
-    @include mat.all-component-themes($light-theme);
-}
+// @include mat.core();
+// $light-theme: matx.define-theme((
+//       color: (
+//             theme-type: light,
+//             primary: matx.$m3-azure-palette,
+//       )
+// ));
+// $dark-theme: matx.define-theme((
+//       color: (
+//             theme-type: dark,
+//             primary: matx.$m3-azure-palette,
+//       )
+// ));
+// html {
+//     @include mat.all-component-themes($light-theme);
+// }
 //</ angular-material-experimental >
 
 html {
@@ -38,7 +38,7 @@ html {
 // html:has([data-e="dark-theme-switch-label"].selected) {
 html[data-color-scheme="dark"],
 html:has(app-layout.dark) {
-    @include mat.all-component-colors($dark-theme);
+    // @include mat.all-component-colors($dark-theme);
     color-scheme: dark;
     @include MD3_DARK_SC_THEME_COLOR_TOKEN_SET;
 }

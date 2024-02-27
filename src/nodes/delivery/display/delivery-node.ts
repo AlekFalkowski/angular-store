@@ -4,8 +4,8 @@ import { DeliveryViewModel } from "../model/DeliveryViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetDeliveryStableContentOption } from "../options/GetDeliveryStableContentOption";
 import { DeliveryRemoteStorage } from "../resources/DeliveryRemoteStorage";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [ CommonModule, PageBreadcrumbs, PageTitle ],

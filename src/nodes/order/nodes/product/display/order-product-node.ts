@@ -3,8 +3,8 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { OrderProductViewModel } from "../model/OrderProductViewModel";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

@@ -1,41 +1,42 @@
 import {
-    afterNextRender,
     ChangeDetectionStrategy,
-    Component, computed,
+    Component,
+    computed,
     CUSTOM_ELEMENTS_SCHEMA,
-    effect,
     inject,
     Injector,
-    PLATFORM_ID, signal, Signal,
-    ViewEncapsulation, WritableSignal
+    PLATFORM_ID,
+    signal,
+    Signal,
+    ViewEncapsulation,
+    WritableSignal
 } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from "@angular/common";
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { isPlatformBrowser } from "@angular/common";
+import { RouterModule, RouterOutlet } from '@angular/router';
 import "@material/web/all"
-import { IndexStateProvider } from "@/frame/IndexStateProvider";
-import { AppTopLine } from "./rows/app-top-line";
-import { AppTopToolbar } from "./rows/app-top-toolbar";
-import { AppFooter } from "./rows/app-footer";
-import { AppServiceInfo } from "./rows/app-service-info";
-import { NavDrawer } from "./panels/nav-drawer";
-import { NavDrawerContent } from "./panels/nav-drawer-content";
+import { WindowStateProvider } from "@/frame/WindowStateProvider";
+import { HeadBar } from "./head-bar/head-bar";
+import { NavBar } from "./nav-bar/nav-bar";
+import { ContentInfo } from "./content-info/content-info";
+import { ServiceInfo } from "./service-info/service-info";
+import { NavDrawer } from "./nav-drawer/nav-drawer";
+import { NavDrawerContent } from "./nav-drawer/nav-drawer-content";
 import { ViewModel } from "../model/ViewModel";
 import { ObservePreferredColorSchemeOption } from "../options/ObservePreferredColorSchemeOption";
 import { SetPreferredColorSchemeOption } from "../options/SetPreferredColorSchemeOption";
 import { LocalStorage } from "../resources/LocalStorage";
-import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
+import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
 
 @Component({
     imports: [
-        CommonModule,
         RouterModule,
         RouterOutlet,
-        AppTopLine,
-        AppTopToolbar,
-        AppFooter,
-        AppFooter,
+        HeadBar,
+        NavBar,
+        ContentInfo,
+        ContentInfo,
         NavDrawer,
-        AppServiceInfo,
+        ServiceInfo,
         NavDrawerContent,
         SpacerBlock
     ],
@@ -43,75 +44,10 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     encapsulation: ViewEncapsulation.None,
-    styleUrls: [],
-    styles: `
-        @import "all-config";
-        app-layout {
-            contain: inline-size style;
-            overflow-x: clip;
-            min-width: $app-min-width;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--md-sys-color-surface);
-
-            & [data-e="loading-cover"] {
-                z-index: $loading-cover-z-index;
-                contain: layout paint size style;
-                position: fixed;
-                inset: 0;
-                display: flex;
-                justify-content: center;
-                padding-top: 20lvh;
-                background-color: var(--md-sys-color-surface);
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-                transition-property: opacity, visibility;
-                transition-duration: 200ms;
-            }
-        }
-        app-layout.loading {
-
-            & [data-e="loading-cover"] {
-                opacity: 1;
-                pointer-events: auto;
-                visibility: visible;
-            }
-        }
-    `,
+    styleUrl: 'app-layout.scss',
     selector: 'app-layout',
-    host: {
-        '[class.dark]': 'colorScheme() === "dark"'
-    },
-    template: `
-        <div data-e="loading-cover" >Loading...</div >
-        <app-top-line />
-        <app-top-toolbar
-              (clickOnMainMenu)="indexStateProvider.navDrawerShown.set(true)" />
-        <router-outlet />
-        <spacer-block />
-        <app-footer />
-        <app-service-info
-              [windowInnerWidth]="indexStateProvider.windowInnerWidth"
-              [windowInnerHeight]="indexStateProvider.windowInnerHeight"
-              [documentOffsetWidth]="indexStateProvider.documentOffsetWidth"
-              [documentClientHeight]="indexStateProvider.documentClientHeight"
-              [documentScrollbarWidth]="indexStateProvider.documentScrollbarWidth"
-              [isMobileInPortraitOnly]="indexStateProvider.isMobileInPortraitOnly"
-              [isMobileInLandscapeOnly]="indexStateProvider.isMobileInLandscapeOnly"
-              [isMobileInAllOrientations]="indexStateProvider.isMobileInAllOrientations"
-        />
-        <nav-drawer
-              [visible]="indexStateProvider.navDrawerShown"
-              (closeNavDrawer)="indexStateProvider.navDrawerShown.set(false)"
-        >
-            <nav-drawer-content
-                  [colorScheme]="colorScheme"
-                  (setColorScheme)="viewModel.setPreferredColorScheme($event)"
-            />
-        </nav-drawer >
-    `,
+    host: { '[class.dark]': 'colorScheme() === "dark"' },
+    templateUrl: 'app-layout.html',
     providers: [
         ViewModel,
         ObservePreferredColorSchemeOption,
@@ -120,7 +56,7 @@ import { SpacerBlock } from "@/shared/display/blocks/spacer-block";
     ]
 })
 export class AppLayout {
-    readonly indexStateProvider: IndexStateProvider = inject(IndexStateProvider)
+    readonly indexStateProvider: WindowStateProvider = inject(WindowStateProvider)
     readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_injector: Injector = inject(Injector)

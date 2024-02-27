@@ -4,8 +4,8 @@ import { CartViewModel } from "../model/CartViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetCartStableContentOption } from "../options/GetCartStableContentOption";
 import { CartRemoteStorage } from "../resources/CartRemoteStorage";
-import { PageBreadcrumbs } from "@/shared/display/rows/page-breadcrumbs";
-import { PageTitle } from "@/shared/display/rows/page-title";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [

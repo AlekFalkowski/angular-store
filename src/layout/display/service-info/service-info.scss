@@ -1,0 +1,9 @@
+@import "all-config";
+
+service-info {
+    padding-inline: $full-inline-padding;
+    contain: layout paint inline-size style;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--md-sys-color-surface-container);
+}
