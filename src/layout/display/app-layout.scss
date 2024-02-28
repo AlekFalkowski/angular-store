@@ -1,5 +1,7 @@
 @import "all-config";
 
+$nav-drawer-content-width: 320px;
+
 app-layout {
     contain: inline-size style;
     overflow-x: clip;
@@ -9,7 +11,7 @@ app-layout {
     flex-direction: column;
     background-color: var(--md-sys-color-surface);
 
-    & [data-e="loading-cover"] {
+    & > [data-e="loading-cover"] {
         z-index: $loading-cover-z-index;
         contain: layout paint size style;
         position: fixed;
@@ -24,10 +26,72 @@ app-layout {
         transition-property: opacity, visibility;
         transition-duration: 200ms;
     }
+
+    & > [data-e="nav-drawer"] {
+        z-index: $nav-drawer-z-index;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        position: fixed;
+        top: 0;
+        width: $nav-drawer-content-width;
+        height: 100dvh;
+        background-color: var(--md-sys-color-surface-container-low);
+        animation: naw-drawer-fade-out 0.2s ease-out;
+
+        &[open] {
+            display: block;
+            animation: naw-drawer-fade-in 0.2s ease-out;
+        }
+        &[open]::backdrop {
+            background-color: rgb(0 0 0 / 50%);
+            animation: nav-drawer-backdrop-fade-in 0.2s ease-out forwards;
+        }
+    }
+    @keyframes naw-drawer-fade-in {
+        0% {
+            opacity: 0;
+            transform: translateX(-$nav-drawer-content-width);
+        }
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+    @keyframes naw-drawer-fade-out {
+        0% {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+        100% {
+            display: none;
+            opacity: 0;
+            transform: translateX(-$nav-drawer-content-width);
+        }
+    }
+    @keyframes nav-drawer-backdrop-fade-in {
+        0% {
+            background-color: rgb(0 0 0 / 0%);
+        }
+        100% {
+            background-color: rgb(0 0 0 / 50%);
+        }
+    }
+
+    // & > [data-e="close-button"] {
+    //     position: absolute;
+    //     top: 120px;
+    //     right: 10px;
+    //
+    //     & > [data-e="icon"] {
+    //         transform: scaleX(-1);
+    //     }
+    // }
 }
+
 app-layout.loading {
 
-    & [data-e="loading-cover"] {
+    & > [data-e="loading-cover"] {
         opacity: 1;
         pointer-events: auto;
         visibility: visible;

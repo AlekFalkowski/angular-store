@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    CUSTOM_ELEMENTS_SCHEMA,
+    inject,
+    signal,
+    ViewEncapsulation, WritableSignal
+} from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
@@ -60,4 +67,6 @@ export class CatalogSectionNode {
     constructor() {
         this.htmlHeadTitleService.setTitle(this.viewModel.stableContent()?.htmlHeadTitle ?? '')
     }
+
+    isSidePanelOpenInMobile: WritableSignal<boolean> = signal(false)
 }

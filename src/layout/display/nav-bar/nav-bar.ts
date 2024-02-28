@@ -24,5 +24,5 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
     templateUrl: 'nav-bar.html',
 })
 export class NavBar {
-    @Output() clickOnMainMenu: EventEmitter<void> = new EventEmitter()
+    @Output() openNavDrawer: EventEmitter<void> = new EventEmitter()
 }

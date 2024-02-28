@@ -8,8 +8,8 @@
         -webkit-font-smoothing: antialiased;
     }
     hr {
-        height: 1px;
         min-height: 1px;
+        height: 1px;
         padding: 0;
         border: none;
         background-color: var(--md-sys-color-outline-variant);
@@ -22,14 +22,21 @@
         min-width: 0;
         padding: 0;
         margin: 0;
-        border: 0;
+        border: none;
     }
-    p:not([class]) {
-        //@include body-large;
+    dialog {
+        padding: 0;
+        margin: 0;
+        border: none;
+        max-width: 100%;
+        max-height: 100%;
     }
-    p:not([class]) a {
-        color: inherit;
-    }
+    // p:not([class]) {
+    //     //@include body-large;
+    // }
+    // p:not([class]) a {
+    //     color: inherit;
+    // }
 }
 
 @mixin MD3_COMPONENTS_TUNING_RULE_TABLE {

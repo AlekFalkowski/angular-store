@@ -1,0 +1,144 @@
+@import "all-config";
+
+$end-column-width: 320px;
+$breakpoint: 1000px;
+
+two-column-template {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, $base-max-width - $end-column-width) $end-column-width minmax(0, 1fr);
+
+    & > [data-e="main-column"] {
+        grid-column: 2/4;
+        grid-row: 1;
+        // padding-inline-start: var(--inline-padding);
+        // padding-inline-end: calc($end-column-width + var(--inline-padding));
+        padding-inline-end: $end-column-width;
+        &.full-width {
+            // padding-inline-end: var(--inline-padding);
+            padding-inline-end: 0;
+        }
+        @media (width < $breakpoint) {
+            // padding-inline-end: var(--inline-padding);
+            padding-inline-end: 0;
+        }
+        transition-property: padding-inline-end;
+        transition-duration: 200ms;
+
+        & > [data-e="button-row"] {
+            display: flex;
+            height: 56px;
+        }
+    }
+    & > [data-e="end-column-backdrop"] {
+        @media (width < $breakpoint) { // For Mobile.
+            z-index: $side-panel-fixed-z-index - 1;
+            contain: layout paint size style;
+            position: fixed;
+            inset: 0;
+            background-color: black;
+            opacity: 0;
+            visibility: hidden;
+            transition-property: opacity, visibility;
+            transition-duration: 200ms;
+            &.visible-on-mobile {
+                opacity: 0.5;
+                visibility: visible;
+            }
+        }
+    }
+    & > [data-e="end-column"] {
+        grid-column: 3;
+        grid-row: 1;
+        contain: layout size style;
+        border: 1px solid var(--md-sys-color-surface-container);
+        background-color: var(--md-sys-color-surface-container-low);
+        transition-property: transform, opacity, visibility;
+        transition-duration: 200ms;
+        @media (width >= $breakpoint) { // For Tablet.
+            z-index: $side-panel-base-z-index;
+            opacity: 1;
+            pointer-events: auto;
+            visibility: visible;
+            &.hidden-on-tablets {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translateX($end-column-width);
+            }
+        }
+        @media (width < $breakpoint) { // For Mobile.
+            z-index: $side-panel-fixed-z-index;
+            position: fixed;
+            top: 0;
+            right: calc(var(--sw) - $end-column-width);
+            width: 300px;
+            // height: 100dvh;
+            bottom: 0;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            &.visible-on-mobile {
+                opacity: 1;
+                pointer-events: auto;
+                visibility: visible;
+                transform: translateX(0px - $end-column-width);
+            }
+        }
+    }
+    & > [data-e="open-button"] {
+        grid-column: 3;
+        grid-row: 1;
+        margin-top: 8px;
+        position: sticky;
+        top: var(--open-button-top-indent, 70px);
+        width: min-content;
+        height: min-content;
+        justify-self: end;
+        margin-inline-end: var(--inline-padding);
+        white-space: nowrap;
+        transition-property: top;
+        transition-duration: 400ms;
+    }
+    & > [data-e="close-button"] {
+        grid-column: 3;
+        grid-row: 1;
+        transition-property: transform, opacity, visibility;
+        transition-duration: 200ms;
+        @media (width >= $breakpoint) { // For Tablet.
+            z-index: $side-panel-base-z-index + 1;
+            margin-top: 64px;
+            position: sticky;
+            top: 70px;
+            margin-inline-start: -20px;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            &.hidden-on-tablets {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translateX($end-column-width);
+            }
+        }
+        @media (width < $breakpoint) { // For Mobile.
+            display: none;
+            // z-index: $side-panel-fixed-z-index + 1;
+            // position: fixed;
+            // top: 120px;
+            // right: calc(var(--sw) - 20px);
+            // opacity: 0;
+            // visibility: hidden;
+            // pointer-events: none;
+            // &.visible-on-mobile {
+            //     opacity: 1;
+            //     pointer-events: auto;
+            //     visibility: visible;
+            //     // transform: translateX(0px - $end-column-width - 24px);
+            //     transform: translateX(0px - $end-column-width);
+            // }
+        }
+    }
+}

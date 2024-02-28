@@ -66,10 +66,16 @@ import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
     template: `
         <h3 data-e="title" >О магазине</h3 >
         <div data-e="lorem" >
-            <!-- <popup-fieldset label="About"> -->
-            <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
-            <!-- </popup-fieldset> -->
+            <popup-fieldset label="About">
+                <div style="height: 300px; width: 200px; background-color: white;" ></div>
+            </popup-fieldset>
         </div >
+        <hr />
+        <h3 data-e="title" >Каталог</h3 >
+        <div data-e="lorem" ></div >
+        <hr />
+        <h3 data-e="title" >Каталог</h3 >
+        <div data-e="lorem" ></div >
         <hr />
         <h3 data-e="title" >Каталог</h3 >
         <div data-e="lorem" ></div >
@@ -108,9 +114,9 @@ import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
         <!-- </mat-checkbox> -->
         <div data-e="lorem" >isDarkTheme: {{ colorScheme() | uppercase }}</div >
         <div data-e="lorem" >
-            <!-- <popup-fieldset label="bottom"> -->
-            <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
-            <!-- </popup-fieldset> -->
+            <popup-fieldset label="bottom">
+                <div style="height: 300px; width: 200px; background-color: white;" ></div>
+            </popup-fieldset>
         </div >
     `,
 })

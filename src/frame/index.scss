@@ -20,6 +20,9 @@
 // html {
 //     @include mat.all-component-themes($light-theme);
 // }
+// html:has(app-layout.dark) {
+//     // @include mat.all-component-colors($dark-theme);
+// }
 //</ angular-material-experimental >
 
 html {
@@ -35,10 +38,8 @@ html {
     transition-property: background-color;
     transition-duration: 200ms;
 }
-// html:has([data-e="dark-theme-switch-label"].selected) {
 html[data-color-scheme="dark"],
 html:has(app-layout.dark) {
-    // @include mat.all-component-colors($dark-theme);
     color-scheme: dark;
     @include MD3_DARK_SC_THEME_COLOR_TOKEN_SET;
 }
@@ -48,8 +49,7 @@ html.disable-transitions * {
 html:has(app-layout.loading) {
     overflow-y: hidden;
 }
-html:has(nav-drawer.visible),
-// html:has(dialog[open]),
+html:has([data-e="nav-drawer"][open]),
 html:has([data-e="end-column"].visible-on-mobile) {
     overflow-y: hidden;
     background-color: var(--html-shaded-color);

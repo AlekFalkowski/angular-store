@@ -28,7 +28,7 @@ text-field {
         @include MD3_BODY_L_FONT_RULE_SET;
         pointer-events: none;
         transition-property: font-size, line-height, color;
-        transition-duration: calc($toggleTransitionDuration * var(--dm));
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
     }
     & > [data-e="ground"] {
         z-index: -1;
@@ -84,7 +84,7 @@ text-field {
         pointer-events: none;
         box-shadow: inset transparent 0 1px;
         transition-property: border-color, box-shadow;
-        transition-duration: calc($toggleTransitionDuration * var(--dm));
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
     }
     & > [data-e="input"].framed + [data-e="label"]::before {
         margin-inline-end: 4px;
@@ -137,7 +137,7 @@ text-field {
         transform-origin: center bottom;
         transform: scaleX(0);
         transition-property: transform;
-        transition-duration: calc($toggleTransitionDuration * var(--dm));
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
     }
 
     // framed-variant DYNAMIC
@@ -393,11 +393,11 @@ text-field {
         flex-shrink: 0;
         color: var(--color);
         transition-property: transform;
-        transition-duration: calc($toggleTransitionDuration * var(--dm));
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
     }
     & > [data-b="base-button"] > [data-e="icon"] {
         transition-property: transform;
-        transition-duration: calc($toggleTransitionDuration * var(--dm));
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
     }
     & > .open > [data-e="icon"] {
         //transform: rotate(180deg);

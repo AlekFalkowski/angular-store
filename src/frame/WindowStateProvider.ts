@@ -21,8 +21,6 @@ export class WindowStateProvider {
     #_ngZone: NgZone = inject(NgZone)
     #_injector: Injector = inject(Injector)
 
-    navDrawerShown: WritableSignal<boolean> = signal(false)
-
     #_windowInnerWidth: WritableSignal<number> = signal(0)
     windowInnerWidth: Signal<number> = this.#_windowInnerWidth.asReadonly()
     #_windowInnerHeight: WritableSignal<number> = signal(0)
@@ -60,11 +58,6 @@ export class WindowStateProvider {
                       document.documentElement.classList.add('disable-transitions')
                       this.#_updateFrameDimensions()
                   })
-            // effect(() => {
-            //     this.navDrawerShown() || this.modalWindowShown()
-            //           ? document.documentElement.classList.add('clip-scroll')
-            //           : document.documentElement.classList.remove('clip-scroll')
-            // }, {injector: this.#_injector})
             fromEvent(window, 'resize')
                   .pipe(debounceTime(500))
                   .subscribe(() => {

@@ -1,29 +1,35 @@
-<div data-e="loading-cover" >Loading...</div >
+<div data-e="loading-cover">
+    Loading...
+</div>
 
 <head-bar />
-<nav-bar (clickOnMainMenu)="indexStateProvider.navDrawerShown.set(true)" />
+<nav-bar (openNavDrawer)="openNavDrawer()" />
 
 <router-outlet />
 <spacer-block />
 
 <content-info />
 <service-info
-      [windowInnerWidth]="indexStateProvider.windowInnerWidth"
-      [windowInnerHeight]="indexStateProvider.windowInnerHeight"
-      [documentOffsetWidth]="indexStateProvider.documentOffsetWidth"
-      [documentClientHeight]="indexStateProvider.documentClientHeight"
-      [documentScrollbarWidth]="indexStateProvider.documentScrollbarWidth"
-      [isMobileInPortraitOnly]="indexStateProvider.isMobileInPortraitOnly"
-      [isMobileInLandscapeOnly]="indexStateProvider.isMobileInLandscapeOnly"
-      [isMobileInAllOrientations]="indexStateProvider.isMobileInAllOrientations"
+        [windowInnerWidth]="windowStateProvider.windowInnerWidth"
+        [windowInnerHeight]="windowStateProvider.windowInnerHeight"
+        [documentOffsetWidth]="windowStateProvider.documentOffsetWidth"
+        [documentClientHeight]="windowStateProvider.documentClientHeight"
+        [documentScrollbarWidth]="windowStateProvider.documentScrollbarWidth"
+        [isMobileInPortraitOnly]="windowStateProvider.isMobileInPortraitOnly"
+        [isMobileInLandscapeOnly]="windowStateProvider.isMobileInLandscapeOnly"
+        [isMobileInAllOrientations]="windowStateProvider.isMobileInAllOrientations"
 />
 
-<nav-drawer
-      [visible]="indexStateProvider.navDrawerShown"
-      (closeNavDrawer)="indexStateProvider.navDrawerShown.set(false)"
->
+<dialog data-e="nav-drawer"
+        #navDrawer
+        (click)="closeNavDrawerOnClickByBackdrop($event)">
     <nav-drawer-content
-          [colorScheme]="colorScheme"
-          (setColorScheme)="viewModel.setPreferredColorScheme($event)"
+            [colorScheme]="colorScheme"
+            (setColorScheme)="viewModel.setPreferredColorScheme($event)"
     />
-</nav-drawer >
+    <!-- <md-filled-icon-button data-e="close-button" (click)="closeNavDrawer()" > -->
+    <!--     <md-icon data-e="icon" > -->
+    <!--         double_arrow -->
+    <!--     </md-icon > -->
+    <!-- </md-filled-icon-button > -->
+</dialog>

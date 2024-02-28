@@ -9,7 +9,10 @@
               <!-- <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a > -->
         <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
         @if (viewModel.stableContent()?.filterConfig) {
-            <two-column-template openButtonText="Показать Фильтр" >
+            <two-column-template
+                  openButtonText="Показать Фильтр"
+                  [isSidePanelOpenInMobile]="isSidePanelOpenInMobile"
+            >
                 <main-column-slot >
                     <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
                 </main-column-slot >
@@ -19,7 +22,7 @@
                           [multiChoiceFieldsStates]="viewModel.multiChoiceFieldStates"
                           [singleChoiceFieldsStates]="viewModel.singleChoiceFieldStates"
                           [textFieldsStates]="viewModel.textFieldStates"
-                          (submitFilter)="viewModel.getDynamicContent()"
+                          (submitFilter)="isSidePanelOpenInMobile.set(!isSidePanelOpenInMobile()); viewModel.getDynamicContent()"
                           (cleanFilter)="viewModel.cleanFieldStates()"
                     />
                 </end-column-slot >

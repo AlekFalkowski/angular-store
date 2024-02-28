@@ -1,0 +1,26 @@
+<div data-e="main-column"
+        [class.full-width]="viewModel.preferredSidePanelView() === 'hidden'">
+    <div data-e="button-row"></div>
+    <ng-content select="main-column-slot" />
+</div>
+<div data-e="end-column-backdrop"
+        [class.visible-on-mobile]="isSidePanelOpenInMobile()"
+        (click)="closeSidePanel()">
+</div>
+<div data-e="end-column"
+        [class.hidden-on-tablets]="viewModel.preferredSidePanelView() === 'hidden'"
+        [class.visible-on-mobile]="isSidePanelOpenInMobile()">
+    <ng-content select="end-column-slot" />
+</div>
+<md-filled-button data-e="open-button"
+        [style.--open-button-top-indent]="openButtonTopIndent()"
+        (click)="openSidePanel()">
+    {{ openButtonText }}
+</md-filled-button>
+<md-filled-icon-button data-e="close-button"
+        [class.hidden-on-tablets]="viewModel.preferredSidePanelView() === 'hidden'"
+        (click)="closeSidePanel()">
+    <md-icon>
+        double_arrow
+    </md-icon>
+</md-filled-icon-button>

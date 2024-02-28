@@ -4,7 +4,7 @@ $toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDurat
 popup-fieldset {
     margin: 8px 4px;
     max-width: 100%;
-    --dm: 1;
+    --tdm: 1;
 
     // BUTTON all-variants STATIC
     & > [data-e="button"] {
@@ -20,7 +20,7 @@ popup-fieldset {
         padding-bottom: 8px;
         user-select: none;
         transition-property: border-color, box-shadow;
-        transition-duration: calc($toggleTransitionDuration * var(--dm));
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
 
         & > [data-e="overlay"] {
             content: "";
@@ -49,7 +49,7 @@ popup-fieldset {
             color: var(--md-sys-color-on-surface-variant);
             @include MD3_BODY_L_FONT_RULE_SET;
             transition-property: font-size, line-height, color;
-            transition-duration: calc($toggleTransitionDuration * var(--dm));
+            transition-duration: calc($toggleTransitionDuration * var(--tdm));
         }
 
         & > [data-e="count"] {
@@ -63,7 +63,7 @@ popup-fieldset {
             flex-shrink: 0;
             color: var(--md-sys-color-on-surface-variant);
             transition-property: transform;
-            transition-duration: calc($toggleTransitionDuration * var(--dm));
+            transition-duration: calc($toggleTransitionDuration * var(--tdm));
         }
     }
     & > [data-e="button"].framed {
@@ -100,7 +100,7 @@ popup-fieldset {
                 pointer-events: none;
                 box-shadow: inset transparent 0 1px;
                 transition-property: border-color, box-shadow;
-                transition-duration: calc($toggleTransitionDuration * var(--dm));
+                transition-duration: calc($toggleTransitionDuration * var(--tdm));
             }
 
             &::before {
@@ -138,7 +138,7 @@ popup-fieldset {
             transform-origin: center bottom;
             transform: scaleX(0);
             transition-property: transform;
-            transition-duration: calc($toggleTransitionDuration * var(--dm));
+            transition-duration: calc($toggleTransitionDuration * var(--tdm));
         }
 
         & > [data-e="overlay"] {
@@ -772,7 +772,64 @@ popup-fieldset {
     }
 
     // dialog
-    // & > [data-e="dialog"] { // Experimental technology that only works in Chrome.
+    & > [data-e="dialog"] {
+        contain: layout paint;
+        max-width: min(560px, calc(100vw - var(--side-padding) * 2));
+        max-height: 90svh;
+        position: fixed;
+        flex-direction: column;
+        overscroll-behavior: contain;
+        border-radius: var(--md-sys-shape-corner-extra-small);
+        background-color: var(--md-sys-color-surface);
+        &.tonal {
+            background-color: var(--md-sys-color-surface-high);
+        }
+        // Элемент уходит с top-layer до начала анимации...
+        // animation: popup-fieldset-fade-out 0.2s ease-out;
+
+        &[open] {
+            display: flex;
+            animation: popup-fieldset-fade-in 0.2s ease-out;
+        }
+        &[open]::backdrop {
+            background-color: rgb(0 0 0 / 50%);
+            animation: popup-fieldset-backdrop-fade-in 0.2s ease-out forwards;
+        }
+    }
+    @keyframes popup-fieldset-fade-in {
+        0% {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    @keyframes popup-fieldset-fade-out {
+        0% {
+            display: flex;
+            opacity: 1;
+            transform: scale(1);
+        }
+        100% {
+            display:none;
+            opacity: 0;
+            transform: scale(0.7);
+        }
+    }
+    @keyframes popup-fieldset-backdrop-fade-in {
+        0% {
+            background-color: rgb(0 0 0 / 0%);
+        }
+        100% {
+            background-color: rgb(0 0 0 / 50%);
+        }
+    }
+
+
+    // Experimental technology that only works in Chrome.
+    // & > [data-e="dialog"] {
     //     contain: layout paint;
     //     max-width: min(560px, calc(100vw - var(--side-padding) * 2));
     //     max-height: 90svh;
@@ -806,216 +863,7 @@ popup-fieldset {
     //         @starting-style {
     //             background-color: rgb(0 0 0 / 0%);
     //         }
-    //         background-color: rgb(0 0 0 / 25%);
+    //         background-color: rgb(0 0 0 / 50%);
     //     }
     // }
-    & > [data-e="dialog"] {
-        contain: layout paint;
-        max-width: min(560px, calc(100vw - var(--side-padding) * 2));
-        max-height: 90svh;
-        position: fixed;
-        flex-direction: column;
-        overscroll-behavior: contain;
-        margin: 0;
-        padding: 0;
-        border: none;
-        border-radius: var(--md-sys-shape-corner-extra-small);
-        background-color: var(--md-sys-color-surface);
-        &.tonal {
-            background-color: var(--md-sys-color-surface-high);
-        }
-        // animation: popup-fieldset-fade-out 0.2s ease-out;
-        &[open] {
-            display: flex;
-            animation: popup-fieldset-fade-in 0.2s ease-out;
-        }
-        &[open]::backdrop {
-            animation: popup-fieldset-backdrop-fade-in 0.2s ease-out forwards;
-        }
-    }
-    @keyframes popup-fieldset-fade-in {
-        0% {
-            opacity: 0;
-            transform: scale(0.7);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    @keyframes popup-fieldset-fade-out {
-        0% {
-            opacity: 1;
-            transform: scale(1);
-        }
-        100% {
-            opacity: 0;
-            transform: scale(0.7);
-        }
-    }
-    @keyframes popup-fieldset-backdrop-fade-in {
-        0% {
-            background-color: rgb(0 0 0 / 0%);
-            // backdrop-filter: none;
-        }
-        100% {
-            background-color: rgb(0 0 0 / 50%);
-            // backdrop-filter: blur(1px);
-        }
-    }
-
-
-
-    // dialog header +
-    & > [data-e="dialog"] > [data-e="header"] {
-        flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
-        @include ONLY_FOR_TABLET_AND_DESKTOP {
-            display: none;
-        }
-        //@include ONLY_FOR_MOBILE_IN_LANDSCAPE {
-        //  display: none;
-        //}
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        min-height: 57px; // If close button is used.
-        padding: 8px 24px; // 24px 24px 16px;
-        border-bottom: 1px solid var(--md-sys-color-outline-variant);
-    }
-    & > [data-e="dialog"] > [data-e="header"] > [data-e="title"] {
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        font-weight: bold;
-        padding-inline-end: 32px; // If close button is used.
-        color: var(--md-sys-color-on-surface);
-        @include MD3_TITLE_L_FONT_RULE_SET; // headline-small;
-        margin: 0;
-    }
-    & > [data-e="dialog"] > [data-e="header"] > button {
-        position: absolute;
-        inset-inline-end: 4px;
-        top: 4px;
-        color: var(--md-sys-color-secondary);
-    }
-    & > [data-e="dialog"] > [data-e="header"] > [data-e="help-text"] {
-        //padding-top: 16px;
-        //color: var(--md-sys-color-on-surface-variant);
-        //@include body-medium;
-    }
-
-    // dialog actions +
-    & > [data-e="dialog"] > [data-e="actions"] {
-        flex-shrink: 0; // Запрет на сжатие по основной флекс-оси.
-        @include ONLY_FOR_TABLET_AND_DESKTOP {
-            display: none;
-        }
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 8px 16px; // 24px;
-        border-top: 1px solid var(--md-sys-color-outline-variant);
-    }
-    & > [data-e="dialog"] > [data-e="actions"] > button {
-        flex-grow: 1;
-        flex-basis: 50%;
-    }
-
-    // tag input (visually-hidden)
-    & > [data-e="dialog"] > [data-e="fieldset"] > input {
-        contain: layout paint size;
-        appearance: none;
-        opacity: 0;
-        margin: 0;
-    }
-
-    // fieldset (dialog body)
-    & > [data-e="dialog"] > [data-e="fieldset"] {
-        flex-grow: 1;
-        display: grid; // For automatic scrolling to input on Tab.
-        grid-template-columns: 0 auto;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        scroll-behavior: smooth;
-    }
-
-    // field
-    & > [data-e="dialog"] > [data-e="fieldset"] > label {
-        contain: layout paint;
-        position: relative;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        height: 48px;
-        min-width: 112px;
-        padding: 0 12px;
-        @include ONLY_FOR_TABLET_AND_DESKTOP {
-            height: 40px;
-        }
-        @include ONLY_FOR_MOBILE_IN_ALL_ORIENTATION {
-            padding-inline-start: 20px;
-        }
-        user-select: none;
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label {
-        color: var(--md-sys-color-on-surface);
-        cursor: pointer;
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled):checked + label {
-        background-color: var(--md-sys-color-secondary-container);
-        color: var(--md-sys-color-on-secondary-container);
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:disabled + label {
-        color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38)
-    }
-
-    // field overlay
-    & > [data-e="dialog"] > [data-e="fieldset"] > label::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        //background-color: var(--md-sys-color-on-surface);
-        transition: opacity 150ms;
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:checked) + label::before {
-        background-color: var(--md-sys-color-on-surface);
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::before {
-        background-color: var(--md-sys-color-on-secondary-container);
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:hover::before {
-        @include ONLY_FOR_HOVERING_POINTER {
-            opacity: 0.08;
-        }
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:not(:disabled) + label:active::before {
-        opacity: 0.12;
-    }
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:focus-visible + label::before {
-        opacity: 0.12;
-    }
-
-    // field checkbox
-    & > [data-e="dialog"] > [data-e="fieldset"] > input:checked + label::after {
-        z-index: 1;
-        content: "check";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        font-size: 20px;
-        line-height: 20px;
-        font-family: "Material Symbols Outlined";
-    }
-
-    // field label
-    & > [data-e="dialog"] > [data-e="fieldset"] > label > span {
-        order: 2;
-        contain: layout paint;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        margin-inline-start: 28px;
-        @include MD3_LABEL_L_FONT_RULE_SET;
-    }
 }

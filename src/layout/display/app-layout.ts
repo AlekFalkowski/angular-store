@@ -3,11 +3,13 @@ import {
     Component,
     computed,
     CUSTOM_ELEMENTS_SCHEMA,
+    ElementRef,
     inject,
     Injector,
     PLATFORM_ID,
     signal,
     Signal,
+    ViewChild,
     ViewEncapsulation,
     WritableSignal
 } from '@angular/core';
@@ -19,8 +21,7 @@ import { HeadBar } from "./head-bar/head-bar";
 import { NavBar } from "./nav-bar/nav-bar";
 import { ContentInfo } from "./content-info/content-info";
 import { ServiceInfo } from "./service-info/service-info";
-import { NavDrawer } from "./nav-drawer/nav-drawer";
-import { NavDrawerContent } from "./nav-drawer/nav-drawer-content";
+import { NavDrawerContent } from "./nav-drawer-content/nav-drawer-content";
 import { ViewModel } from "../model/ViewModel";
 import { ObservePreferredColorSchemeOption } from "../options/ObservePreferredColorSchemeOption";
 import { SetPreferredColorSchemeOption } from "../options/SetPreferredColorSchemeOption";
@@ -35,7 +36,6 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
         NavBar,
         ContentInfo,
         ContentInfo,
-        NavDrawer,
         ServiceInfo,
         NavDrawerContent,
         SpacerBlock
@@ -56,10 +56,12 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
     ]
 })
 export class AppLayout {
-    readonly indexStateProvider: WindowStateProvider = inject(WindowStateProvider)
+    readonly windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
     readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_injector: Injector = inject(Injector)
+
+    @ViewChild('navDrawer', { static: true }) navDrawer: ElementRef<HTMLDialogElement> | undefined
 
     constructor() {
         if (isPlatformBrowser(this.#_platformId)) {
@@ -68,7 +70,6 @@ export class AppLayout {
             }
             window.matchMedia('(prefers-color-scheme: dark)')
                   .addEventListener('change', (event) => {
-                      console.log("event")
                       this.#_browserColorScheme.set(event.matches ? "dark" : "light")
                       // this.#_setColorSchemeOnChangeColorSchemeInBrowser(event)
                   })
@@ -110,4 +111,18 @@ export class AppLayout {
     //         document.documentElement.removeAttribute('data-color-scheme')
     //     }
     // }
+
+    openNavDrawer(): void {
+        this.navDrawer?.nativeElement.showModal()
+    }
+
+    closeNavDrawer(): void {
+        this.navDrawer?.nativeElement.close()
+    }
+
+    closeNavDrawerOnClickByBackdrop(event: Event): void {
+        if (event.target === this.navDrawer?.nativeElement) {
+            this.closeNavDrawer()
+        }
+    }
 }

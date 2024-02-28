@@ -1,14 +1,17 @@
 import {
-    afterNextRender,
     ChangeDetectionStrategy,
-    Component, computed,
-    CUSTOM_ELEMENTS_SCHEMA, ElementRef,
+    Component,
+    computed,
+    CUSTOM_ELEMENTS_SCHEMA,
+    ElementRef,
     inject,
-    Input, NgZone, PLATFORM_ID, signal, ViewChild,
-    ViewEncapsulation, WritableSignal
+    Input,
+    signal,
+    ViewChild,
+    ViewEncapsulation,
+    WritableSignal
 } from "@angular/core";
 import { WindowStateProvider } from "@/frame/WindowStateProvider";
-import { isPlatformBrowser } from "@angular/common";
 
 @Component({
     imports: [],
@@ -34,39 +37,23 @@ export class PopupFieldset { // popup-for-switches-with-monitor
     @ViewChild('button', { static: true }) button: ElementRef<HTMLButtonElement> | undefined
     @ViewChild('dialog', { static: true }) dialog: ElementRef<HTMLDialogElement> | undefined
 
-    #_platformId: Object = inject(PLATFORM_ID)
-    #_ngZone: NgZone = inject(NgZone)
-    readonly indexStateProvider: WindowStateProvider = inject(WindowStateProvider)
-
-    #_durationMultiplier = 1 //RELATED VALUES in SCSS: --dm. Вынести в ?config.
-    #_toggleTransitionDuration = 200 // RELATED VALUES in SCSS: toggleTransitionDuration.
-
-    constructor() {
-    }
+    #_windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
 
     dialogIsOpen: WritableSignal<boolean> = signal(false)
 
-    // dialogIsVisible: WritableSignal<boolean> = signal(false)
     openDialog(): void {
         this.dialog?.nativeElement.showModal()
         this.dialogIsOpen.set(true)
-        // if (this.dialogIsOpen()) {
-        //     return
-        // }
-        // this.dialog?.nativeElement.showPopover()
-        // setTimeout(() => {
-        //     this.dialogIsVisible.set(true)
-        // })
     }
 
-    closeDialog(event: Event): void {
-        //@ts-ignore
-        if (event.target?.nodeName === 'DIALOG') {
-            // this.dialogIsVisible.set(false)
-            // setTimeout(() => {
-            this.dialog?.nativeElement.close()
-            this.dialogIsOpen.set(false)
-            // }, this.#_toggleTransitionDuration * this.#_durationMultiplier)
+    closeDialog(): void {
+        this.dialog?.nativeElement.close()
+        this.dialogIsOpen.set(false)
+    }
+
+    closeDialogOnClickByBackdrop(event: Event): void {
+        if (event.target === this.dialog?.nativeElement) {
+            this.closeDialog()
         }
     }
 
@@ -80,17 +67,14 @@ export class PopupFieldset { // popup-for-switches-with-monitor
         if (!buttonRect || !dialogRect) {
             return {}
         }
-        // console.log(`dialog width: ${ dialogRect.width }`)
-        // console.log(`dialog height: ${ dialogRect.height }`)
         const margin = 16
         const indent = 8
         let left: string
-        if (buttonRect.left + buttonRect.right < this.indexStateProvider.documentOffsetWidth()) {
+        if (buttonRect.left + buttonRect.right < this.#_windowStateProvider.documentOffsetWidth()) {
             // Если buttonElement расположен в левой половине экрана:
             left = Math.min(
-                  // buttonRect.right - dialogRect.width / 0.7 / 2,
                   buttonRect.right + indent,
-                  this.indexStateProvider.documentOffsetWidth() - margin - dialogRect.width / 0.7
+                  this.#_windowStateProvider.documentOffsetWidth() - margin - dialogRect.width / 0.7
             ) + 'px'
         } else {
             // Если buttonElement расположен в правой половине экрана:
@@ -100,7 +84,7 @@ export class PopupFieldset { // popup-for-switches-with-monitor
             ) + 'px'
         }
         let top: string
-        if (buttonRect.top + buttonRect.bottom < this.indexStateProvider.documentClientHeight()) {
+        if (buttonRect.top + buttonRect.bottom < this.#_windowStateProvider.documentClientHeight()) {
             // Если buttonElement расположен в верхней половине экрана:
             top = Math.max(
                   (buttonRect.top + buttonRect.bottom - dialogRect.height / 0.7) / 2,
@@ -110,7 +94,7 @@ export class PopupFieldset { // popup-for-switches-with-monitor
             // Если buttonElement расположен в нижней половине экрана:
             top = Math.min(
                   (buttonRect.top + buttonRect.bottom - dialogRect.height / 0.7) / 2,
-                  this.indexStateProvider.documentClientHeight() - margin - dialogRect.height / 0.7
+                  this.#_windowStateProvider.documentClientHeight() - margin - dialogRect.height / 0.7
             ) + 'px'
         }
 

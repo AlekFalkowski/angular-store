@@ -28,11 +28,12 @@
     </div >
 }
 
-<dialog data-e="dialog"
-        #dialog
-        [class]="variant"
-        [style]="inlineStyle()"
-        (click)="closeDialog($event)"
+<dialog
+      data-e="dialog"
+      #dialog
+      [class]="variant"
+      [style]="inlineStyle()"
+      (click)="closeDialogOnClickByBackdrop($event)"
 >
     <ng-content />
 </dialog >
