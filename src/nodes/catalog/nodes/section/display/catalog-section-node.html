@@ -5,28 +5,24 @@
     @case ("success") {
         <page-breadcrumbs />
         <!-- <a routerLink="/catalogs/1/sections/1" >Go To /catalogs/1/sections/1</a > -->
-              <!-- <a routerLink="/catalogs/1/sections/2" >Go To /catalogs/1/sections/2</a > -->
-              <!-- <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a > -->
+             <!-- <a routerLink="/catalogs/1/sections/2" >Go To /catalogs/1/sections/2</a > -->
+             <!-- <a routerLink="/catalogs/1/sections/3" >Go To /catalogs/1/sections/3</a > -->
         <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
         @if (viewModel.stableContent()?.filterConfig) {
             <two-column-template
-                  openButtonText="Показать Фильтр"
-                  [isSidePanelOpenInMobile]="isSidePanelOpenInMobile"
-            >
-                <main-column-slot >
-                    <card-collection [cardCollection]="viewModel.fakeCatalogProductCardList" />
-                </main-column-slot >
-                <end-column-slot >
-                    <catalog-section-filter
-                          [filterConfig]="viewModel.stableContent()?.filterConfig ?? []"
-                          [multiChoiceFieldsStates]="viewModel.multiChoiceFieldStates"
-                          [singleChoiceFieldsStates]="viewModel.singleChoiceFieldStates"
-                          [textFieldsStates]="viewModel.textFieldStates"
-                          (submitFilter)="isSidePanelOpenInMobile.set(!isSidePanelOpenInMobile()); viewModel.getDynamicContent()"
-                          (cleanFilter)="viewModel.cleanFieldStates()"
-                    />
-                </end-column-slot >
-            </two-column-template >
+                 sideColumnPlacementSide="end"
+                 openButtonText="Показать Фильтр"
+                 [isSideColumnOpenInModal]="isSideColumnOpenInModal">
+                <catalog-section-filter ngProjectAs="side-column-content"
+                     [filterConfig]="viewModel.stableContent()?.filterConfig ?? []"
+                     [multiChoiceFieldsStates]="viewModel.multiChoiceFieldStates"
+                     [singleChoiceFieldsStates]="viewModel.singleChoiceFieldStates"
+                     [textFieldsStates]="viewModel.textFieldStates"
+                     (submitFilter)="isSideColumnOpenInModal.set(!isSideColumnOpenInModal()); viewModel.getDynamicContent()"
+                     (cleanFilter)="viewModel.cleanFieldStates()" />
+                <card-collection ngProjectAs="main-column-content"
+                     [cardCollection]="viewModel.fakeCatalogProductCardList" />
+            </two-column-template>
         } @else {
             <card-collection [cardCollection]="viewModel.fakeAssortmentCardList" />
         }

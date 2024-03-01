@@ -1,7 +1,7 @@
 @import "all-config";
 
 nav-bar {
-    z-index: $header-toolbar-row-z-index;
+    z-index: $nav-bar-z-index;
     contain: layout paint inline-size style;
     padding-inline: $full-inline-padding;
     position: sticky;

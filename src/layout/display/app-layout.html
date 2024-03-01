@@ -10,22 +10,28 @@
 
 <content-info />
 <service-info
-        [windowInnerWidth]="windowStateProvider.windowInnerWidth"
-        [windowInnerHeight]="windowStateProvider.windowInnerHeight"
-        [documentOffsetWidth]="windowStateProvider.documentOffsetWidth"
-        [documentClientHeight]="windowStateProvider.documentClientHeight"
-        [documentScrollbarWidth]="windowStateProvider.documentScrollbarWidth"
-        [isMobileInPortraitOnly]="windowStateProvider.isMobileInPortraitOnly"
-        [isMobileInLandscapeOnly]="windowStateProvider.isMobileInLandscapeOnly"
-        [isMobileInAllOrientations]="windowStateProvider.isMobileInAllOrientations"
+     [windowInnerWidth]="windowStateProvider.windowInnerWidth"
+     [windowInnerHeight]="windowStateProvider.windowInnerHeight"
+     [documentOffsetWidth]="windowStateProvider.documentOffsetWidth"
+     [documentClientHeight]="windowStateProvider.documentClientHeight"
+     [documentScrollbarWidth]="windowStateProvider.documentScrollbarWidth"
+     [isMobileInPortraitOnly]="windowStateProvider.isMobileInPortraitOnly"
+     [isMobileInLandscapeOnly]="windowStateProvider.isMobileInLandscapeOnly"
+     [isMobileInAllOrientations]="windowStateProvider.isMobileInAllOrientations"
 />
 
 <dialog data-e="nav-drawer"
-        #navDrawer
-        (click)="closeNavDrawerOnClickByBackdrop($event)">
+     #navDrawer
+     (click)="closeNavDrawerOnClickByBackdrop($event)">
+    <md-icon-button data-e="close-button"
+         (click)="closeNavDrawer()">
+        <md-icon data-e="close-button-icon">
+            close
+        </md-icon>
+    </md-icon-button>
     <nav-drawer-content
-            [colorScheme]="colorScheme"
-            (setColorScheme)="viewModel.setPreferredColorScheme($event)"
+         [colorScheme]="colorScheme"
+         (setColorScheme)="viewModel.setPreferredColorScheme($event)"
     />
     <!-- <md-filled-icon-button data-e="close-button" (click)="closeNavDrawer()" > -->
     <!--     <md-icon data-e="icon" > -->

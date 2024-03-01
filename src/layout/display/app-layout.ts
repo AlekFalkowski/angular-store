@@ -1,4 +1,5 @@
 import {
+    afterNextRender,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -69,14 +70,23 @@ export class AppLayout {
                 this.#_browserColorScheme.set("dark")
             }
             window.matchMedia('(prefers-color-scheme: dark)')
-                  .addEventListener('change', (event) => {
-                      this.#_browserColorScheme.set(event.matches ? "dark" : "light")
-                      // this.#_setColorSchemeOnChangeColorSchemeInBrowser(event)
-                  })
+                .addEventListener('change', (event) => {
+                    this.#_browserColorScheme.set(event.matches ? "dark" : "light")
+                    // this.#_setColorSchemeOnChangeColorSchemeInBrowser(event)
+                })
             // effect(() => {
             //     this.#_setColorSchemeOnChangeColorSchemeInApp(this.viewModel.preferredColorScheme())
             // }, { injector: this.#_injector })
         }
+        afterNextRender(() => {
+            this.navDrawer?.nativeElement.addEventListener("close", () => {
+                this.navDrawer?.nativeElement.querySelectorAll(':where(:modal, :popover-open)')
+                    .forEach((popup) => {
+                        //@ts-ignore
+                        popup.close()
+                    })
+            })
+        })
     }
 
     #_browserColorScheme: WritableSignal<"light" | "dark"> = signal("light")
@@ -116,13 +126,13 @@ export class AppLayout {
         this.navDrawer?.nativeElement.showModal()
     }
 
-    closeNavDrawer(): void {
-        this.navDrawer?.nativeElement.close()
-    }
-
     closeNavDrawerOnClickByBackdrop(event: Event): void {
         if (event.target === this.navDrawer?.nativeElement) {
             this.closeNavDrawer()
         }
+    }
+
+    closeNavDrawer(): void {
+        this.navDrawer?.nativeElement.close()
     }
 }

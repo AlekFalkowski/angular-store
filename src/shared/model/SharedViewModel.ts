@@ -1,15 +1,15 @@
 import { computed, inject, Injectable, Signal } from "@angular/core";
-import { SetPreferredSidePanelViewOption } from "@/shared/options/SetPreferredSidePanelViewOption";
-import { ObservePreferredSidePanelViewOption } from "@/shared/options/ObservePreferredSidePanelViewOption";
-import { TPreferredSidePanelView } from "@/shared/types/TPreferredSidePanelView";
+import { SetPreferredSideColumnViewOption } from "@/shared/options/SetPreferredSideColumnViewOption";
+import { ObservePreferredSideColumnViewOption } from "@/shared/options/ObservePreferredSideColumnViewOption";
+import { TPreferredSideColumnView } from "@/shared/types/TPreferredSideColumnView";
 
 @Injectable({ providedIn: 'root' })
 export class SharedViewModel {
-    #_observePreferredSidePanelViewOption: ObservePreferredSidePanelViewOption = inject(ObservePreferredSidePanelViewOption)
-    #_setPreferredSidePanelViewOption: SetPreferredSidePanelViewOption = inject(SetPreferredSidePanelViewOption)
+    #_observePreferredSideColumnViewOption: ObservePreferredSideColumnViewOption = inject(ObservePreferredSideColumnViewOption)
+    #_setPreferredSideColumnViewOption: SetPreferredSideColumnViewOption = inject(SetPreferredSideColumnViewOption)
 
-    preferredSidePanelView: Signal<TPreferredSidePanelView> = computed(() => {
-        const inputValue: string | null = this.#_observePreferredSidePanelViewOption.invoke()
+    preferredSideColumnView: Signal<TPreferredSideColumnView> = computed(() => {
+        const inputValue: string | null = this.#_observePreferredSideColumnViewOption.invoke()
         switch (inputValue) {
             case "hidden":
                 return inputValue
@@ -18,7 +18,7 @@ export class SharedViewModel {
         }
     })
 
-    setPreferredSidePanelView(value: TPreferredSidePanelView): void {
-        this.#_setPreferredSidePanelViewOption.invoke(value)
+    setPreferredSideColumnView(value: TPreferredSideColumnView): void {
+        this.#_setPreferredSideColumnViewOption.invoke(value)
     }
 }

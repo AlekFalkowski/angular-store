@@ -1,15 +1,18 @@
-import { computed, inject, Injectable, PLATFORM_ID, Signal, signal, WritableSignal } from "@angular/core";
+import { computed, inject, Injectable, NgZone, PLATFORM_ID, Signal, signal, WritableSignal } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { TKeyValue } from "../types/TKeyValue";
 
 @Injectable({ providedIn: 'root' })
 export class LocalStorageService {
     #_platformId: Object = inject(PLATFORM_ID)
+    #_ngZone: NgZone = inject(NgZone)
 
     constructor() {
         if (isPlatformBrowser(this.#_platformId)) {
             window.addEventListener('storage', (event) => {
-                this.#_lastSetKeyValue.set({ key: event.key, value: event.newValue })
+                this.#_ngZone.run(() => {
+                    this.#_lastSetKeyValue.set({ key: event.key, value: event.newValue })
+                })
             })
         }
     }
@@ -29,7 +32,9 @@ export class LocalStorageService {
         if (isPlatformBrowser(this.#_platformId)) {
             if (keyValueItem.key !== null && keyValueItem.value !== null) {
                 localStorage.setItem(keyValueItem.key, keyValueItem.value)
-                this.#_lastSetKeyValue.set({ key: keyValueItem.key, value: keyValueItem.value })
+                this.#_ngZone.run(() => {
+                    this.#_lastSetKeyValue.set({ key: keyValueItem.key, value: keyValueItem.value })
+                })
             }
         }
     }
@@ -62,14 +67,18 @@ export class LocalStorageService {
     #_removeValueByKey(key: string): void {
         if (isPlatformBrowser(this.#_platformId)) {
             localStorage.removeItem(key)
-            this.#_lastSetKeyValue.set({ key: key, value: null })
+            this.#_ngZone.run(() => {
+                this.#_lastSetKeyValue.set({ key: key, value: null })
+            })
         }
     }
 
     // removeAll(): void {
     //     if (isPlatformBrowser(this.#_platformId)) {
     //         localStorage.clear()
-    //         this.#_lastSetKeyValue.set({ key: null, value: null })
+    //         this.#_ngZone.run(() => {
+    //             this.#_lastSetKeyValue.set({ key: null, value: null })
+    //         })
     //     }
     // }
 }

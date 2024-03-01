@@ -1,13 +1,10 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Router, RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { CatalogListViewModel } from "../model/CatalogListViewModel";
 import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/page-title/page-title";
-import { TwoColumnTemplate } from "@/shared/display/two-column-template/two-column-template";
-import { MainColumnSlot } from "@/shared/display/two-column-template/main-column-slot";
-import { EndColumnSlot } from "@/shared/display/two-column-template/end-column-slot";
 import { CardCollection } from "@/shared/display/card-collection/card-collection";
 
 @Component({
@@ -16,9 +13,6 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
         RouterModule,
         PageBreadcrumbs,
         PageTitle,
-        TwoColumnTemplate,
-        MainColumnSlot,
-        EndColumnSlot,
         CardCollection
     ],
     standalone: true,
@@ -42,11 +36,11 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
     selector: 'catalog-list-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div data-e="content" >
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
             CATALOG_LIST_PAGE_CONTENT
-        </div >
+        </div>
     `,
     providers: [
         CatalogListViewModel

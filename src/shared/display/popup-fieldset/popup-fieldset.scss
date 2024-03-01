@@ -1,12 +1,13 @@
 @import "all-config";
 
 $toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDuration
+
 popup-fieldset {
     margin: 8px 4px;
     max-width: 100%;
     --tdm: 1;
 
-    // BUTTON all-variants STATIC
+    // BUTTON
     & > [data-e="button"] {
         contain: layout;
         appearance: none;
@@ -66,7 +67,7 @@ popup-fieldset {
             transition-duration: calc($toggleTransitionDuration * var(--tdm));
         }
     }
-    & > [data-e="button"].framed {
+    &.framed > [data-e="button"] {
         padding-inline-start: 15px;
         padding-inline-end: 11px;
         border-radius: var(--md-sys-shape-corner-extra-small);
@@ -117,7 +118,314 @@ popup-fieldset {
             }
         }
     }
-    & > [data-e="button"].tonal {
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-surface);
+            border-bottom-color: var(--md-sys-color-on-surface);
+            border-top-color: var(--md-sys-color-on-surface);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked {
+        border-top-color: transparent;
+        > [data-e="label"] {
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-outline);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-surface);
+            border-bottom-color: var(--md-sys-color-on-surface);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="label"]::before, > [data-e="label"]::after {
+                border-top-color: var(--md-sys-color-on-surface);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-surface);
+            }
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked) {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-error-container);
+            border-bottom-color: var(--md-sys-color-on-error-container);
+            border-top-color: var(--md-sys-color-on-error-container);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+            border-inline-color: var(--md-sys-color-on-error-container);
+            border-bottom-color: var(--md-sys-color-on-error-container);
+            > [data-e="label"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="label"]::before, > [data-e="label"]::after {
+                border-top-color: var(--md-sys-color-on-error-container);
+            }
+            > [data-e="icon"] {
+                color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible:not(.error):not(.checked) {
+        outline: none;
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: var(--md-sys-color-primary);
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary), inset 0 1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible:not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible:not(.error).checked {
+        outline: none;
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-primary);
+            box-shadow: inset 0 1px var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible:not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible.error:not(.checked) {
+        outline: none;
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: var(--md-sys-color-error);
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error), inset 0 1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible.error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible.error.checked {
+        outline: none;
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+            box-shadow: inset 0 1px var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):focus-visible.error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error):not(.checked) {
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-primary);
+            box-shadow: inset 0 1px var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error):not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error).checked {
+        border-inline-color: var(--md-sys-color-primary);
+        border-bottom-color: var(--md-sys-color-primary);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-primary);
+            box-shadow: inset 0 1px var(--md-sys-color-primary);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]).error:not(.checked) {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+            box-shadow: inset 0 1px var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+            transform: scaleY(-1);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]).error:not(.checked):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]).error.checked {
+        border-inline-color: var(--md-sys-color-error);
+        border-bottom-color: var(--md-sys-color-error);
+        border-top-color: transparent;
+        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
+        > [data-e="label"] {
+            color: var(--md-sys-color-error);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: var(--md-sys-color-error);
+            box-shadow: inset 0 1px var(--md-sys-color-error);
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-error);
+            transform: scaleY(-1);
+        }
+    }
+    &.framed > [data-e="button"]:not(:disabled):has(+dialog[open]).error.checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.framed > [data-e="button"]:disabled:not(.checked) {
+        border-inline-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-top-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        > [data-e="label"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="input"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="count"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="icon"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+    }
+    &.framed > [data-e="button"]:disabled.checked {
+        border-inline-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        border-top-color: transparent;
+        > [data-e="label"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="label"]::before, > [data-e="label"]::after {
+            border-top-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="input"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="count"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+        > [data-e="icon"] {
+            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
+        }
+    }
+    &.tonal > [data-e="button"] {
         padding-inline-start: 16px;
         padding-inline-end: 12px;
         border-radius: var(--md-sys-shape-corner-extra-small) var(--md-sys-shape-corner-extra-small) 0 0;
@@ -155,318 +463,7 @@ popup-fieldset {
             line-height: 38px;
         }
     }
-
-    // BUTTON framed-variant DYNAMIC
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error):not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-            border-inline-color: var(--md-sys-color-on-surface);
-            border-bottom-color: var(--md-sys-color-on-surface);
-            border-top-color: var(--md-sys-color-on-surface);
-            > [data-e="label"] {
-                color: var(--md-sys-color-on-surface);
-            }
-            > [data-e="icon"] {
-                color: var(--md-sys-color-on-surface);
-            }
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked {
-        border-top-color: transparent;
-        > [data-e="label"] {
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-outline);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked:hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-            border-inline-color: var(--md-sys-color-on-surface);
-            border-bottom-color: var(--md-sys-color-on-surface);
-            > [data-e="label"] {
-                color: var(--md-sys-color-on-surface);
-            }
-            > [data-e="label"]::before, > [data-e="label"]::after {
-                border-top-color: var(--md-sys-color-on-surface);
-            }
-            > [data-e="icon"] {
-                color: var(--md-sys-color-on-surface);
-            }
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked) {
-        border-inline-color: var(--md-sys-color-error);
-        border-bottom-color: var(--md-sys-color-error);
-        border-top-color: var(--md-sys-color-error);
-        > [data-e="label"] {
-            color: var(--md-sys-color-error);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-error);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-            border-inline-color: var(--md-sys-color-on-error-container);
-            border-bottom-color: var(--md-sys-color-on-error-container);
-            border-top-color: var(--md-sys-color-on-error-container);
-            > [data-e="label"] {
-                color: var(--md-sys-color-on-error-container);
-            }
-            > [data-e="icon"] {
-                color: var(--md-sys-color-on-error-container);
-            }
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked {
-        border-inline-color: var(--md-sys-color-error);
-        border-bottom-color: var(--md-sys-color-error);
-        border-top-color: transparent;
-        > [data-e="label"] {
-            color: var(--md-sys-color-error);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-error);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-error);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked:hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-            border-inline-color: var(--md-sys-color-on-error-container);
-            border-bottom-color: var(--md-sys-color-on-error-container);
-            > [data-e="label"] {
-                color: var(--md-sys-color-on-error-container);
-            }
-            > [data-e="label"]::before, > [data-e="label"]::after {
-                border-top-color: var(--md-sys-color-on-error-container);
-            }
-            > [data-e="icon"] {
-                color: var(--md-sys-color-on-error-container);
-            }
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error):not(.checked) {
-        outline: none;
-        border-inline-color: var(--md-sys-color-primary);
-        border-bottom-color: var(--md-sys-color-primary);
-        border-top-color: var(--md-sys-color-primary);
-        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary), inset 0 1px var(--md-sys-color-primary);
-        > [data-e="label"] {
-            color: var(--md-sys-color-primary);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-primary);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error):not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error).checked {
-        outline: none;
-        border-inline-color: var(--md-sys-color-primary);
-        border-bottom-color: var(--md-sys-color-primary);
-        border-top-color: transparent;
-        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
-        > [data-e="label"] {
-            color: var(--md-sys-color-primary);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-primary);
-            box-shadow: inset 0 1px var(--md-sys-color-primary);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-primary);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible:not(.error).checked:hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible.error:not(.checked) {
-        outline: none;
-        border-inline-color: var(--md-sys-color-error);
-        border-bottom-color: var(--md-sys-color-error);
-        border-top-color: var(--md-sys-color-error);
-        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error), inset 0 1px var(--md-sys-color-error);
-        > [data-e="label"] {
-            color: var(--md-sys-color-error);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-error);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible.error:not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible.error.checked {
-        outline: none;
-        border-inline-color: var(--md-sys-color-error);
-        border-bottom-color: var(--md-sys-color-error);
-        border-top-color: transparent;
-        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
-        > [data-e="label"] {
-            color: var(--md-sys-color-error);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-error);
-            box-shadow: inset 0 1px var(--md-sys-color-error);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-error);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):focus-visible.error.checked:hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error):not(.checked) {
-        border-inline-color: var(--md-sys-color-primary);
-        border-bottom-color: var(--md-sys-color-primary);
-        border-top-color: transparent;
-        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
-        > [data-e="label"] {
-            color: var(--md-sys-color-primary);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-primary);
-            box-shadow: inset 0 1px var(--md-sys-color-primary);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-primary);
-            transform: scaleY(-1);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error):not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error).checked {
-        border-inline-color: var(--md-sys-color-primary);
-        border-bottom-color: var(--md-sys-color-primary);
-        border-top-color: transparent;
-        box-shadow: inset 1px 0 var(--md-sys-color-primary), inset -1px 0 var(--md-sys-color-primary), inset 0 -1px var(--md-sys-color-primary);
-        > [data-e="label"] {
-            color: var(--md-sys-color-primary);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-primary);
-            box-shadow: inset 0 1px var(--md-sys-color-primary);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-primary);
-            transform: scaleY(-1);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]):not(.error).checked:hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error:not(.checked) {
-        border-inline-color: var(--md-sys-color-error);
-        border-bottom-color: var(--md-sys-color-error);
-        border-top-color: transparent;
-        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
-        > [data-e="label"] {
-            color: var(--md-sys-color-error);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-error);
-            box-shadow: inset 0 1px var(--md-sys-color-error);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-error);
-            transform: scaleY(-1);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error:not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error.checked {
-        border-inline-color: var(--md-sys-color-error);
-        border-bottom-color: var(--md-sys-color-error);
-        border-top-color: transparent;
-        box-shadow: inset 1px 0 var(--md-sys-color-error), inset -1px 0 var(--md-sys-color-error), inset 0 -1px var(--md-sys-color-error);
-        > [data-e="label"] {
-            color: var(--md-sys-color-error);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: var(--md-sys-color-error);
-            box-shadow: inset 0 1px var(--md-sys-color-error);
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-error);
-            transform: scaleY(-1);
-        }
-    }
-    & > [data-e="button"].framed:not(:disabled):has(+dialog[open]).error.checked:hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].framed:disabled:not(.checked) {
-        border-inline-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        border-top-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        > [data-e="label"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-        > [data-e="input"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-        > [data-e="count"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-        > [data-e="icon"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-    }
-    & > [data-e="button"].framed:disabled.checked {
-        border-inline-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        border-top-color: transparent;
-        > [data-e="label"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="label"]::before, > [data-e="label"]::after {
-            border-top-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-        > [data-e="input"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-        > [data-e="count"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-        > [data-e="icon"] {
-            color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
-        }
-    }
-
-    // BUTTON tonal-variant DYNAMIC
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error):not(.checked):hover {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error):not(.checked):hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
             border-bottom-color: var(--md-sys-color-on-surface);
@@ -481,12 +478,12 @@ popup-fieldset {
             }
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked {
         > [data-e="label"] {
             @include MD3_BODY_S_FONT_RULE_SET;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked:hover {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])):not(.error).checked:hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
             border-bottom-color: var(--md-sys-color-on-surface);
@@ -501,7 +498,7 @@ popup-fieldset {
             }
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked) {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked) {
         border-bottom-color: var(--md-sys-color-error);
         &::after {
             background-color: var(--md-sys-color-error);
@@ -513,7 +510,7 @@ popup-fieldset {
             color: var(--md-sys-color-error);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked):hover {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error:not(.checked):hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
             border-bottom-color: var(--md-sys-color-on-error-container);
@@ -531,7 +528,7 @@ popup-fieldset {
             }
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked {
         border-bottom-color: var(--md-sys-color-error);
         &::after {
             background-color: var(--md-sys-color-error);
@@ -544,7 +541,7 @@ popup-fieldset {
             color: var(--md-sys-color-error);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked:hover {
+    &.tonal > [data-e="button"]:not(:disabled):not(:focus-visible):not(:has(+dialog[open])).error.checked:hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
             border-bottom-color: var(--md-sys-color-on-error-container);
@@ -562,7 +559,7 @@ popup-fieldset {
             }
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error):not(.checked) {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible:not(.error):not(.checked) {
         outline: none;
         border-bottom-color: var(--md-sys-color-primary);
         &::after {
@@ -576,12 +573,12 @@ popup-fieldset {
             color: var(--md-sys-color-primary);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error):not(.checked):hover {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible:not(.error):not(.checked):hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error).checked {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible:not(.error).checked {
         outline: none;
         border-bottom-color: var(--md-sys-color-primary);
         &::after {
@@ -596,12 +593,12 @@ popup-fieldset {
             color: var(--md-sys-color-primary);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible:not(.error).checked:hover {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible:not(.error).checked:hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible.error:not(.checked) {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible.error:not(.checked) {
         outline: none;
         border-bottom-color: var(--md-sys-color-error);
         &::after {
@@ -615,12 +612,12 @@ popup-fieldset {
             color: var(--md-sys-color-error);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible.error:not(.checked):hover {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible.error:not(.checked):hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible.error.checked {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible.error.checked {
         outline: none;
         border-bottom-color: var(--md-sys-color-error);
         &::after {
@@ -635,32 +632,12 @@ popup-fieldset {
             color: var(--md-sys-color-error);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):focus-visible.error.checked:hover {
+    &.tonal > [data-e="button"]:not(:disabled):focus-visible.error.checked:hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error):not(.checked) {
-        border-bottom-color: var(--md-sys-color-primary);
-        &::after {
-            transform: scaleX(100%);
-            background-color: var(--md-sys-color-primary);
-        }
-        > [data-e="label"] {
-            color: var(--md-sys-color-primary);
-            @include MD3_BODY_S_FONT_RULE_SET;
-        }
-        > [data-e="icon"] {
-            color: var(--md-sys-color-primary);
-            transform: scaleY(-1);
-        }
-    }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error):not(.checked):hover {
-        @include ONLY_FOR_HOVERING_POINTER {
-            cursor: pointer;
-        }
-    }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error).checked {
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error):not(.checked) {
         border-bottom-color: var(--md-sys-color-primary);
         &::after {
             transform: scaleX(100%);
@@ -675,12 +652,32 @@ popup-fieldset {
             transform: scaleY(-1);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]):not(.error).checked:hover {
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error):not(.checked):hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error:not(.checked) {
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error).checked {
+        border-bottom-color: var(--md-sys-color-primary);
+        &::after {
+            transform: scaleX(100%);
+            background-color: var(--md-sys-color-primary);
+        }
+        > [data-e="label"] {
+            color: var(--md-sys-color-primary);
+            @include MD3_BODY_S_FONT_RULE_SET;
+        }
+        > [data-e="icon"] {
+            color: var(--md-sys-color-primary);
+            transform: scaleY(-1);
+        }
+    }
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]):not(.error).checked:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]).error:not(.checked) {
         border-bottom-color: var(--md-sys-color-error);
         &::after {
             transform: scaleX(100%);
@@ -695,12 +692,12 @@ popup-fieldset {
             transform: scaleY(-1);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error:not(.checked):hover {
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]).error:not(.checked):hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error.checked {
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]).error.checked {
         border-bottom-color: var(--md-sys-color-error);
         &::after {
             transform: scaleX(100%);
@@ -715,12 +712,12 @@ popup-fieldset {
             transform: scaleY(-1);
         }
     }
-    & > [data-e="button"].tonal:not(:disabled):has(+dialog[open]).error.checked:hover {
+    &.tonal > [data-e="button"]:not(:disabled):has(+dialog[open]).error.checked:hover {
         @include ONLY_FOR_HOVERING_POINTER {
             cursor: pointer;
         }
     }
-    & > [data-e="button"].tonal:disabled:not(.checked) {
+    &.tonal > [data-e="button"]:disabled:not(.checked) {
         border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
         > [data-e="label"] {
             color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
@@ -735,7 +732,7 @@ popup-fieldset {
             color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
         }
     }
-    & > [data-e="button"].tonal:disabled.checked {
+    &.tonal > [data-e="button"]:disabled.checked {
         border-bottom-color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
         > [data-e="label"] {
             color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
@@ -752,7 +749,7 @@ popup-fieldset {
         }
     }
 
-    // help-text
+    // HELP TEXT
     & > [data-e="help-text"] {
         overflow: hidden;
         white-space: nowrap;
@@ -761,109 +758,118 @@ popup-fieldset {
         margin: 4px 16px 0;
         @include MD3_BODY_S_FONT_RULE_SET;
     }
-    & > :not(:disabled):not(.error) + [data-e="help-text"] {
+    & > [data-e="button"]:not(:disabled):not(.error) + [data-e="help-text"] {
         color: var(--md-sys-color-on-surface-variant);
     }
-    & > :not(:disabled).error + [data-e="help-text"] {
+    & > [data-e="button"]:not(:disabled).error + [data-e="help-text"] {
         color: var(--md-sys-color-error);
     }
-    & > :disabled + [data-e="help-text"] {
+    & > [data-e="button"]:disabled + [data-e="help-text"] {
         color: rgb(var(--md-sys-color-on-surface-rgb) / 0.38);
     }
 
-    // dialog
-    & > [data-e="dialog"] {
-        contain: layout paint;
-        max-width: min(560px, calc(100vw - var(--side-padding) * 2));
-        max-height: 90svh;
-        position: fixed;
-        flex-direction: column;
-        overscroll-behavior: contain;
-        border-radius: var(--md-sys-shape-corner-extra-small);
-        background-color: var(--md-sys-color-surface);
-        &.tonal {
-            background-color: var(--md-sys-color-surface-high);
-        }
-        // Элемент уходит с top-layer до начала анимации...
-        // animation: popup-fieldset-fade-out 0.2s ease-out;
-
-        &[open] {
-            display: flex;
-            animation: popup-fieldset-fade-in 0.2s ease-out;
-        }
-        &[open]::backdrop {
-            background-color: rgb(0 0 0 / 50%);
-            animation: popup-fieldset-backdrop-fade-in 0.2s ease-out forwards;
-        }
-    }
-    @keyframes popup-fieldset-fade-in {
-        0% {
-            opacity: 0;
-            transform: scale(0.7);
-        }
-        100% {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-    @keyframes popup-fieldset-fade-out {
-        0% {
-            display: flex;
-            opacity: 1;
-            transform: scale(1);
-        }
-        100% {
-            display:none;
-            opacity: 0;
-            transform: scale(0.7);
-        }
-    }
-    @keyframes popup-fieldset-backdrop-fade-in {
-        0% {
-            background-color: rgb(0 0 0 / 0%);
-        }
-        100% {
-            background-color: rgb(0 0 0 / 50%);
-        }
-    }
-
-
-    // Experimental technology that only works in Chrome.
-    // & > [data-e="dialog"] {
+    // // POPUP WINDOW
+    // & > [data-e="popup"] {
     //     contain: layout paint;
     //     max-width: min(560px, calc(100vw - var(--side-padding) * 2));
     //     max-height: 90svh;
     //     position: fixed;
-    //     overscroll-behavior: contain;
     //     flex-direction: column;
-    //     margin: 0;
-    //     padding: 0;
-    //     border: none;
+    //     overscroll-behavior: contain;
     //     border-radius: var(--md-sys-shape-corner-extra-small);
-    //     background-color: var(--md-sys-color-surface);
-    //     &.tonal {
-    //         background-color: var(--md-sys-color-surface-high);
+    //     // animation: popup-fieldset-fade-out 0.2s ease-out; // Элемент уходит с top-layer до начала анимации...
+    //     // &:popover-open {
+    //     &:modal {
+    //         display: flex;
+    //         animation: popup-fieldset-fade-in 0.2s ease-out;
     //     }
-    //     transition: opacity 0.7s ease-out, transform 0.7s ease-out, overlay 0.7s ease-out allow-discrete, display 0.7s ease-out allow-discrete;
-    //     opacity: 0;
-    //     transform: scale(0.7);
-    //     &[open] {
-    //         @starting-style {
-    //             opacity: 0;
-    //             transform: scale(0.7);
-    //         }
+    // }
+    // @keyframes popup-fieldset-fade-in {
+    //     0% {
+    //         opacity: 0;
+    //         transform: scale(0.7);
+    //     }
+    //     100% {
     //         opacity: 1;
     //         transform: scale(1);
     //     }
-    //     &::backdrop {
-    //         transition: display 0.7s allow-discrete, overlay 0.7s allow-discrete, background-color 0.7s;
+    // }
+    // @keyframes popup-fieldset-fade-out {
+    //     0% {
+    //         display: flex;
+    //         opacity: 1;
+    //         transform: scale(1);
+    //     }
+    //     100% {
+    //         display: none;
+    //         opacity: 0;
+    //         transform: scale(0.7);
+    //     }
+    // }
+    // &.framed > [data-e="popup"] {
+    //     // background-color: transparent;
+    //     background-color: var(--md-sys-color-surface);
+    // }
+    // &.tonal > [data-e="popup"] {
+    //     background-color: var(--md-sys-color-surface-high);
+    // }
+    //
+    // // POPUP BACKDROP
+    // & > [data-e="popup"]::backdrop {
+    //     background-color: rgb(0 0 0 / 50%);
+    //     animation: popup-fieldset-backdrop-fade-in 0.2s ease-out forwards;
+    // }
+    // @keyframes popup-fieldset-backdrop-fade-in {
+    //     0% {
     //         background-color: rgb(0 0 0 / 0%);
     //     }
-    //     &[open]::backdrop {
-    //         @starting-style {
-    //             background-color: rgb(0 0 0 / 0%);
-    //         }
+    //     100% {
     //         background-color: rgb(0 0 0 / 50%);
     //     }
     // }
+
+
+    // Experimental technology that only works in Chrome.
+    // POPUP WINDOW
+    & > [data-e="popup"] {
+        contain: layout paint;
+        max-width: min(560px, calc(100vw - var(--side-padding) * 2));
+        max-height: 90svh;
+        position: fixed;
+        overscroll-behavior: contain;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: var(--md-sys-shape-corner-extra-small);
+        background-color: var(--md-sys-color-surface);
+        transition: opacity 0.7s ease-out, transform 0.7s ease-out, overlay 0.7s ease-out allow-discrete, display 0.7s ease-out allow-discrete;
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    & > [data-e="popup"]:popover-open,
+    & > [data-e="popup"]:modal {
+        @starting-style {
+            opacity: 0;
+            transform: scale(0.7);
+        }
+        opacity: 1;
+        transform: scale(1);
+    }
+    &.tonal > [data-e="popup"] {
+        background-color: var(--md-sys-color-surface-high);
+    }
+
+    // POPUP BACKDROP
+    & > [data-e="popup"]::backdrop {
+        transition: display 0.7s allow-discrete, overlay 0.7s allow-discrete, background-color 0.7s;
+        background-color: rgb(0 0 0 / 0%);
+    }
+    & > [data-e="popup"]:popover-open::backdrop,
+    & > [data-e="popup"]:modal::backdrop {
+        @starting-style {
+            background-color: rgb(0 0 0 / 0%);
+        }
+        background-color: rgb(0 0 0 / 50%);
+    }
 }

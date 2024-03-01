@@ -1,144 +1,303 @@
 @import "all-config";
 
-$end-column-width: 320px;
-$breakpoint: 1000px;
+$side-column-width: 320px;
+$breakpoint: 1000px; // RELATED CONST in JS: #_breakpoint
+
+//  open modal mobile tablet
+//   0    0       0       1
+
+//   1    0       0       1
+
+//   0    0       1       0
+//   1    0       1       0
+
+//   1    1       1       0
+//   1    1       0       1
+
+// Всего 6 различных состояний, можно описать 4 правилами:
+
+//     @media (width >= $breakpoint) { // Tablet
+//          dialog:not([open]) {
+//          }
+
+//          dialog[open]:not(:modal) {
+//          }
+//     }
+
+//     @media (width < $breakpoint) { // Mobile
+//          dialog:not([open]),
+//          dialog[open]:not(:modal) {
+//          }
+//     }
+
+//     dialog:modal {
+//     }
 
 two-column-template {
-    grid-column: 1/-1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, $base-max-width - $end-column-width) $end-column-width minmax(0, 1fr);
+    grid-template-rows: auto;
+    &.start-side {
+        grid-template-columns: minmax(0, 1fr) $side-column-width minmax(0, $base-max-width - $side-column-width) minmax(0, 1fr);
+    }
+    &.end-side {
+        grid-template-columns: minmax(0, 1fr) minmax(0, $base-max-width - $side-column-width) $side-column-width minmax(0, 1fr);
+    }
 
-    & > [data-e="main-column"] {
-        grid-column: 2/4;
-        grid-row: 1;
-        // padding-inline-start: var(--inline-padding);
-        // padding-inline-end: calc($end-column-width + var(--inline-padding));
-        padding-inline-end: $end-column-width;
-        &.full-width {
-            // padding-inline-end: var(--inline-padding);
-            padding-inline-end: 0;
-        }
-        @media (width < $breakpoint) {
-            // padding-inline-end: var(--inline-padding);
-            padding-inline-end: 0;
-        }
-        transition-property: padding-inline-end;
-        transition-duration: 200ms;
-
-        & > [data-e="button-row"] {
-            display: flex;
-            height: 56px;
-        }
-    }
-    & > [data-e="end-column-backdrop"] {
-        @media (width < $breakpoint) { // For Mobile.
-            z-index: $side-panel-fixed-z-index - 1;
-            contain: layout paint size style;
-            position: fixed;
-            inset: 0;
-            background-color: black;
-            opacity: 0;
-            visibility: hidden;
-            transition-property: opacity, visibility;
-            transition-duration: 200ms;
-            &.visible-on-mobile {
-                opacity: 0.5;
-                visibility: visible;
-            }
-        }
-    }
-    & > [data-e="end-column"] {
-        grid-column: 3;
-        grid-row: 1;
-        contain: layout size style;
-        border: 1px solid var(--md-sys-color-surface-container);
-        background-color: var(--md-sys-color-surface-container-low);
-        transition-property: transform, opacity, visibility;
-        transition-duration: 200ms;
-        @media (width >= $breakpoint) { // For Tablet.
-            z-index: $side-panel-base-z-index;
-            opacity: 1;
-            pointer-events: auto;
-            visibility: visible;
-            &.hidden-on-tablets {
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-                transform: translateX($end-column-width);
-            }
-        }
-        @media (width < $breakpoint) { // For Mobile.
-            z-index: $side-panel-fixed-z-index;
-            position: fixed;
-            top: 0;
-            right: calc(var(--sw) - $end-column-width);
-            width: 300px;
-            // height: 100dvh;
-            bottom: 0;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            &.visible-on-mobile {
-                opacity: 1;
-                pointer-events: auto;
-                visibility: visible;
-                transform: translateX(0px - $end-column-width);
-            }
-        }
-    }
+    // OPEN BUTTON
     & > [data-e="open-button"] {
-        grid-column: 3;
+        z-index: $nav-bar-z-index - 1;
+        grid-column: 2/4;
         grid-row: 1;
         margin-top: 8px;
         position: sticky;
         top: var(--open-button-top-indent, 70px);
         width: min-content;
         height: min-content;
+        white-space: nowrap;
+        transition: top 0.4s ease-out, visibility 0.4s ease-out, opacity 0.4s ease-out;
+        &:has(+[data-e="side-column"][open]) {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+    &.start-side > [data-e="open-button"] {
+        justify-self: start;
+        margin-inline-start: var(--inline-padding);
+    }
+    &.end-side > [data-e="open-button"] {
         justify-self: end;
         margin-inline-end: var(--inline-padding);
-        white-space: nowrap;
-        transition-property: top;
-        transition-duration: 400ms;
     }
-    & > [data-e="close-button"] {
-        grid-column: 3;
+
+    // SIDE COLUMN
+    & > [data-e="side-column"] {
+        contain: layout size style;
+        width: $side-column-width;
+        border: 1px solid var(--md-sys-color-surface-container);
+        background-color: var(--md-sys-color-surface-container-low);
+        & > [data-e="close-button"] {
+            position: absolute;
+            inset-inline-end: 8px;
+            top: 8px;
+        }
+    }
+    & > [data-e="side-column"]:modal::backdrop {
+        background-color: rgb(0 0 0 / 50%);
+        animation: side-column-backdrop-fade-in 0.2s ease-out forwards;
+    }
+    & > [data-e="side-column"]:modal.is-opening::backdrop {
+        background-color: rgb(0 0 0 / 50%);
+        animation: side-column-backdrop-fade-in 0.2s ease-out forwards;
+    }
+    & > [data-e="side-column"]:modal.is-closing::backdrop {
+        animation: side-column-backdrop-fade-in 0.2s ease-out backwards;
+        animation-direction: reverse;
+    }
+    @keyframes side-column-backdrop-fade-in {
+        0% {
+            background-color: rgb(0 0 0 / 0%);
+        }
+        100% {
+            background-color: rgb(0 0 0 / 50%);
+        }
+    }
+    &.start-side > [data-e="side-column"] {
+        grid-column: 2;
         grid-row: 1;
-        transition-property: transform, opacity, visibility;
-        transition-duration: 200ms;
-        @media (width >= $breakpoint) { // For Tablet.
-            z-index: $side-panel-base-z-index + 1;
+        display: grid;
+        grid-template-columns: auto 0;
+        grid-template-rows: auto;
+        position: relative;
+        & > [data-e="hide-button"] {
+            grid-column: 2;
+            grid-row: 1;
             margin-top: 64px;
+            margin-bottom: 64px;
             position: sticky;
             top: 70px;
             margin-inline-start: -20px;
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            &.hidden-on-tablets {
-                opacity: 0;
-                visibility: hidden;
-                pointer-events: none;
-                transform: translateX($end-column-width);
+            & > [data-e="hide-button-icon"] {
+                transform: rotate(180deg);
             }
         }
-        @media (width < $breakpoint) { // For Mobile.
+        & > [data-e="limited-path"] {
+            grid-column: 1;
+            grid-row: 1;
+            & > [data-e="floating-slot"] {
+
+            }
+        }
+    }
+    &.start-side > [data-e="side-column"]:not([open]) {
+        @media (width >= $breakpoint) {
             display: none;
-            // z-index: $side-panel-fixed-z-index + 1;
-            // position: fixed;
-            // top: 120px;
-            // right: calc(var(--sw) - 20px);
-            // opacity: 0;
-            // visibility: hidden;
-            // pointer-events: none;
-            // &.visible-on-mobile {
-            //     opacity: 1;
-            //     pointer-events: auto;
-            //     visibility: visible;
-            //     // transform: translateX(0px - $end-column-width - 24px);
-            //     transform: translateX(0px - $end-column-width);
-            // }
+            & > [data-e="close-button"] {
+                display: none;
+            }
+            & > [data-e="limited-path"] {
+                & > [data-e="floating-slot"] {
+
+                }
+            }
+        }
+    }
+    &.start-side > [data-e="side-column"][open]:not(:modal) {
+        @media (width >= $breakpoint) {
+            display: grid;
+            & > [data-e="close-button"] {
+                display: none;
+            }
+            & > [data-e="limited-path"] {
+                & > [data-e="floating-slot"] {
+
+                }
+            }
+        }
+    }
+    &.start-side > [data-e="side-column"]:not(:modal) {
+        @media (width < $breakpoint) {
+            overflow-x: hidden;
+            display: none;
+            & > [data-e="hide-button"] {
+                display: none;
+            }
+            & > [data-e="limited-path"] {
+                & > [data-e="floating-slot"] {
+
+                }
+            }
+        }
+    }
+    &.start-side > [data-e="side-column"]:modal {
+        overflow-x: hidden;
+        display: grid;
+        position: fixed;
+        top: 0;
+        inset-inline-start: 0;
+        height: 100dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: none;
+        & > [data-e="hide-button"] {
+            display: none;
+        }
+        & > [data-e="limited-path"] {
+            & > [data-e="floating-slot"] {
+
+            }
+        }
+    }
+    &.end-side > [data-e="side-column"] {
+        grid-column: 3;
+        grid-row: 1;
+        display: grid;
+        grid-template-columns: 0 auto;
+        grid-template-rows: auto;
+        & > [data-e="hide-button"] {
+            grid-column: 1;
+            grid-row: 1;
+            margin-top: 64px;
+            margin-bottom: 64px;
+            position: sticky;
+            top: 70px;
+            margin-inline-start: -20px;
+        }
+        & > [data-e="limited-path"] {
+            grid-column: 2;
+            grid-row: 1;
+        }
+    }
+    &.end-side > [data-e="side-column"]:not([open]) {
+        @media (width >= $breakpoint) {
+            display: none;
+            & > [data-e="close-button"] {
+                display: none;
+            }
+            & > [data-e="limited-path"] {
+                & > [data-e="floating-slot"] {
+
+                }
+            }
+        }
+    }
+    &.end-side > [data-e="side-column"][open]:not(:modal) {
+        @media (width >= $breakpoint) {
+            display: grid;
+            & > [data-e="close-button"] {
+                display: none;
+            }
+            & > [data-e="limited-path"] {
+                & > [data-e="floating-slot"] {
+
+                }
+            }
+        }
+    }
+    &.end-side > [data-e="side-column"]:not(:modal) {
+        @media (width < $breakpoint) {
+            overflow-x: hidden;
+            display: none;
+            & > [data-e="hide-button"] {
+                display: none;
+            }
+            & > [data-e="limited-path"] {
+                & > [data-e="floating-slot"] {
+
+                }
+            }
+        }
+    }
+    &.end-side > [data-e="side-column"]:modal {
+        overflow-x: hidden;
+        display: grid;
+        position: fixed;
+        top: 0;
+        inset-inline-end: 0;
+        height: 100dvh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        border: none;
+        & > [data-e="hide-button"] {
+            display: none;
+        }
+        & > [data-e="limited-path"] {
+            & > [data-e="floating-slot"] {
+
+            }
+        }
+    }
+
+    // MAIN COLUMN
+    & > [data-e="main-column"] {
+        grid-column: 2/4;
+        grid-row: 1;
+        transition-property: padding;
+        transition-duration: 200ms;
+        & > [data-e="space-for-side-column-open-button"] {
+            display: flex;
+            height: 56px;
+        }
+    }
+    &.start-side > [data-e="main-column"] {
+        padding-inline-start: $side-column-width;
+        @media (width >= $breakpoint) {
+            &.full-width {
+                padding-inline-start: 0;
+            }
+        }
+        @media (width < $breakpoint) {
+            padding-inline-start: 0;
+        }
+    }
+    &.end-side > [data-e="main-column"] {
+        padding-inline-end: $side-column-width;
+        @media (width >= $breakpoint) {
+            &.full-width {
+                padding-inline-end: 0;
+            }
+        }
+        @media (width < $breakpoint) {
+            padding-inline-end: 0;
         }
     }
 }

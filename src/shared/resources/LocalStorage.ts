@@ -6,9 +6,9 @@ import { Keys } from "@/shared/resources/Keys";
 export class LocalStorage {
     #_localStorageService: LocalStorageService = inject(LocalStorageService)
 
-    observePreferredSidePanelView: Signal<string | null> =
-          this.#_localStorageService.createObserveValueMethod(Keys.PREFERRED_SIDE_PANEL_VIEW)
+    observePreferredSideColumnView: Signal<string | null> =
+        this.#_localStorageService.createObserveValueMethod(Keys.PREFERRED_SIDE_PANEL_VIEW)
 
-    setPreferredSidePanelView: (value: string) => void =
-          this.#_localStorageService.createSetValueMethod(Keys.PREFERRED_SIDE_PANEL_VIEW)
+    setPreferredSideColumnView: (value: string) => void =
+        this.#_localStorageService.createSetValueMethod(Keys.PREFERRED_SIDE_PANEL_VIEW)
 }

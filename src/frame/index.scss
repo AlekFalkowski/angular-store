@@ -49,8 +49,8 @@ html.disable-transitions * {
 html:has(app-layout.loading) {
     overflow-y: hidden;
 }
-html:has([data-e="nav-drawer"][open]),
-html:has([data-e="end-column"].visible-on-mobile) {
+html:has([data-e="nav-drawer"]:modal),
+html:has([data-e="side-column"]:modal) {
     overflow-y: hidden;
     background-color: var(--html-shaded-color);
 }

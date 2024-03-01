@@ -4,7 +4,8 @@ import {
     CUSTOM_ELEMENTS_SCHEMA,
     inject,
     signal,
-    ViewEncapsulation, WritableSignal
+    ViewEncapsulation,
+    WritableSignal
 } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
@@ -14,8 +15,6 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-foun
 import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/page-title/page-title";
 import { CardCollection } from "@/shared/display/card-collection/card-collection";
-import { EndColumnSlot } from "@/shared/display/two-column-template/end-column-slot";
-import { MainColumnSlot } from "@/shared/display/two-column-template/main-column-slot";
 import { TwoColumnTemplate } from "@/shared/display/two-column-template/two-column-template";
 import { LoadingError } from "@/shared/display/loading-error/loading-error";
 import { LoadingProcess } from "@/shared/display/loading-process/loading-process";
@@ -33,8 +32,6 @@ import { RemoteStorage } from "../resources/RemoteStorage";
         PageBreadcrumbs,
         PageTitle,
         CardCollection,
-        EndColumnSlot,
-        MainColumnSlot,
         TwoColumnTemplate,
         LoadingError,
         LoadingProcess,
@@ -68,5 +65,5 @@ export class CatalogSectionNode {
         this.htmlHeadTitleService.setTitle(this.viewModel.stableContent()?.htmlHeadTitle ?? '')
     }
 
-    isSidePanelOpenInMobile: WritableSignal<boolean> = signal(false)
+    isSideColumnOpenInModal: WritableSignal<boolean> = signal(false)
 }

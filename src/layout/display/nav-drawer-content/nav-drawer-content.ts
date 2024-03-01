@@ -1,10 +1,8 @@
 import {
     ChangeDetectionStrategy,
-    Component, computed,
+    Component,
     CUSTOM_ELEMENTS_SCHEMA,
-    ElementRef,
     EventEmitter,
-    inject,
     Input,
     Output,
     Signal,
@@ -64,26 +62,26 @@ import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
     selector: 'nav-drawer-content',
     host: {},
     template: `
-        <h3 data-e="title" >О магазине</h3 >
-        <div data-e="lorem" >
-            <popup-fieldset label="About">
-                <div style="height: 300px; width: 200px; background-color: white;" ></div>
-            </popup-fieldset>
-        </div >
-        <hr />
-        <h3 data-e="title" >Каталог</h3 >
-        <div data-e="lorem" ></div >
-        <hr />
-        <h3 data-e="title" >Каталог</h3 >
-        <div data-e="lorem" ></div >
-        <hr />
-        <h3 data-e="title" >Каталог</h3 >
-        <div data-e="lorem" ></div >
-        <hr />
-        <h3 data-e="title" >Аккаунт</h3 >
-        <div data-e="lorem" ></div >
-        <hr />
-        <h3 data-e="title" >Настройки</h3 >
+        <h3 data-e="title">О магазине</h3>
+        <div data-e="lorem">
+            <!-- <popup-fieldset label="About"> -->
+            <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+            <!-- </popup-fieldset> -->
+        </div>
+        <hr/>
+        <h3 data-e="title">Каталог</h3>
+        <div data-e="lorem"></div>
+        <hr/>
+        <h3 data-e="title">Каталог</h3>
+        <div data-e="lorem"></div>
+        <hr/>
+        <h3 data-e="title">Каталог</h3>
+        <div data-e="lorem"></div>
+        <hr/>
+        <h3 data-e="title">Аккаунт</h3>
+        <div data-e="lorem"></div>
+        <hr/>
+        <h3 data-e="title">Настройки</h3>
         <!-- <label data-e="color-theme-switch-label" > -->
         <!--     Тёмная тема -->
         <!--     <md-checkbox -->
@@ -92,14 +90,14 @@ import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
         <!--           touch-target="wrapper" -->
         <!--     ></md-checkbox> -->
         <!-- </label > -->
-        <label data-e="color-theme-switch-label" >
+        <label data-e="color-theme-switch-label">
             Тёмная тема
             <md-switch
-                  [attr.selected]="colorScheme() === 'dark' ? '' : null"
-                  (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')"
-                  aria-label="Dark Theme"
-            ></md-switch >
-        </label >
+                [attr.selected]="colorScheme() === 'dark' ? '' : null"
+                (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')"
+                aria-label="Dark Theme"
+            ></md-switch>
+        </label>
         <!-- <mat-slide-toggle -->
         <!--       [ngModel]="colorScheme() === 'dark'" -->
         <!--       (ngModelChange)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
@@ -112,12 +110,12 @@ import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
         <!-- > -->
         <!--     Dark theme -->
         <!-- </mat-checkbox> -->
-        <div data-e="lorem" >isDarkTheme: {{ colorScheme() | uppercase }}</div >
-        <div data-e="lorem" >
-            <popup-fieldset label="bottom">
-                <div style="height: 300px; width: 200px; background-color: white;" ></div>
-            </popup-fieldset>
-        </div >
+        <div data-e="lorem">isDarkTheme: {{ colorScheme() | uppercase }}</div>
+        <div data-e="lorem">
+            <!-- <popup-fieldset label="bottom"> -->
+            <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+            <!-- </popup-fieldset> -->
+        </div>
     `,
 })
 export class NavDrawerContent {

@@ -1,4 +1,5 @@
 import {
+    afterNextRender,
     ChangeDetectionStrategy,
     Component,
     computed,
@@ -21,7 +22,7 @@ import { WindowStateProvider } from "@/frame/WindowStateProvider";
     encapsulation: ViewEncapsulation.None,
     styleUrl: "popup-fieldset.scss",
     selector: 'popup-fieldset',
-    host: {},
+    host: { '[class]': 'variant' },
     templateUrl: 'popup-fieldset.html',
 })
 export class PopupFieldset { // popup-for-switches-with-monitor
@@ -35,25 +36,40 @@ export class PopupFieldset { // popup-for-switches-with-monitor
     @Input() disabled: boolean = false
 
     @ViewChild('button', { static: true }) button: ElementRef<HTMLButtonElement> | undefined
-    @ViewChild('dialog', { static: true }) dialog: ElementRef<HTMLDialogElement> | undefined
+    // @ViewChild('popup', { static: true }) popup: ElementRef<HTMLDialogElement> | undefined
+    @ViewChild('popup', { static: true }) popup: ElementRef<HTMLElement> | undefined
 
     #_windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
 
     dialogIsOpen: WritableSignal<boolean> = signal(false)
+    #_scale = 0.7
+
+    constructor() {
+        afterNextRender(() => {
+            this.popup?.nativeElement.addEventListener("close", () => {
+                this.popup?.nativeElement.querySelectorAll(':where(:modal, :popover-open)')
+                    .forEach((popup) => {
+                        //@ts-ignore
+                        popup.close()
+                    })
+                this.dialogIsOpen.set(false)
+            })
+        })
+    }
 
     openDialog(): void {
-        this.dialog?.nativeElement.showModal()
+        this.popup?.nativeElement.showModal()
         this.dialogIsOpen.set(true)
+        this.#_scale = 0.7 // RELATED in SCSS: transform: scale(0.7)
     }
 
     closeDialog(): void {
-        this.dialog?.nativeElement.close()
-        this.dialogIsOpen.set(false)
+        this.popup?.nativeElement.close()
     }
 
     closeDialogOnClickByBackdrop(event: Event): void {
-        if (event.target === this.dialog?.nativeElement) {
-            this.closeDialog()
+        if (event.target === this.popup?.nativeElement) {
+            this.popup?.nativeElement.close()
         }
     }
 
@@ -63,7 +79,7 @@ export class PopupFieldset { // popup-for-switches-with-monitor
         }
         // Метод getBoundingClientRect() даёт расстояния от viewport(0, 0) до граней элемента:
         const buttonRect = this.button?.nativeElement.getBoundingClientRect()
-        const dialogRect = this.dialog?.nativeElement.getBoundingClientRect()
+        const dialogRect = this.popup?.nativeElement.getBoundingClientRect()
         if (!buttonRect || !dialogRect) {
             return {}
         }
@@ -73,31 +89,31 @@ export class PopupFieldset { // popup-for-switches-with-monitor
         if (buttonRect.left + buttonRect.right < this.#_windowStateProvider.documentOffsetWidth()) {
             // Если buttonElement расположен в левой половине экрана:
             left = Math.min(
-                  buttonRect.right + indent,
-                  this.#_windowStateProvider.documentOffsetWidth() - margin - dialogRect.width / 0.7
+                buttonRect.right + indent,
+                this.#_windowStateProvider.documentOffsetWidth() - margin - dialogRect.width / this.#_scale
             ) + 'px'
         } else {
             // Если buttonElement расположен в правой половине экрана:
             left = Math.max(
-                  buttonRect.left - dialogRect.width / 0.7 - indent,
-                  margin
+                buttonRect.left - dialogRect.width / this.#_scale - indent,
+                margin
             ) + 'px'
         }
         let top: string
         if (buttonRect.top + buttonRect.bottom < this.#_windowStateProvider.documentClientHeight()) {
             // Если buttonElement расположен в верхней половине экрана:
             top = Math.max(
-                  (buttonRect.top + buttonRect.bottom - dialogRect.height / 0.7) / 2,
-                  margin
+                (buttonRect.top + buttonRect.bottom - dialogRect.height / this.#_scale) / 2,
+                margin
             ) + 'px'
         } else {
             // Если buttonElement расположен в нижней половине экрана:
             top = Math.min(
-                  (buttonRect.top + buttonRect.bottom - dialogRect.height / 0.7) / 2,
-                  this.#_windowStateProvider.documentClientHeight() - margin - dialogRect.height / 0.7
+                (buttonRect.top + buttonRect.bottom - dialogRect.height / this.#_scale) / 2,
+                this.#_windowStateProvider.documentClientHeight() - margin - dialogRect.height / this.#_scale
             ) + 'px'
         }
-
+        this.#_scale = 1
         return {
             left: left,
             top: top,

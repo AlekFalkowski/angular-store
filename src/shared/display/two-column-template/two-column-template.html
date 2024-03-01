@@ -1,26 +1,32 @@
-<div data-e="main-column"
-        [class.full-width]="viewModel.preferredSidePanelView() === 'hidden'">
-    <div data-e="button-row"></div>
-    <ng-content select="main-column-slot" />
-</div>
-<div data-e="end-column-backdrop"
-        [class.visible-on-mobile]="isSidePanelOpenInMobile()"
-        (click)="closeSidePanel()">
-</div>
-<div data-e="end-column"
-        [class.hidden-on-tablets]="viewModel.preferredSidePanelView() === 'hidden'"
-        [class.visible-on-mobile]="isSidePanelOpenInMobile()">
-    <ng-content select="end-column-slot" />
-</div>
 <md-filled-button data-e="open-button"
-        [style.--open-button-top-indent]="openButtonTopIndent()"
-        (click)="openSidePanel()">
+     [style.--open-button-top-indent]="openButtonTopIndent()"
+     (click)="openSideColumn()">
     {{ openButtonText }}
 </md-filled-button>
-<md-filled-icon-button data-e="close-button"
-        [class.hidden-on-tablets]="viewModel.preferredSidePanelView() === 'hidden'"
-        (click)="closeSidePanel()">
-    <md-icon>
-        double_arrow
-    </md-icon>
-</md-filled-icon-button>
+<dialog data-e="side-column"
+     open
+     #sideColumn
+     (click)="closeSideColumnOnClickByBackdrop($event)">
+    <md-filled-icon-button data-e="hide-button"
+         (click)="closeSideColumn()">
+        <md-icon data-e="hide-button-icon">
+            double_arrow
+        </md-icon>
+    </md-filled-icon-button>
+    <md-icon-button data-e="close-button"
+         (click)="closeSideColumn()">
+        <md-icon data-e="close-button-icon">
+            close
+        </md-icon>
+    </md-icon-button>
+    <div data-e="limited-path">
+        <div data-e="floating-slot">
+            <ng-content select="side-column-content" />
+        </div>
+    </div>
+</dialog>
+<div data-e="main-column"
+     [class.full-width]="viewModel.preferredSideColumnView() === 'hidden'">
+    <div data-e="space-for-side-column-open-button"></div>
+    <ng-content select="main-column-content" />
+</div>

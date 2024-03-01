@@ -1,9 +1,10 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    CUSTOM_ELEMENTS_SCHEMA, EventEmitter,
-    inject,
-    Input, Output,
+    CUSTOM_ELEMENTS_SCHEMA,
+    EventEmitter,
+    Input,
+    Output,
     ViewEncapsulation
 } from '@angular/core';
 import { CommonModule } from "@angular/common";
@@ -13,9 +14,6 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-foun
 import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/page-title/page-title";
 import { CardCollection } from "@/shared/display/card-collection/card-collection";
-import { EndColumnSlot } from "@/shared/display/two-column-template/end-column-slot";
-import { MainColumnSlot } from "@/shared/display/two-column-template/main-column-slot";
-import { TwoColumnTemplate } from "@/shared/display/two-column-template/two-column-template";
 import { LoadingError } from "@/shared/display/loading-error/loading-error";
 import { LoadingProcess } from "@/shared/display/loading-process/loading-process";
 import { TFieldSet } from "@/shared/types/TFieldSet";
@@ -30,9 +28,6 @@ import { FieldsColumn } from "@/shared/display/fields-column/fields-column";
         PageBreadcrumbs,
         PageTitle,
         CardCollection,
-        EndColumnSlot,
-        MainColumnSlot,
-        TwoColumnTemplate,
         LoadingError,
         LoadingProcess,
         CatalogNotFound,
