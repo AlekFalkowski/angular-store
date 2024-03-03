@@ -31,7 +31,8 @@ catalog-section-filter {
         height: 72px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: start;
+        gap: 8px;
         padding-inline: 24px;
         // border-block: 1px solid var(--md-sys-color-surface-container);
         // background-color: var(--md-sys-color-surface-container-low);

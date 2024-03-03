@@ -6,7 +6,6 @@ import {
     CUSTOM_ELEMENTS_SCHEMA,
     ElementRef,
     inject,
-    Injector,
     PLATFORM_ID,
     signal,
     Signal,
@@ -57,12 +56,13 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
     ]
 })
 export class AppLayout {
+    @ViewChild('navDrawer', { static: true }) navDrawer: ElementRef<HTMLDialogElement> | undefined
     readonly windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
     readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
-    #_injector: Injector = inject(Injector)
-
-    @ViewChild('navDrawer', { static: true }) navDrawer: ElementRef<HTMLDialogElement> | undefined
+    #_controller: AbortController = new AbortController()
+    #_navDrawerContentWidth: number = 320 // RELATED CONST in SCSS: $nav-drawer-content-width
+    #_browserColorScheme: WritableSignal<"light" | "dark"> = signal("light")
 
     constructor() {
         if (isPlatformBrowser(this.#_platformId)) {
@@ -72,24 +72,22 @@ export class AppLayout {
             window.matchMedia('(prefers-color-scheme: dark)')
                 .addEventListener('change', (event) => {
                     this.#_browserColorScheme.set(event.matches ? "dark" : "light")
-                    // this.#_setColorSchemeOnChangeColorSchemeInBrowser(event)
                 })
-            // effect(() => {
-            //     this.#_setColorSchemeOnChangeColorSchemeInApp(this.viewModel.preferredColorScheme())
-            // }, { injector: this.#_injector })
         }
         afterNextRender(() => {
             this.navDrawer?.nativeElement.addEventListener("close", () => {
-                this.navDrawer?.nativeElement.querySelectorAll(':where(:modal, :popover-open)')
-                    .forEach((popup) => {
-                        //@ts-ignore
-                        popup.close()
-                    })
+                this.navDrawer?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
+                    //@ts-ignore
+                    popup.close()
+                })
+                this.navDrawer?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
+                    //@ts-ignore
+                    popup.hidePopover()
+                })
+                this.#_controller.abort()
             })
         })
     }
-
-    #_browserColorScheme: WritableSignal<"light" | "dark"> = signal("light")
 
     colorScheme: Signal<"light" | "dark"> = computed(() => {
         switch (this.viewModel.preferredColorScheme()) {
@@ -102,28 +100,25 @@ export class AppLayout {
         }
     })
 
-    // #_setColorSchemeOnChangeColorSchemeInApp(preferredColorScheme: string): void {
-    //     if (preferredColorScheme === 'dark' || preferredColorScheme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    //         document.documentElement.setAttribute('data-color-scheme', 'dark')
-    //     } else {
-    //         document.documentElement.removeAttribute('data-color-scheme')
-    //     }
-    // }
-    //
-    // #_setColorSchemeOnChangeColorSchemeInBrowser(colorScheme: "light" | "dark"): void {
-    //     this.#_browserPreferredColorScheme.set(colorScheme)
-    //     if (this.viewModel.preferredColorScheme() === 'light' || this.viewModel.preferredColorScheme() === 'dark') {
-    //         return
-    //     }
-    //     if (colorScheme === "dark") {
-    //         document.documentElement.setAttribute('data-color-scheme', 'dark')
-    //     } else {
-    //         document.documentElement.removeAttribute('data-color-scheme')
-    //     }
-    // }
-
     openNavDrawer(): void {
+        this.navDrawer?.nativeElement.classList.add("is-starting")
+        this.#_controller.abort()
+        this.#_controller = new AbortController()
+        this.navDrawer?.nativeElement.addEventListener("keydown", (event) => {
+            if (event.key === 'Escape') {
+                event.preventDefault()
+                this.closeNavDrawer()
+            }
+        }, { signal: this.#_controller.signal })
         this.navDrawer?.nativeElement.showModal()
+        this.navDrawer?.nativeElement.classList.remove("is-starting")
+        this.navDrawer?.nativeElement.animate(
+            [
+                { opacity: '0', transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
+                { opacity: '1', transform: 'translateX(0)' },
+            ],
+            { duration: 200, iterations: 1, easing: 'ease-out' }
+        )
     }
 
     closeNavDrawerOnClickByBackdrop(event: Event): void {
@@ -133,6 +128,16 @@ export class AppLayout {
     }
 
     closeNavDrawer(): void {
-        this.navDrawer?.nativeElement.close()
+        this.navDrawer?.nativeElement.classList.add("is-closing")
+        this.navDrawer?.nativeElement.animate(
+            [
+                { opacity: '1', transform: 'translateX(0)' },
+                { opacity: '0', transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
+            ],
+            { duration: 200, iterations: 1, easing: 'ease-out' }
+        ).finished.then(() => {
+            this.navDrawer?.nativeElement.close()
+            this.navDrawer?.nativeElement.classList.remove("is-closing")
+        })
     }
 }

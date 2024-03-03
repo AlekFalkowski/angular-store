@@ -1,37 +1,7 @@
 @import "all-config";
 
-$side-column-width: 320px;
+$side-column-width: 320px; // RELATED CONST in JS: #_sideColumnWidth
 $breakpoint: 1000px; // RELATED CONST in JS: #_breakpoint
-
-//  open modal mobile tablet
-//   0    0       0       1
-
-//   1    0       0       1
-
-//   0    0       1       0
-//   1    0       1       0
-
-//   1    1       1       0
-//   1    1       0       1
-
-// Всего 6 различных состояний, можно описать 4 правилами:
-
-//     @media (width >= $breakpoint) { // Tablet
-//          dialog:not([open]) {
-//          }
-
-//          dialog[open]:not(:modal) {
-//          }
-//     }
-
-//     @media (width < $breakpoint) { // Mobile
-//          dialog:not([open]),
-//          dialog[open]:not(:modal) {
-//          }
-//     }
-
-//     dialog:modal {
-//     }
 
 two-column-template {
     display: grid;
@@ -55,7 +25,7 @@ two-column-template {
         height: min-content;
         white-space: nowrap;
         transition: top 0.4s ease-out, visibility 0.4s ease-out, opacity 0.4s ease-out;
-        &:has(+[data-e="side-column"][open]) {
+        &:has(+[data-e="side-column"][open]:not(.is-closing)) {
             opacity: 0;
             visibility: hidden;
         }
@@ -69,7 +39,7 @@ two-column-template {
         margin-inline-end: var(--inline-padding);
     }
 
-    // SIDE COLUMN
+    // SIDE COLUMN WINDOW
     & > [data-e="side-column"] {
         contain: layout size style;
         width: $side-column-width;
@@ -79,26 +49,6 @@ two-column-template {
             position: absolute;
             inset-inline-end: 8px;
             top: 8px;
-        }
-    }
-    & > [data-e="side-column"]:modal::backdrop {
-        background-color: rgb(0 0 0 / 50%);
-        animation: side-column-backdrop-fade-in 0.2s ease-out forwards;
-    }
-    & > [data-e="side-column"]:modal.is-opening::backdrop {
-        background-color: rgb(0 0 0 / 50%);
-        animation: side-column-backdrop-fade-in 0.2s ease-out forwards;
-    }
-    & > [data-e="side-column"]:modal.is-closing::backdrop {
-        animation: side-column-backdrop-fade-in 0.2s ease-out backwards;
-        animation-direction: reverse;
-    }
-    @keyframes side-column-backdrop-fade-in {
-        0% {
-            background-color: rgb(0 0 0 / 0%);
-        }
-        100% {
-            background-color: rgb(0 0 0 / 50%);
         }
     }
     &.start-side > [data-e="side-column"] {
@@ -237,6 +187,7 @@ two-column-template {
         @media (width < $breakpoint) {
             overflow-x: hidden;
             display: none;
+            margin-inline-end: var(--sw);
             & > [data-e="hide-button"] {
                 display: none;
             }
@@ -253,6 +204,7 @@ two-column-template {
         position: fixed;
         top: 0;
         inset-inline-end: 0;
+        margin-inline-end: var(--sw);
         height: 100dvh;
         overflow-y: auto;
         overscroll-behavior: contain;
@@ -265,6 +217,16 @@ two-column-template {
 
             }
         }
+    }
+
+    // SIDE COLUMN BACKDROP
+    & > [data-e="side-column"]::backdrop {
+        background-color: rgb(0 0 0 / 50%);
+        transition: background-color 0.2s;
+    }
+    & > [data-e="side-column"].is-starting::backdrop,
+    & > [data-e="side-column"].is-closing::backdrop {
+        background-color: rgb(0 0 0 / 0%);
     }
 
     // MAIN COLUMN
@@ -301,3 +263,33 @@ two-column-template {
         }
     }
 }
+
+//  open modal mobile tablet
+//   0    0       0       1
+
+//   1    0       0       1
+
+//   0    0       1       0
+//   1    0       1       0
+
+//   1    1       1       0
+//   1    1       0       1
+
+// Всего 6 различных состояний, можно описать 4 правилами:
+
+//     @media (width >= $breakpoint) { // Tablet
+//          dialog:not([open]) {
+//          }
+
+//          dialog[open]:not(:modal) {
+//          }
+//     }
+
+//     @media (width < $breakpoint) { // Mobile
+//          dialog:not([open]),
+//          dialog[open]:not(:modal) {
+//          }
+//     }
+
+//     dialog:modal {
+//     }

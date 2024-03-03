@@ -1,9 +1,9 @@
 @import "all-config";
 
 fields-column {
-    padding-inline-start: 8px;
-    padding-inline-end: 24px;
-    padding-block: 8px;
+    padding-inline-start: 4px;
+    padding-inline-end: 4px;
+    padding-block: 4px;
     //
     display: flex;
     flex-direction: column;
@@ -131,6 +131,7 @@ fields-column {
         white-space: nowrap;
         text-overflow: ellipsis;
         @include MD3_LABEL_L_FONT_RULE_SET;
-        margin-inline-start: 60px;
+        margin-inline-start: 44px;
+        margin-inline-end: 10px;
     }
 }

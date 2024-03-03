@@ -8,17 +8,17 @@
         @switch (field.type) {
             @case ("TMultiChoiceField") {
                 <popup-fieldset
-                        [label]="field.label"
-                        [inputText]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? 'выбрано ' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + ' из ' + field.options.length.toString() : ''"
+                     [label]="field.label"
+                     [checkedQnt]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? '' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + '/' + field.options.length.toString() : ''"
                 >
                     <fields-column>
                         @for (option of field.options; track option.label) {
                             <label>
                                 <input type="checkbox"
-                                        [name]="field.name"
-                                        [value]="option.value"
-                                        [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
-                                        (ngModelChange)="multiChoiceFieldsStates.get(field.name)?.has(option.value)
+                                     [name]="field.name"
+                                     [value]="option.value"
+                                     [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
+                                     (ngModelChange)="multiChoiceFieldsStates.get(field.name)?.has(option.value)
                                                ? multiChoiceFieldsStates.get(field.name)?.delete(option.value)
                                                : multiChoiceFieldsStates.get(field.name)?.add(option.value)
                                            "
@@ -32,8 +32,8 @@
                     @for (option of field.options; track option.label) {
                         @if (multiChoiceFieldsStates.get(field.name)?.has(option.value)) {
                             <md-input-chip
-                                    [attr.label]="option.label"
-                                    remove-only="true"
+                                 [attr.label]="option.label"
+                                 remove-only="true"
                             ></md-input-chip>
                         }
                     }
@@ -41,17 +41,17 @@
             }
             @case ("TSingleChoiceField") {
                 <popup-fieldset
-                        [label]="field.label"
-                        [inputText]="singleChoiceFieldsStates.get(field.name)"
+                     [label]="field.label"
+                     [inputText]="singleChoiceFieldsStates.get(field.name)"
                 >
                     <fields-column>
                         @for (option of field.options; track option.label) {
                             <label>
                                 <input type="radio"
-                                        [name]="field.name"
-                                        [value]="option.value"
-                                        [ngModel]="singleChoiceFieldsStates.get(field.name)"
-                                        (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
+                                     [name]="field.name"
+                                     [value]="option.value"
+                                     [ngModel]="singleChoiceFieldsStates.get(field.name)"
+                                     (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
                                 />
                                 <!-- <md-radio -->
                                 <!--       [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null" -->
@@ -63,77 +63,77 @@
                     </fields-column>
                 </popup-fieldset>
                 <!-- <md-outlined-select -->
-                        <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
-                        <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
-                        <!-- > -->
-                        <!--     @for (option of field.options; track option.label) { -->
-                        <!--     <md-select-option [value]="option.value"> -->
-                        <!--         <div slot="headline">{{ option.label }}</div> -->
-                        <!--     </md-select-option> -->
-                        <!--     } -->
-                        <!-- </md-outlined-select> -->
-                        <!-- <select -->
-                        <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
-                        <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
-                        <!-- > -->
-                        <!--     <option disabled selected></option> -->
-                        <!--     @for (option of field.options; track option.label) { -->
-                        <!--         <option [value]="option.value" >{{ option.label }}</option > -->
-                        <!--     } -->
-                        <!-- </select > -->
+                     <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
+                     <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
+                     <!-- > -->
+                     <!--     @for (option of field.options; track option.label) { -->
+                     <!--     <md-select-option [value]="option.value"> -->
+                     <!--         <div slot="headline">{{ option.label }}</div> -->
+                     <!--     </md-select-option> -->
+                     <!--     } -->
+                     <!-- </md-outlined-select> -->
+                     <!-- <select -->
+                     <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
+                     <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
+                     <!-- > -->
+                     <!--     <option disabled selected></option> -->
+                     <!--     @for (option of field.options; track option.label) { -->
+                     <!--         <option [value]="option.value" >{{ option.label }}</option > -->
+                     <!--     } -->
+                     <!-- </select > -->
             }
             @case ("TRangeField") {
                 <!-- <label style="display: flex;" > -->
-                        <!--     <input -->
-                        <!--           type="text" -->
-                        <!--           [name]="field.name" -->
-                        <!--           [value]="field.value" -->
-                        <!--           [ngModel]="textFieldsStates.get(field.name)" -->
-                        <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
-                        <!--     /> -->
-                        <!--     <span >{{ field.label }}</span > -->
-                        <!-- </label > -->
-                        <!-- <input -->
-                        <!--       type="text" -->
-                        <!--       [name]="field.name" -->
-                        <!--       [value]="field.value" -->
-                        <!--       [ngModel]="textFieldsStates.get(field.endName)" -->
-                        <!--       (ngModelChange)="textFieldsStates.set(field.endName, $event)" -->
-                        <!-- /> -->
+                     <!--     <input -->
+                     <!--           type="text" -->
+                     <!--           [name]="field.name" -->
+                     <!--           [value]="field.value" -->
+                     <!--           [ngModel]="textFieldsStates.get(field.name)" -->
+                     <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
+                     <!--     /> -->
+                     <!--     <span >{{ field.label }}</span > -->
+                     <!-- </label > -->
+                     <!-- <input -->
+                     <!--       type="text" -->
+                     <!--       [name]="field.name" -->
+                     <!--       [value]="field.value" -->
+                     <!--       [ngModel]="textFieldsStates.get(field.endName)" -->
+                     <!--       (ngModelChange)="textFieldsStates.set(field.endName, $event)" -->
+                     <!-- /> -->
                 <div data-e="range-field">
                     <text-field
-                            [label]="field.label"
-                            [name]="field.name"
-                            [value]="field.value"
-                            [currentValue]="textFieldsStates.get(field.name)"
-                            (changeValue)="textFieldsStates.set(field.name, $event)"
+                         [label]="field.label"
+                         [name]="field.name"
+                         [value]="field.value"
+                         [currentValue]="textFieldsStates.get(field.name)"
+                         (changeValue)="textFieldsStates.set(field.name, $event)"
                     ></text-field>
                     <text-field
-                            [label]="field.label"
-                            [name]="field.name"
-                            [value]="field.value"
-                            [currentValue]="textFieldsStates.get(field.endName)"
-                            (changeValue)="textFieldsStates.set(field.endName, $event)"
+                         [label]="field.label"
+                         [name]="field.name"
+                         [value]="field.value"
+                         [currentValue]="textFieldsStates.get(field.endName)"
+                         (changeValue)="textFieldsStates.set(field.endName, $event)"
                     ></text-field>
                 </div>
             }
             @case ("TTextField") {
                 <!-- <label style="display: flex;" > -->
-                        <!--     <input -->
-                        <!--           type="text" -->
-                        <!--           [name]="field.name" -->
-                        <!--           [value]="field.value" -->
-                        <!--           [ngModel]="textFieldsStates.get(field.name)" -->
-                        <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
-                        <!--     /> -->
-                        <!--     <span >{{ field.label }}</span > -->
-                        <!-- </label > -->
+                     <!--     <input -->
+                     <!--           type="text" -->
+                     <!--           [name]="field.name" -->
+                     <!--           [value]="field.value" -->
+                     <!--           [ngModel]="textFieldsStates.get(field.name)" -->
+                     <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
+                     <!--     /> -->
+                     <!--     <span >{{ field.label }}</span > -->
+                     <!-- </label > -->
                 <text-field
-                        [label]="field.label"
-                        [name]="field.name"
-                        [value]="field.value"
-                        [currentValue]="textFieldsStates.get(field.name)"
-                        (changeValue)="textFieldsStates.set(field.name, $event)"
+                     [label]="field.label"
+                     [name]="field.name"
+                     [value]="field.value"
+                     [currentValue]="textFieldsStates.get(field.name)"
+                     (changeValue)="textFieldsStates.set(field.name, $event)"
                 ></text-field>
             }
         }
@@ -141,11 +141,11 @@
 }
 <div data-e="actions-line">
     <md-filled-button data-e="submit-button"
-            (click)="submitFilter.emit()">
+         (click)="submitFilter.emit()">
         Применить
     </md-filled-button>
     <md-outlined-button data-e="submit-button"
-            (click)="cleanFilter.emit()">
+         (click)="cleanFilter.emit()">
         Очистить
     </md-outlined-button>
 </div>

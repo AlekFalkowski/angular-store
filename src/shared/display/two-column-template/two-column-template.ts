@@ -43,8 +43,13 @@ export class TwoColumnTemplate {
     readonly viewModel: SharedViewModel = inject(SharedViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_ngZone: NgZone = inject(NgZone)
-    #_showOrCloseSideColumnOnResizingWindow: Subscription | undefined
+    #_showOrCloseSideColumnOnWindowResize: Subscription | undefined
+    #_controller: AbortController = new AbortController()
+    #_scrollY: number = 0
+    #_scrollDirection: number = 0
+    #_sideColumnWidth: number = 320 // RELATED CONST in SCSS: $side-column-width
     #_breakpoint: number = 1000 // RELATED CONST in SCSS: $breakpoint
+    openButtonTopIndent: WritableSignal<"0px" | "70px"> = signal("70px")
 
     constructor() {
         afterNextRender(() => {
@@ -53,17 +58,21 @@ export class TwoColumnTemplate {
                 this.sideColumn?.nativeElement.close()
             }
             this.sideColumn?.nativeElement.addEventListener("close", () => {
-                this.sideColumn?.nativeElement.querySelectorAll(':where(:modal, :popover-open)')
-                    .forEach((popup) => {
-                        //@ts-ignore
-                        popup.close()
-                    })
+                this.sideColumn?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
+                    //@ts-ignore
+                    popup.close()
+                })
+                this.sideColumn?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
+                    //@ts-ignore
+                    popup.hidePopover()
+                })
                 if (window.innerWidth >= this.#_breakpoint && !this.isSideColumnOpenInModal()) {
                     this.viewModel.setPreferredSideColumnView('hidden')
                 }
                 this.isSideColumnOpenInModal.set(false)
+                this.#_controller.abort()
             })
-            this.#_showOrCloseSideColumnOnResizingWindow =
+            this.#_showOrCloseSideColumnOnWindowResize =
                 fromEvent(window, 'resize')
                     .pipe(throttleTime(400, undefined, { leading: false, trailing: true }))
                     .subscribe(() => {
@@ -84,13 +93,10 @@ export class TwoColumnTemplate {
     ngOnDestroy(): void {
         if (isPlatformBrowser(this.#_platformId)) {
             document.removeEventListener('scroll', this.#_changeOpenButtonIndentByChangingScrollDirection)
-            this.#_showOrCloseSideColumnOnResizingWindow?.unsubscribe()
+            this.#_showOrCloseSideColumnOnWindowResize?.unsubscribe()
         }
     }
 
-    openButtonTopIndent: WritableSignal<"0px" | "70px"> = signal("70px")
-    #_scrollY: number = 0
-    #_scrollDirection: number = 0
     #_changeOpenButtonIndentByChangingScrollDirection = (): void => {
         if (window.scrollY > this.#_scrollY) { // scrollDirection: down
             if (this.#_scrollDirection !== 1) {
@@ -111,27 +117,31 @@ export class TwoColumnTemplate {
     }
 
     openSideColumn(): void {
+        this.sideColumn?.nativeElement.classList.add("is-starting")
         if (window.innerWidth >= this.#_breakpoint) {
             this.sideColumn?.nativeElement.show()
-            this.sideColumn?.nativeElement.animate(
-                [
-                    { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? '-320px' : '320px' })` },
-                    { opacity: '1', transform: 'translateX(0)' },
-                ],
-                { duration: 200, iterations: 1, easing: 'ease-out' }
-            )
+            this.sideColumn?.nativeElement.classList.remove("is-starting")
             this.viewModel.setPreferredSideColumnView('visible')
         } else {
+            this.#_controller.abort()
+            this.#_controller = new AbortController()
+            this.sideColumn?.nativeElement.addEventListener("keydown", (event) => {
+                if (event.key === 'Escape') {
+                    event.preventDefault()
+                    this.closeSideColumn()
+                }
+            }, { signal: this.#_controller.signal })
             this.sideColumn?.nativeElement.showModal()
-            this.sideColumn?.nativeElement.animate(
-                [
-                    { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? '-320px' : '320px' })` },
-                    { opacity: '1', transform: 'translateX(0)' },
-                ],
-                { duration: 200, iterations: 1, easing: 'ease-out' }
-            )
+            this.sideColumn?.nativeElement.classList.remove("is-starting")
             this.isSideColumnOpenInModal.set(true)
         }
+        this.sideColumn?.nativeElement.animate(
+            [
+                { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
+                { opacity: '1', transform: 'translateX(0)' },
+            ],
+            { duration: 200, iterations: 1, easing: 'ease-out' }
+        )
     }
 
     closeSideColumnOnClickByBackdrop(event: Event): void {
@@ -141,16 +151,19 @@ export class TwoColumnTemplate {
     }
 
     closeSideColumn(): void {
-        this.sideColumn?.nativeElement.classList.add("x")
-        // this.sideColumn?.nativeElement.animate(
-        //     [
-        //         { opacity: '1', transform: 'translateX(0)' },
-        //         { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? '-320px' : '320px' })` },
-        //     ],
-        //     { duration: 200, iterations: 1, easing: 'ease-out' }
-        // ).finished.then(() => {
-        this.sideColumn?.nativeElement.close()
-        this.sideColumn?.nativeElement.classList.remove("x")
-        // })
+        this.sideColumn?.nativeElement.classList.add("is-closing")
+        if (window.innerWidth >= this.#_breakpoint && !this.isSideColumnOpenInModal()) {
+            this.viewModel.setPreferredSideColumnView('hidden')
+        }
+        this.sideColumn?.nativeElement.animate(
+            [
+                { opacity: '1', transform: 'translateX(0)' },
+                { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
+            ],
+            { duration: 200, iterations: 1, easing: 'ease-out' }
+        ).finished.then(() => {
+            this.sideColumn?.nativeElement.close()
+            this.sideColumn?.nativeElement.classList.remove("is-closing")
+        })
     }
 }

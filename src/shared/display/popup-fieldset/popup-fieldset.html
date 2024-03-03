@@ -3,8 +3,7 @@
      [class.checked]="inputText !== ''"
      [class.error]="error"
      [disabled]="disabled"
-     aria-haspopup="dialog"
-     (click)="openDialog()">
+     aria-haspopup="dialog">
     <span data-e="overlay"
          aria-hidden="true">
     </span>
@@ -35,17 +34,20 @@
     </div>
 }
 
-<!-- <dialog data-e="popup" -->
+<!-- <<< START Solution for browsers supporting css @starting-style. -->
+<!-- <div data-e="popup" -->
 <!--      #popup -->
-<!--      [style]="inlineStyle()" -->
-<!--      (click)="closeDialogOnClickByBackdrop($event)"> -->
+<!--      popover="auto" -->
+<!--      [style]="inlineStyle()"> -->
 <!--     <ng-content /> -->
-<!-- </dialog> -->
+<!-- </div> -->
+<!-- >>> END Solution for browsers supporting css @starting-style. -->
 
+<!-- <<< START Temporary solution until Safari supports css @starting-style. -->
 <div data-e="popup"
      #popup
-     popover="auto"
-     [style]="inlineStyle()"
-     (click)="closeDialogOnClickByBackdrop($event)">
+     popover="manual"
+     [style]="inlineStyle()">
     <ng-content />
 </div>
+<!-- >>> END Temporary solution until Safari supports css @starting-style. -->

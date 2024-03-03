@@ -1,6 +1,6 @@
 @import "all-config";
 
-$nav-drawer-content-width: 320px;
+$nav-drawer-content-width: 320px; // RELATED CONST in JS: #_navDrawerContentWidth
 
 app-layout {
     contain: inline-size style;
@@ -27,6 +27,7 @@ app-layout {
         transition-duration: 200ms;
     }
 
+    // NAV DRAWER WINDOW
     & > [data-e="nav-drawer"] {
         z-index: $nav-drawer-z-index;
         overflow-y: auto;
@@ -36,16 +37,6 @@ app-layout {
         width: $nav-drawer-content-width;
         height: 100dvh;
         background-color: var(--md-sys-color-surface-container-low);
-        // animation: naw-drawer-fade-out 0.2s ease-in;
-
-        &:modal {
-            display: block;
-            animation: naw-drawer-fade-in 0.2s ease-out;
-        }
-        &::backdrop {
-            background-color: rgb(0 0 0 / 50%);
-            animation: nav-drawer-backdrop-fade-in 0.2s ease-out forwards;
-        }
         & > [data-e="close-button"] {
             grid-column: 2;
             grid-row: 1;
@@ -54,46 +45,19 @@ app-layout {
             top: 8px;
         }
     }
-    @keyframes naw-drawer-fade-in {
-        0% {
-            opacity: 0;
-            transform: translateX(-$nav-drawer-content-width);
-        }
-        100% {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    }
-    @keyframes naw-drawer-fade-out {
-        0% {
-            display: block;
-            opacity: 1;
-            transform: translateX(0);
-        }
-        100% {
-            display: none;
-            opacity: 0;
-            transform: translateX(-$nav-drawer-content-width);
-        }
-    }
-    @keyframes nav-drawer-backdrop-fade-in {
-        0% {
-            background-color: rgb(0 0 0 / 0%);
-        }
-        100% {
-            background-color: rgb(0 0 0 / 50%);
-        }
+    & > [data-e="nav-drawer"]:modal {
+        display: block;
     }
 
-    // & > [data-e="close-button"] {
-    //     position: absolute;
-    //     top: 120px;
-    //     right: 10px;
-    //
-    //     & > [data-e="icon"] {
-    //         transform: scaleX(-1);
-    //     }
-    // }
+    // NAV DRAWER BACKDROP
+    & > [data-e="nav-drawer"]::backdrop {
+        background-color: rgb(0 0 0 / 50%);
+        transition: background-color 0.2s;
+    }
+    & > [data-e="nav-drawer"].is-starting::backdrop,
+    & > [data-e="nav-drawer"].is-closing::backdrop {
+        background-color: rgb(0 0 0 / 0%);
+    }
 }
 
 app-layout.loading {
