@@ -3,6 +3,7 @@
 $toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDuration
 
 text-field {
+    --tdm: 1;
     position: relative;
     margin: 8px 4px;
     max-width: 100%;

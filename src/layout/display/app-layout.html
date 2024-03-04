@@ -1,6 +1,11 @@
-<div data-e="loading-cover">
-    Loading...
-</div>
+@switch (viewModel.stableContentState()) {
+    @case ("loading") {
+        <loading-process-cover />
+    }
+    @case ("error") {
+        <loading-error-cover (tryAgain)="viewModel.doStartInitialization()" />
+    }
+}
 
 <head-bar />
 <nav-bar (openNavDrawer)="openNavDrawer()" />
@@ -33,9 +38,4 @@
          [colorScheme]="colorScheme"
          (setColorScheme)="viewModel.setPreferredColorScheme($event)"
     />
-    <!-- <md-filled-icon-button data-e="close-button" (click)="closeNavDrawer()" > -->
-    <!--     <md-icon data-e="icon" > -->
-    <!--         double_arrow -->
-    <!--     </md-icon > -->
-    <!-- </md-filled-icon-button > -->
 </dialog>

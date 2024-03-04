@@ -13,12 +13,12 @@ import {
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     encapsulation: ViewEncapsulation.None,
-    styleUrl: 'loading-process.scss',
-    selector: 'loading-process',
+    styleUrl: 'loading-error-cover.scss',
+    selector: 'loading-error-cover',
     host: {},
-    templateUrl: 'loading-process.html',
+    templateUrl: 'loading-error-cover.html',
     providers: []
 })
-export class LoadingProcess {
+export class LoadingErrorCover {
     @Output() tryAgain: EventEmitter<void> = new EventEmitter()
 }

@@ -23,10 +23,17 @@ import { ContentInfo } from "./content-info/content-info";
 import { ServiceInfo } from "./service-info/service-info";
 import { NavDrawerContent } from "./nav-drawer-content/nav-drawer-content";
 import { ViewModel } from "../model/ViewModel";
+import { GetStableContentOption } from "../options/GetStableContentOption";
 import { ObservePreferredColorSchemeOption } from "../options/ObservePreferredColorSchemeOption";
 import { SetPreferredColorSchemeOption } from "../options/SetPreferredColorSchemeOption";
 import { LocalStorage } from "../resources/LocalStorage";
+import { RemoteStorage } from "../resources/RemoteStorage";
 import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
+import { LoadingErrorCover } from "./loading-error-cover/loading-error-cover";
+import { LoadingProcessCover } from "./loading-process-cover/loading-process-cover";
+import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
+import { PageTitle } from "@/shared/display/page-title/page-title";
+import { StoreAssortment } from "@/nodes/home/display/store-assortment/store-assortment";
 
 @Component({
     imports: [
@@ -38,7 +45,12 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
         ContentInfo,
         ServiceInfo,
         NavDrawerContent,
-        SpacerBlock
+        SpacerBlock,
+        LoadingErrorCover,
+        LoadingProcessCover,
+        PageBreadcrumbs,
+        PageTitle,
+        StoreAssortment
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,13 +58,18 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
     encapsulation: ViewEncapsulation.None,
     styleUrl: 'app-layout.scss',
     selector: 'app-layout',
-    host: { '[class.dark]': 'colorScheme() === "dark"' },
+    host: {
+        '[class.loading]': 'viewModel.stableContentState() !== "success"',
+        '[class.dark]': 'colorScheme() === "dark"'
+    },
     templateUrl: 'app-layout.html',
     providers: [
         ViewModel,
+        GetStableContentOption,
         ObservePreferredColorSchemeOption,
         SetPreferredColorSchemeOption,
-        LocalStorage
+        LocalStorage,
+        RemoteStorage
     ]
 })
 export class AppLayout {

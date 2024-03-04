@@ -1,5 +1,5 @@
-import { computed, inject, Injectable, NgZone, PLATFORM_ID, signal, Signal, WritableSignal } from "@angular/core";
-import { ActivatedRoute, ParamMap, Params, Router } from "@angular/router";
+import { inject, Injectable, NgZone, signal, Signal, WritableSignal } from "@angular/core";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { GetDynamicContentOption } from "../options/GetDynamicContenOption";
 import { GetStableContentOption } from "../options/GetStableContentOption";
 import { ObserveQueryStringOption } from "../options/ObserveQueryStringOption";
@@ -429,12 +429,10 @@ export class ViewModel {
             outLink: "/catalogs/25/products/35"
         },
     ]
-
     #_ngZone: NgZone = inject(NgZone)
     #_route: ActivatedRoute = inject(ActivatedRoute)
     #_router: Router = inject(Router)
     #_location: Location = inject(Location)
-
     #_getDynamicContentOption: GetDynamicContentOption = inject(GetDynamicContentOption)
     #_getStableContentOption: GetStableContentOption = inject(GetStableContentOption)
     #_observeQueryStringOption: ObserveQueryStringOption = inject(ObserveQueryStringOption)
@@ -455,9 +453,9 @@ export class ViewModel {
                     // const queryMap =
                     //       this.#_convertQueryStringToQueryMap(this.#_observeQueryStringOption.invoke() ?? "")
                     this.#_initFieldStates(
-                          stableContent?.filterConfig ?? [],
-                          // queryMap
-                          this.#_route.snapshot.queryParams
+                        stableContent?.filterConfig ?? [],
+                        // queryMap
+                        this.#_route.snapshot.queryParams
                     )
                     // this.getDynamicContent()
                     this.#_stableContent.set(stableContent)
@@ -523,56 +521,56 @@ export class ViewModel {
                 switch (field.type) {
                     case "TMultiChoiceField": {
                         this.multiChoiceFieldStates.set(field.name, new Set(
-                              field.options
-                                    ?.map(option => {
-                                        return option.value
-                                    })
-                                    ?.filter(optionValue => {
-                                        switch (typeof queryParamMap[field.name]) {
-                                            case "object":
-                                                return queryParamMap[field.name]?.includes(optionValue)
-                                            case "string":
-                                                return queryParamMap[field.name] === optionValue
-                                            default:
-                                                return false
-                                        }
-                                    })
+                            field.options
+                                ?.map(option => {
+                                    return option.value
+                                })
+                                ?.filter(optionValue => {
+                                    switch (typeof queryParamMap[field.name]) {
+                                        case "object":
+                                            return queryParamMap[field.name]?.includes(optionValue)
+                                        case "string":
+                                            return queryParamMap[field.name] === optionValue
+                                        default:
+                                            return false
+                                    }
+                                })
                         ))
                         break
                     }
                     case "TSingleChoiceField": {
                         this.singleChoiceFieldStates.set(
-                              field.name,
-                              typeof queryParamMap[field.name] === "object"
-                                    ? queryParamMap[field.name]?.[0] ?? field.defaultOptionValue ?? ""
-                                    : queryParamMap[field.name] as string | undefined ?? field.defaultOptionValue ?? ""
+                            field.name,
+                            typeof queryParamMap[field.name] === "object"
+                                ? queryParamMap[field.name]?.[0] ?? field.defaultOptionValue ?? ""
+                                : queryParamMap[field.name] as string | undefined ?? field.defaultOptionValue ?? ""
                         )
                         this.singleChoiceFieldDefaultValues.set(field.name, field.defaultOptionValue ?? "")
                         break
                     }
                     case "TRangeField": {
                         this.textFieldStates.set(
-                              field.name,
-                              typeof queryParamMap[field.name] === "object"
-                                    ? queryParamMap[field.name]?.[0] ?? ""
-                                    : queryParamMap[field.name] as string | undefined ?? ""
+                            field.name,
+                            typeof queryParamMap[field.name] === "object"
+                                ? queryParamMap[field.name]?.[0] ?? ""
+                                : queryParamMap[field.name] as string | undefined ?? ""
                         )
                         if (field.endName) {
                             this.textFieldStates.set(
-                                  field.endName,
-                                  typeof queryParamMap[field.endName] === "object"
-                                        ? queryParamMap[field.endName]?.[0] ?? ""
-                                        : queryParamMap[field.endName] as string | undefined ?? ""
+                                field.endName,
+                                typeof queryParamMap[field.endName] === "object"
+                                    ? queryParamMap[field.endName]?.[0] ?? ""
+                                    : queryParamMap[field.endName] as string | undefined ?? ""
                             )
                         }
                         break
                     }
                     case "TTextField": {
                         this.textFieldStates.set(
-                              field.name,
-                              typeof queryParamMap[field.name] === "object"
-                                    ? queryParamMap[field.name]?.[0] ?? ""
-                                    : queryParamMap[field.name] as string | undefined ?? ""
+                            field.name,
+                            typeof queryParamMap[field.name] === "object"
+                                ? queryParamMap[field.name]?.[0] ?? ""
+                                : queryParamMap[field.name] as string | undefined ?? ""
                         )
                         break
                     }
@@ -625,20 +623,20 @@ export class ViewModel {
     #_convertQueryStringToQueryMap(queryString: string): Map<string, Set<string>> {
         const queryMap: Map<string, Set<string>> = new Map()
         queryString
-              .trim()
-              .replaceAll("%5B", "[")
-              .replaceAll("%5D", "]")
-              .split("&")
-              .forEach(querySector => {
-                  const queryKV: string[] = querySector.trim().split("=")
-                  if (queryKV.length > 1) {
-                      if (queryMap.get(queryKV[0])) {
-                          queryMap.get(queryKV[0])?.add(queryKV[1])
-                      } else {
-                          queryMap.set(queryKV[0], new Set([ queryKV[1] ]))
-                      }
-                  }
-              })
+            .trim()
+            .replaceAll("%5B", "[")
+            .replaceAll("%5D", "]")
+            .split("&")
+            .forEach(querySector => {
+                const queryKV: string[] = querySector.trim().split("=")
+                if (queryKV.length > 1) {
+                    if (queryMap.get(queryKV[0])) {
+                        queryMap.get(queryKV[0])?.add(queryKV[1])
+                    } else {
+                        queryMap.set(queryKV[0], new Set([ queryKV[1] ]))
+                    }
+                }
+            })
         return queryMap
     }
 

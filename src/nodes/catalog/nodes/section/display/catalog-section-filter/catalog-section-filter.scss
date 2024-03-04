@@ -33,9 +33,11 @@ catalog-section-filter {
         align-items: center;
         justify-content: start;
         gap: 8px;
-        padding-inline: 24px;
+        margin-inline: 20px;
+        padding-inline: 4px;
         // border-block: 1px solid var(--md-sys-color-surface-container);
         // background-color: var(--md-sys-color-surface-container-low);
-        backdrop-filter: blur(3px);
+        background-image: repeating-linear-gradient(to bottom, transparent, var(--md-sys-color-surface-container-low) 16px, var(--md-sys-color-surface-container-low));
+        // backdrop-filter: blur(3px);
     }
 }

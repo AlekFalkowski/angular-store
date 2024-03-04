@@ -29,44 +29,10 @@ import { RemoteStorage } from "../resources/RemoteStorage";
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     encapsulation: ViewEncapsulation.None,
-    styles: `
-        @import "all-config";
-        home-node {
-            max-width: $base-max-width;
-            width: 100%;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
-    `,
+    styleUrl: 'home-node.scss',
     selector: 'home-node',
     host: { 'role': 'main' },
-    template: `
-        @switch (viewModel.stableContentState()) {
-            @case ("loading") {
-                <loading-process/>
-            }
-            @case ("success") {
-                <page-breadcrumbs/>
-                <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''"/>
-                <store-assortment [cardCollection]="viewModel.stableContent()?.assortmentCardList ?? []"/>
-                <!-- <div style="margin-top: 40px; padding-inline: var(&#45;&#45;inline-padding);" > -->
-                    <!--     <div style="padding-block: 16px; display: flex; flex-direction: column;" > -->
-                    <!--         <a [routerLink]="['/catalogs', 10]" >Go To Catalog 10</a > -->
-                    <!--         <a [routerLink]="['/catalogs', 15]" >Go To Catalog 15</a > -->
-                    <!--         <a routerLink="/catalogs/15/products/24" >Go To Product 24 from Catalog 15</a > -->
-                    <!--         <a [routerLink]="['/orders', 211921]" >Go To Order 211921</a > -->
-                    <!--         &lt;!&ndash; <a [routerLink]="['/orders/:orderNavId/product/:orderProductNavId', 211921, 54]">Go To Product 54 from Order 211921</a> &ndash;&gt; -->
-                    <!--         <a routerLink="orders/211921/products/54" >Go To Product 54 from Order 211921</a > -->
-                    <!--         <a [routerLink]="['/catals', 15]" >Go To Not Found Page</a > -->
-                    <!--     </div > -->
-                    <!-- </div > -->
-            }
-            @case ("error") {
-                <loading-error (tryAgain)="viewModel.doStartInitialization()"/>
-            }
-        }
-    `,
+    templateUrl: 'home-node.html',
     providers: [
         ViewModel,
         GetStableContentOption,

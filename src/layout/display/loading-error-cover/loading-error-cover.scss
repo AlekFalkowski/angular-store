@@ -1,0 +1,26 @@
+@import "all-config";
+
+loading-error-cover {
+    z-index: $loading-process-cover-z-index;
+    position: fixed;
+    inset: 0;
+    padding-top: 192px;
+    padding-inline: var(--inline-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--md-sys-color-surface);
+    // background-image: repeating-linear-gradient(to bottom, transparent, transparent 112px, var(--md-sys-color-surface) 112px, var(--md-sys-color-surface));
+    // backdrop-filter: blur(1px);
+
+    & > [data-e="error-text"] {
+        color: var(--md-sys-color-primary);
+        @include MD3_HEADLINE_M_FONT_RULE_SET;
+        text-transform: uppercase;
+        text-align: center;
+        text-wrap: balance;
+    }
+    & > [data-e="try-again-button"] {
+        margin-top: 24px;
+    }
+}

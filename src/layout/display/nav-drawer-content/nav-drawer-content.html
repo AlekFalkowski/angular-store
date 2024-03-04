@@ -1,0 +1,55 @@
+<h3 data-e="title">О магазине</h3>
+<div data-e="lorem">
+    <!-- <popup-fieldset label="About"> -->
+    <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+    <!-- </popup-fieldset> -->
+</div>
+<hr />
+<h3 data-e="title">Каталог</h3>
+<div data-e="lorem"></div>
+<hr />
+<h3 data-e="title">Каталог</h3>
+<div data-e="lorem"></div>
+<hr />
+<h3 data-e="title">Каталог</h3>
+<div data-e="lorem"></div>
+<hr />
+<h3 data-e="title">Аккаунт</h3>
+<div data-e="lorem"></div>
+<hr />
+<h3 data-e="title">Настройки</h3>
+<!-- <label data-e="color-theme-switch-label" > -->
+<!--     Тёмная тема -->
+<!--     <md-checkbox -->
+<!--           [attr.checked]="colorScheme() === 'dark' ? '' : null" -->
+<!--           (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
+<!--           touch-target="wrapper" -->
+<!--     ></md-checkbox> -->
+<!-- </label > -->
+<label data-e="color-theme-switch-label">
+    Тёмная тема
+    <md-switch aria-label="Dark Theme"
+         [attr.selected]="colorScheme() === 'dark' ? '' : null"
+         (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')"
+    ></md-switch>
+</label>
+<!-- <mat-slide-toggle -->
+<!--       [ngModel]="colorScheme() === 'dark'" -->
+<!--       (ngModelChange)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
+<!-- > -->
+<!--     Slide Toggle Checked: {{ colorScheme() | uppercase }} -->
+<!-- </mat-slide-toggle > -->
+<!-- <mat-checkbox -->
+<!--       [ngModel]="colorScheme() === 'dark'" -->
+<!--       (ngModelChange)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')" -->
+<!-- > -->
+<!--     Dark theme -->
+<!-- </mat-checkbox> -->
+<div data-e="lorem">
+    isDarkTheme: {{ colorScheme() | uppercase }}
+</div>
+<div data-e="lorem">
+    <!-- <popup-fieldset label="bottom"> -->
+    <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+    <!-- </popup-fieldset> -->
+</div>

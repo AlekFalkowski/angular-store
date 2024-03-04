@@ -3,9 +3,9 @@
 $toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDuration
 
 popup-fieldset {
+    --tdm: 1;
     margin: 8px 4px;
     max-width: 100%;
-    --tdm: 1;
 
     // BUTTON
     & > [data-e="button"] {

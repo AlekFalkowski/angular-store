@@ -7,11 +7,6 @@ export class ViewModel {
     #_ngZone: NgZone = inject(NgZone)
     #_getStableContentOption: GetStableContentOption = inject(GetStableContentOption)
 
-    #_stableContentState: WritableSignal<"loading" | "success" | "error"> = signal("error")
-    stableContentState: Signal<"loading" | "success" | "error"> = this.#_stableContentState.asReadonly()
-    #_stableContent: WritableSignal<TStableContent | null> = signal(null)
-    stableContent: Signal<TStableContent | null> = this.#_stableContent.asReadonly()
-
     constructor() {
         this.doStartInitialization()
     }
@@ -33,4 +28,9 @@ export class ViewModel {
             })
         })
     }
+
+    #_stableContentState: WritableSignal<"loading" | "success" | "error"> = signal("error")
+    stableContentState: Signal<"loading" | "success" | "error"> = this.#_stableContentState.asReadonly()
+    #_stableContent: WritableSignal<TStableContent | null> = signal(null)
+    stableContent: Signal<TStableContent | null> = this.#_stableContent.asReadonly()
 }

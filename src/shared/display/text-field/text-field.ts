@@ -1,7 +1,8 @@
 import {
     ChangeDetectionStrategy,
     Component,
-    CUSTOM_ELEMENTS_SCHEMA, EventEmitter,
+    CUSTOM_ELEMENTS_SCHEMA,
+    EventEmitter,
     Input,
     Output,
     ViewEncapsulation
@@ -20,29 +21,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     styleUrl: "text-field.scss",
     selector: 'text-field',
     host: {},
-    template: `
-        <input data-e="input" type="text"
-               placeholder=" "
-               [class]="variant"
-               [class.error]="error"
-               [disabled]="disabled"
-               [name]="name"
-               [value]="value"
-               [ngModel]="currentValue"
-               (ngModelChange)="changeValue.emit($event)"
-        >
-        <label data-e="label" >{{ label }}</label >
-        <div data-e="ground" aria-hidden="true" ></div >
-        <div data-e="overlay" aria-hidden="true" ></div >
-        <div data-e="indicator" aria-hidden="true" ></div >
-        <!--            <span data-e="count" aria-hidden="true">88</span>-->
-        <!--            <SvgDropdown data-e="icon" aria-hidden="true"/>-->
-        @if (helpText) {
-            <div data-e="help-text" >
-                {{ helpText }}
-            </div >
-        }
-    `,
+    templateUrl: 'text-field.html',
 })
 export class TextField {
     @Input() label: string = ''
