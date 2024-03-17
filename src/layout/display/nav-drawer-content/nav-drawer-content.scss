@@ -4,12 +4,14 @@ nav-drawer-content {
     contain: inline-size style;
     display: flex;
     flex-direction: column;
-    padding-top: 4px;
+    padding-top: 56px;
     padding-bottom: 16px;
+    color: var(--md-sys-color-on-surface-variant);
 
-    & > [data-e="title"] {
-        @include MD3_TITLE_M_FONT_RULE_SET;
-        margin: 14px 28px;
+    & > [data-e="group-title"] {
+        @include MD3_TITLE_S_FONT_RULE_SET;
+        margin: 0;
+        padding: 16px 28px;
     }
     & > [data-e="lorem"] {
         margin: 4px 12px;
@@ -21,11 +23,13 @@ nav-drawer-content {
         margin-block: 1px;
     }
     & > [data-e="color-theme-switch-label"] {
+        @include MD3_TITLE_S_FONT_RULE_SET;
         display: flex;
-        justify-content: space-between;
+        justify-content: start;
         align-items: center;
-        height: 40px;
-        margin: 4px 12px;
-        padding-inline-start: 16px;
+        gap: 16px;
+        height: 48px;
+        padding: 0 28px;
+        cursor: pointer;
     }
 }

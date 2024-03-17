@@ -6,7 +6,7 @@ app-layout {
     contain: inline-size style;
     overflow-x: clip;
     min-width: $app-min-width;
-    min-height: calc(100dvh + 56px + 260px);
+    min-height: calc(100dvh + 56px);
     display: flex;
     flex-direction: column;
     background-color: var(--md-sys-color-surface);
@@ -36,7 +36,7 @@ app-layout {
     // NAV DRAWER BACKDROP
     & > [data-e="nav-drawer"]::backdrop {
         background-color: rgb(0 0 0 / 50%);
-        transition: background-color 0.2s;
+        transition: background-color 300ms ease-in-out;
     }
     & > [data-e="nav-drawer"].is-starting::backdrop,
     & > [data-e="nav-drawer"].is-closing::backdrop {

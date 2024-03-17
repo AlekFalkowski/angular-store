@@ -14,16 +14,16 @@
 <spacer-block />
 
 <content-info />
-<service-info
-     [windowInnerWidth]="windowStateProvider.windowInnerWidth"
-     [windowInnerHeight]="windowStateProvider.windowInnerHeight"
-     [documentOffsetWidth]="windowStateProvider.documentOffsetWidth"
-     [documentClientHeight]="windowStateProvider.documentClientHeight"
-     [documentScrollbarWidth]="windowStateProvider.documentScrollbarWidth"
-     [isMobileInPortraitOnly]="windowStateProvider.isMobileInPortraitOnly"
-     [isMobileInLandscapeOnly]="windowStateProvider.isMobileInLandscapeOnly"
-     [isMobileInAllOrientations]="windowStateProvider.isMobileInAllOrientations"
-/>
+<!-- <service-info -->
+<!--      [windowInnerWidth]="windowStateProvider.windowInnerWidth" -->
+<!--      [windowInnerHeight]="windowStateProvider.windowInnerHeight" -->
+<!--      [documentOffsetWidth]="windowStateProvider.documentOffsetWidth" -->
+<!--      [documentClientHeight]="windowStateProvider.documentClientHeight" -->
+<!--      [documentScrollbarWidth]="windowStateProvider.documentScrollbarWidth" -->
+<!--      [isMobileInPortraitOnly]="windowStateProvider.isMobileInPortraitOnly" -->
+<!--      [isMobileInLandscapeOnly]="windowStateProvider.isMobileInLandscapeOnly" -->
+<!--      [isMobileInAllOrientations]="windowStateProvider.isMobileInAllOrientations" -->
+<!-- /> -->
 
 <dialog data-e="nav-drawer"
      #navDrawer
@@ -35,7 +35,9 @@
         </md-icon>
     </md-icon-button>
     <nav-drawer-content
+         [navGroupList]="viewModel.stableContent()?.navDrawerGroupList ?? []"
          [colorScheme]="colorScheme"
          (setColorScheme)="viewModel.setPreferredColorScheme($event)"
+         (closeNavDrawer)="closeNavDrawer()"
     />
 </dialog>

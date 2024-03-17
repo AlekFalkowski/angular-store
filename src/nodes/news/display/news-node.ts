@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { NewsViewModel } from "../model/NewsViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetNewsStableContentOption } from "../options/GetNewsStableContentOption";
@@ -9,7 +8,6 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [
-        CommonModule,
         PageBreadcrumbs,
         PageTitle
     ],
@@ -34,11 +32,11 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     selector: 'news-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div data-e="content" >
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
             NEWS_PAGE_CONTENT
-        </div >
+        </div>
     `,
     providers: [
         NewsViewModel,

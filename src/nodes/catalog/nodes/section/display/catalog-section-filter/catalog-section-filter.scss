@@ -7,10 +7,10 @@ catalog-section-filter {
 
     & > [data-e="fieldset-label"] {
         margin: 14px 24px;
-        @include MD3_TITLE_M_FONT_RULE_SET
+        @include MD3_TITLE_S_FONT_RULE_SET
     }
 
-    & > popup-fieldset {
+    & > switchers-status-monitor-with-selection-popup {
         margin-inline: 24px;
     }
 

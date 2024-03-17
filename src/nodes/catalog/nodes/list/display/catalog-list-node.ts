@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { CatalogListViewModel } from "../model/CatalogListViewModel";
@@ -9,7 +8,6 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
 
 @Component({
     imports: [
-        CommonModule,
         RouterModule,
         PageBreadcrumbs,
         PageTitle,

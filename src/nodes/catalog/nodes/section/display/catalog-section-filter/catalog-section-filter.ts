@@ -7,7 +7,6 @@ import {
     Output,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-found/catalog-not-found";
@@ -17,13 +16,14 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
 import { LoadingError } from "@/shared/display/loading-error/loading-error";
 import { LoadingProcess } from "@/shared/display/loading-process/loading-process";
 import { TFieldSet } from "@/shared/types/TFieldSet";
-import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
+import {
+    SwitchersStatusMonitorWithSelectionPopup
+} from "@/shared/display/switchers-status-monitor-with-selection-popup/switchers-status-monitor-with-selection-popup";
 import { TextField } from "@/shared/display/text-field/text-field";
-import { FieldsColumn } from "@/shared/display/fields-column/fields-column";
+import { SwitchersColumn } from "@/shared/display/switchers-column/switchers-column";
 
 @Component({
     imports: [
-        CommonModule,
         RouterLink,
         PageBreadcrumbs,
         PageTitle,
@@ -32,9 +32,9 @@ import { FieldsColumn } from "@/shared/display/fields-column/fields-column";
         LoadingProcess,
         CatalogNotFound,
         FormsModule,
-        PopupFieldset,
+        SwitchersStatusMonitorWithSelectionPopup,
         TextField,
-        FieldsColumn
+        SwitchersColumn
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,

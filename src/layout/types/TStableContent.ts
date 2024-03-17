@@ -1,8 +1,5 @@
-import { TFieldSet } from "@/shared/types/TFieldSet";
+import { TNavGroup } from "./TNavGroup";
 
 export type TStableContent = {
-    htmlHeadTitle: string
-    pageTitle: string
-    breadcrumbs: string
-    filterConfig?: TFieldSet[]
+    navDrawerGroupList: TNavGroup[]
 }

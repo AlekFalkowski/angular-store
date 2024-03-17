@@ -1,0 +1,52 @@
+@mixin MD3_TRANSITION_TOKEN_SET {
+    --dm: 1; // RELATED VALUES: durationMultiplier
+
+    // https://m3.material.io/styles/motion/easing-and-duration/tokens-specs#734ba72b-bfef-4a95-8610-f4175ef92c81
+
+    // Длительность переходов. Переходы, охватывающие небольшие области экрана, имеют короткую продолжительность.
+    // Те, которые пересекают большие территории, имеют большую продолжительность.
+    // Масштабирование продолжительности в зависимости от размера области перехода дает постоянное ощущение скорости.
+
+    // Переходы, которые завершают, закрывают или сворачивают элемент, имеют более короткую продолжительность.
+    // Переходы к выходу выполняются быстрее, поскольку требуют меньше внимания пользователя, чем следующая задача.
+
+    // Переходы, которые появляются или остаются на экране, занимают большую продолжительность.
+    // Это помогает пользователям сосредоточить внимание на том, что нового на экране.
+
+    // --md-sys-motion-duration-short-1: calc(50ms * var(--dm));
+    --md-sys-motion-duration-short1: 50ms;
+    --md-sys-motion-duration-short2: 100ms;
+    --md-sys-motion-duration-short3: 150ms;
+    --md-sys-motion-duration-short4: 200ms;
+    --md-sys-motion-duration-medium1: 250ms;
+    --md-sys-motion-duration-medium2: 300ms;
+    --md-sys-motion-duration-medium3: 350ms;
+    --md-sys-motion-duration-medium4: 400ms;
+    --md-sys-motion-duration-long1: 450ms;
+    --md-sys-motion-duration-long2: 500ms;
+    --md-sys-motion-duration-long3: 550ms;
+    --md-sys-motion-duration-long4: 600ms;
+    --md-sys-motion-duration-extra-long1: 700ms;
+    --md-sys-motion-duration-extra-long2: 800ms;
+    --md-sys-motion-duration-extra-long3: 900ms;
+    --md-sys-motion-duration-extra-long4: 1000ms;
+
+    // Полноэкранный (или почти полноэкранный переход), который начинается и заканчивается на экране.
+    --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0, 0, 1);
+    // Полноэкранный (или почти полноэкранный переход), который появляется на экране ниоткуда.
+    // Полноэкранный (или почти полноэкранный переход), который исчезает с экране никуда "на некоторое время".
+    --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+    // Полноэкранный (или почти полноэкранный переход), который исчезает с экрана в никуда "навсегда".
+    --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+    // Переход для малых и средних элементов, который начинается и заканчивается на экране .
+    --md-sys-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+    --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+
+    --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0, 0.2, 1);
+    --md-sys-motion-easing-legacy-decelerate: cubic-bezier(0, 0, 0.2, 1);
+    --md-sys-motion-easing-legacy-accelerate: cubic-bezier(0.4, 0, 1, 1);
+
+    --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1)
+}

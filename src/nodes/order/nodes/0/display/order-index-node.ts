@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { OrderList } from "./order-list/order-list";
 import { OrderRemoteStorage } from "../resources/OrderRemoteStorage";
 import { GetOrderStableContentOption } from "../options/GetOrderStableContentOption";
@@ -10,7 +9,6 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [
-        CommonModule,
         PageBreadcrumbs,
         PageTitle,
         OrderList
@@ -36,12 +34,12 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     selector: 'order-index-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <order-list />
-        <div data-e="content" >
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <order-list/>
+        <div data-e="content">
             {{ viewModel.stableContent?.number }}
-        </div >
+        </div>
     `,
     providers: [
         OrderViewModel,

@@ -8,20 +8,27 @@ import {
     Signal,
     ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
+import {
+    SwitchersStatusMonitorWithSelectionPopup
+} from "@/shared/display/switchers-status-monitor-with-selection-popup/switchers-status-monitor-with-selection-popup";
+import { TNavGroup } from "../../types/TNavGroup";
+import { UpperCasePipe } from "@angular/common";
+import { NavDrawerLinkButton } from "@/layout/display/nav-drawer-content/nav-drawer-link-button/nav-drawer-link-button";
+import { NavDrawerItem } from "@/layout/display/nav-drawer-content/nav-drawer-item/nav-drawer-item";
 
 @Component({
     imports: [
-        CommonModule,
         RouterModule,
         SpacerBlock,
         FormsModule,
         ReactiveFormsModule,
-        PopupFieldset
+        SwitchersStatusMonitorWithSelectionPopup,
+        UpperCasePipe,
+        NavDrawerLinkButton,
+        NavDrawerItem
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,7 +40,8 @@ import { PopupFieldset } from "@/shared/display/popup-fieldset/popup-fieldset";
     templateUrl: 'nav-drawer-content.html',
 })
 export class NavDrawerContent {
+    @Input() navGroupList!: TNavGroup[]
     @Input() colorScheme!: Signal<"auto" | "light" | "dark">
-    @Input() stableContentState!: Signal<"loading" | "success" | "error">
     @Output() setColorScheme: EventEmitter<"auto" | "light" | "dark"> = new EventEmitter()
+    @Output() closeNavDrawer: EventEmitter<void> = new EventEmitter()
 }

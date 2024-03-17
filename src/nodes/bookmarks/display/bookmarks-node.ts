@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { BookmarksViewModel } from "../model/BookmarksViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetBookmarksStableContentOption } from "../options/GetBookmarksStableContentOption";
@@ -9,7 +8,6 @@ import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcru
 
 @Component({
     imports: [
-        CommonModule,
         PageBreadcrumbs,
         PageTitle
     ],
@@ -34,11 +32,11 @@ import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcru
     selector: 'bookmarks-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div data-e="content" >
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
             BOOKMARKS_PAGE_CONTENT
-        </div >
+        </div>
     `,
     providers: [
         BookmarksViewModel,

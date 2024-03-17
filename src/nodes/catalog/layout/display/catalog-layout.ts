@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
 @Component({
-    imports: [ CommonModule, RouterModule ],
+    imports: [ RouterModule ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -13,7 +12,7 @@ import { RouterModule } from "@angular/router";
     selector: 'catalog-layout',
     host: {},
     template: `
-        <router-outlet ></router-outlet >
+        <router-outlet></router-outlet>
     `,
     providers: []
 })

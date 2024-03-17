@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 
 @Component({
-    imports: [ CommonModule ],
+    imports: [],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

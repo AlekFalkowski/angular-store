@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { TCardCollection } from "../../types/TCardCollection";
 
 @Component({
-    imports: [ CommonModule, RouterLinkActive, RouterLink ],
+    imports: [
+        RouterLinkActive,
+        RouterLink
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
@@ -104,29 +106,29 @@ import { TCardCollection } from "../../types/TCardCollection";
             @switch (card.type) {
                 @case ("TAssortmentCard") {
                     <a
-                          data-e="card"
-                          [routerLink]="card.outLink"
+                        data-e="card"
+                        [routerLink]="card.outLink"
                     >
-                        <div data-e="back-cover" ></div >
-                        <div data-e="img-frame" aria-hidden="true" >
-                            <img [src]="card.imageUrl" >
-                        </div >
-                        <div data-e="title" >{{ card.title }}</div >
-                        <div data-e="description" >{{ card.description }}</div >
-                    </a >
+                        <div data-e="back-cover"></div>
+                        <div data-e="img-frame" aria-hidden="true">
+                            <img [src]="card.imageUrl">
+                        </div>
+                        <div data-e="title">{{ card.title }}</div>
+                        <div data-e="description">{{ card.description }}</div>
+                    </a>
                 }
                 @case ("TCatalogProductCard") {
                     <a
-                          data-e="card"
-                          [routerLink]="card.outLink"
+                        data-e="card"
+                        [routerLink]="card.outLink"
                     >
-                        <div data-e="back-cover" ></div >
-                        <div data-e="img-frame" aria-hidden="true" >
-                            <img [src]="card.imageUrl" class="cover" >
-                        </div >
-                        <div data-e="title" >{{ card.title }}</div >
-                        <div data-e="price" > {{ card.price }}</div >
-                    </a >
+                        <div data-e="back-cover"></div>
+                        <div data-e="img-frame" aria-hidden="true">
+                            <img [src]="card.imageUrl" class="cover">
+                        </div>
+                        <div data-e="title">{{ card.title }}</div>
+                        <div data-e="price"> {{ card.price }}</div>
+                    </a>
                 }
             }
         }

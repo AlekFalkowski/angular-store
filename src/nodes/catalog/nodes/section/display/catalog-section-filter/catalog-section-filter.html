@@ -7,11 +7,11 @@
     @for (field of fieldSet.fieldList; track field.label) {
         @switch (field.type) {
             @case ("TMultiChoiceField") {
-                <popup-fieldset
+                <switchers-status-monitor-with-selection-popup
                      [label]="field.label"
                      [checkedQnt]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? '' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + '/' + field.options.length.toString() : ''"
                 >
-                    <fields-column>
+                    <switchers-column>
                         @for (option of field.options; track option.label) {
                             <label>
                                 <input type="checkbox"
@@ -26,8 +26,8 @@
                                 <span>{{ option.label }}</span>
                             </label>
                         }
-                    </fields-column>
-                </popup-fieldset>
+                    </switchers-column>
+                </switchers-status-monitor-with-selection-popup>
                 <md-chip-set>
                     @for (option of field.options; track option.label) {
                         @if (multiChoiceFieldsStates.get(field.name)?.has(option.value)) {
@@ -40,11 +40,11 @@
                 </md-chip-set>
             }
             @case ("TSingleChoiceField") {
-                <popup-fieldset
+                <switchers-status-monitor-with-selection-popup
                      [label]="field.label"
                      [inputText]="singleChoiceFieldsStates.get(field.name)"
                 >
-                    <fields-column>
+                    <switchers-column>
                         @for (option of field.options; track option.label) {
                             <label>
                                 <input type="radio"
@@ -60,8 +60,8 @@
                                 <span>{{ option.label }}</span>
                             </label>
                         }
-                    </fields-column>
-                </popup-fieldset>
+                    </switchers-column>
+                </switchers-status-monitor-with-selection-popup>
                 <!-- <md-outlined-select -->
                      <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
                      <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->

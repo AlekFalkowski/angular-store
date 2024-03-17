@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
-import { HeadLogo } from "./head-logo/head-logo";
+import { HeadLogo } from "../head-logo/head-logo";
 import { TStringLink } from "@/shared/types/TStringLink";
 
 @Component({

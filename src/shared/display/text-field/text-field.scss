@@ -143,7 +143,7 @@ text-field {
 
     // framed-variant DYNAMIC
     & > [data-e="input"].framed:not(:disabled):not(:focus-visible):not(.error) :hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-inline-color: var(--md-sys-color-on-surface);
             border-bottom-color: var(--md-sys-color-on-surface);
             border-top-color: var(--md-sys-color-on-surface);
@@ -162,7 +162,7 @@ text-field {
         }
     }
     & > [data-e="input"].framed:not(:disabled):not(:focus-visible):not(.error):not(:placeholder-shown):hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-inline-color: var(--md-sys-color-on-surface);
             border-bottom-color: var(--md-sys-color-on-surface);
             + [data-e="label"] {
@@ -182,7 +182,7 @@ text-field {
         }
     }
     & > [data-e="input"].framed:not(:disabled):not(:focus-visible).error :hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-inline-color: var(--md-sys-color-on-error-container);
             border-bottom-color: var(--md-sys-color-on-error-container);
             border-top-color: var(--md-sys-color-on-error-container);
@@ -204,7 +204,7 @@ text-field {
         }
     }
     & > [data-e="input"].framed:not(:disabled):not(:focus-visible).error:not(:placeholder-shown):hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-inline-color: var(--md-sys-color-on-error-container);
             border-bottom-color: var(--md-sys-color-on-error-container);
             + [data-e="label"] {
@@ -271,7 +271,7 @@ text-field {
 
     // tonal-variant DYNAMIC
     & > [data-e="input"].tonal:not(:disabled):not(:focus-visible):not(.error) :hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-bottom-color: var(--md-sys-color-on-surface);
             ~ [data-e="overlay"] {
                 opacity: 0.04;
@@ -287,7 +287,7 @@ text-field {
         }
     }
     & > [data-e="input"].tonal:not(:disabled):not(:focus-visible):not(.error):not(:placeholder-shown):hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-bottom-color: var(--md-sys-color-on-surface);
             ~ [data-e="overlay"] {
                 opacity: 0.04;
@@ -307,7 +307,7 @@ text-field {
         }
     }
     & > [data-e="input"].tonal:not(:disabled):not(:focus-visible).error :hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-bottom-color: var(--md-sys-color-on-error-container);
             ~ [data-e="indicator"] {
                 background-color: var(--md-sys-color-on-error-container);
@@ -331,7 +331,7 @@ text-field {
         }
     }
     & > [data-e="input"].tonal:not(:disabled):not(:focus-visible).error:not(:placeholder-shown):hover {
-        @media (hover: hover) and (pointer: fine) {
+        @include ONLY_FOR_HOVERING_POINTER {
             border-bottom-color: var(--md-sys-color-on-error-container);
             ~ [data-e="indicator"] {
                 background-color: var(--md-sys-color-on-error-container);

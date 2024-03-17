@@ -1,8 +1,8 @@
 @import "all-config";
 
-$toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDuration
+$toggleTransitionDuration: 150ms; // RELATED VALUES in JS: toggleTransitionDuration
 
-popup-fieldset {
+switchers-status-monitor-with-selection-popup {
     --tdm: 1;
     margin: 8px 4px;
     max-width: 100%;
@@ -29,7 +29,7 @@ popup-fieldset {
             position: absolute;
             background-color: var(--md-sys-color-on-surface);
             opacity: 0;
-            transition: opacity 150ms;
+            transition: opacity $toggleTransitionDuration;
         }
 
         & > [data-e="input"] {
@@ -783,9 +783,9 @@ popup-fieldset {
     //     padding: 0;
     //     border: none;
     //     border-radius: var(--md-sys-shape-corner-extra-small);
-    //     box-shadow: var(--md-sys-elevation-2);
+    //     box-shadow: var(--md-sys-elevation-level2);
     //     background-color: var(--md-sys-color-surface);
-    //     transition: opacity 0.7s ease-out, transform 0.7s ease-out, overlay 0.7s ease-out allow-discrete, display 0.7s ease-out allow-discrete;
+    //     transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out, overlay 0.7s ease-in-out allow-discrete, display 0.7s ease-in-out allow-discrete;
     //     opacity: 0;
     //     transform: scale(0.7);
     // }
@@ -829,7 +829,7 @@ popup-fieldset {
         padding: 0;
         border: none;
         border-radius: var(--md-sys-shape-corner-extra-small);
-        box-shadow: var(--md-sys-elevation-2);
+        box-shadow: var(--md-sys-elevation-level2);
         background-color: var(--md-sys-color-surface);
         opacity: 0;
     }

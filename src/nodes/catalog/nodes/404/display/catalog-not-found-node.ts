@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { Title } from "@angular/platform-browser";
 import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-found/catalog-not-found";
 
 @Component({
     imports: [
-        CommonModule,
         CatalogNotFound
     ],
     standalone: true,
@@ -25,7 +23,7 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-foun
     selector: 'catalog-not-found-node',
     host: { 'role': 'main' },
     template: `
-        <catalog-not-found />
+        <catalog-not-found/>
     `,
     providers: []
 })

@@ -30,13 +30,13 @@ import { SharedViewModel } from "@/shared/model/SharedViewModel";
     styleUrl: 'two-column-template.scss',
     selector: 'two-column-template',
     host: {
-        '[class.start-side]': 'sideColumnPlacementSide === "start"',
-        '[class.end-side]': 'sideColumnPlacementSide === "end"',
+        '[class.start-side]': 'sideColumnPlacement === "start"',
+        '[class.end-side]': 'sideColumnPlacement === "end"',
     },
     templateUrl: 'two-column-template.html',
 })
 export class TwoColumnTemplate {
-    @Input() sideColumnPlacementSide: "start" | "end" = "start"
+    @Input() sideColumnPlacement: "start" | "end" = "start"
     @Input() openButtonText!: string
     @Input() isSideColumnOpenInModal: WritableSignal<boolean> = signal(false)
     @ViewChild('sideColumn', { static: true }) sideColumn: ElementRef<HTMLDialogElement> | undefined
@@ -44,7 +44,7 @@ export class TwoColumnTemplate {
     #_platformId: Object = inject(PLATFORM_ID)
     #_ngZone: NgZone = inject(NgZone)
     #_showOrCloseSideColumnOnWindowResize: Subscription | undefined
-    #_controller: AbortController = new AbortController()
+    #_keydownListenerRemover: AbortController = new AbortController()
     #_scrollY: number = 0
     #_scrollDirection: number = 0
     #_sideColumnWidth: number = 320 // RELATED CONST in SCSS: $side-column-width
@@ -70,7 +70,7 @@ export class TwoColumnTemplate {
                     this.viewModel.setPreferredSideColumnView('hidden')
                 }
                 this.isSideColumnOpenInModal.set(false)
-                this.#_controller.abort()
+                this.#_keydownListenerRemover.abort()
             })
             this.#_showOrCloseSideColumnOnWindowResize =
                 fromEvent(window, 'resize')
@@ -122,26 +122,33 @@ export class TwoColumnTemplate {
             this.sideColumn?.nativeElement.show()
             this.sideColumn?.nativeElement.classList.remove("is-starting")
             this.viewModel.setPreferredSideColumnView('visible')
+            this.sideColumn?.nativeElement.animate(
+                [
+                    { opacity: '0', transform: `translateX(${ this.sideColumnPlacement === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
+                    { opacity: '1', transform: 'translateX(0)' },
+                ],
+                { duration: 300, iterations: 1, easing: 'ease-in-out' }
+            )
         } else {
-            this.#_controller.abort()
-            this.#_controller = new AbortController()
+            this.#_keydownListenerRemover.abort()
+            this.#_keydownListenerRemover = new AbortController()
             this.sideColumn?.nativeElement.addEventListener("keydown", (event) => {
                 if (event.key === 'Escape') {
                     event.preventDefault()
                     this.closeSideColumn()
                 }
-            }, { signal: this.#_controller.signal })
+            }, { signal: this.#_keydownListenerRemover.signal })
             this.sideColumn?.nativeElement.showModal()
             this.sideColumn?.nativeElement.classList.remove("is-starting")
             this.isSideColumnOpenInModal.set(true)
+            this.sideColumn?.nativeElement.animate(
+                [
+                    { transform: `translateX(${ this.sideColumnPlacement === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
+                    { transform: 'translateX(0)' },
+                ],
+                { duration: 300, iterations: 1, easing: 'ease-in-out' }
+            )
         }
-        this.sideColumn?.nativeElement.animate(
-            [
-                { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
-                { opacity: '1', transform: 'translateX(0)' },
-            ],
-            { duration: 200, iterations: 1, easing: 'ease-out' }
-        )
     }
 
     closeSideColumnOnClickByBackdrop(event: Event): void {
@@ -156,11 +163,16 @@ export class TwoColumnTemplate {
             this.viewModel.setPreferredSideColumnView('hidden')
         }
         this.sideColumn?.nativeElement.animate(
-            [
-                { opacity: '1', transform: 'translateX(0)' },
-                { opacity: '0', transform: `translateX(${ this.sideColumnPlacementSide === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
-            ],
-            { duration: 200, iterations: 1, easing: 'ease-out' }
+            window.innerWidth >= this.#_breakpoint
+                ? [
+                    { opacity: '1', transform: 'translateX(0)' },
+                    { opacity: '0', transform: `translateX(${ this.sideColumnPlacement === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
+                ]
+                : [
+                    { transform: 'translateX(0)' },
+                    { transform: `translateX(${ this.sideColumnPlacement === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
+                ],
+            { duration: 300, iterations: 1, easing: 'ease-in-out' }
         ).finished.then(() => {
             this.sideColumn?.nativeElement.close()
             this.sideColumn?.nativeElement.classList.remove("is-closing")

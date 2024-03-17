@@ -4,6 +4,7 @@ import {
     Component,
     computed,
     CUSTOM_ELEMENTS_SCHEMA,
+    effect,
     ElementRef,
     inject,
     PLATFORM_ID,
@@ -77,7 +78,7 @@ export class AppLayout {
     readonly windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
     readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
-    #_controller: AbortController = new AbortController()
+    #_keydownListenerRemover: AbortController = new AbortController()
     #_navDrawerContentWidth: number = 320 // RELATED CONST in SCSS: $nav-drawer-content-width
     #_browserColorScheme: WritableSignal<"light" | "dark"> = signal("light")
 
@@ -90,6 +91,21 @@ export class AppLayout {
                 .addEventListener('change', (event) => {
                     this.#_browserColorScheme.set(event.matches ? "dark" : "light")
                 })
+            window.addEventListener('keydown', (event) => {
+                // Отменить скролл по нажатию пробела.
+                //@ts-ignore
+                if (event.key === ' ' && (event.target.nodeName === 'BODY' || event.target.nodeName === 'A')) {
+                    event.preventDefault()
+                }
+            })
+            effect(() => {
+                this.colorScheme()
+                // Отменить переходы при смене цветовой схемы.
+                document.documentElement.classList.add("disable-transitions")
+                setTimeout(() => {
+                    document.documentElement.classList.remove("disable-transitions")
+                }, 400)
+            });
         }
         afterNextRender(() => {
             this.navDrawer?.nativeElement.addEventListener("close", () => {
@@ -101,7 +117,7 @@ export class AppLayout {
                     //@ts-ignore
                     popup.hidePopover()
                 })
-                this.#_controller.abort()
+                this.#_keydownListenerRemover.abort()
             })
         })
     }
@@ -119,22 +135,22 @@ export class AppLayout {
 
     openNavDrawer(): void {
         this.navDrawer?.nativeElement.classList.add("is-starting")
-        this.#_controller.abort()
-        this.#_controller = new AbortController()
+        this.#_keydownListenerRemover.abort()
+        this.#_keydownListenerRemover = new AbortController()
         this.navDrawer?.nativeElement.addEventListener("keydown", (event) => {
             if (event.key === 'Escape') {
                 event.preventDefault()
                 this.closeNavDrawer()
             }
-        }, { signal: this.#_controller.signal })
+        }, { signal: this.#_keydownListenerRemover.signal })
         this.navDrawer?.nativeElement.showModal()
         this.navDrawer?.nativeElement.classList.remove("is-starting")
         this.navDrawer?.nativeElement.animate(
             [
-                { opacity: '0', transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
-                { opacity: '1', transform: 'translateX(0)' },
+                { transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
+                { transform: 'translateX(0)' },
             ],
-            { duration: 200, iterations: 1, easing: 'ease-out' }
+            { duration: 300, iterations: 1, easing: 'ease-in-out' }
         )
     }
 
@@ -148,10 +164,10 @@ export class AppLayout {
         this.navDrawer?.nativeElement.classList.add("is-closing")
         this.navDrawer?.nativeElement.animate(
             [
-                { opacity: '1', transform: 'translateX(0)' },
-                { opacity: '0', transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
+                { transform: 'translateX(0)' },
+                { transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
             ],
-            { duration: 200, iterations: 1, easing: 'ease-out' }
+            { duration: 300, iterations: 1, easing: 'ease-in-out' }
         ).finished.then(() => {
             this.navDrawer?.nativeElement.close()
             this.navDrawer?.nativeElement.classList.remove("is-closing")

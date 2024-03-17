@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { OrderProductViewModel } from "../model/OrderProductViewModel";
@@ -8,7 +7,6 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [
-        CommonModule,
         RouterModule,
         PageBreadcrumbs,
         PageTitle
@@ -34,11 +32,11 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     selector: 'order-product-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div data-e="content" >
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
             ORDER_PRODUCT
-        </div >
+        </div>
     `,
     providers: [ OrderProductViewModel ]
 })

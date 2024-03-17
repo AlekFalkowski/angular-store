@@ -10,7 +10,7 @@ nav-bar {
     display: flex;
     align-items: center;
     gap: 4px; // или 0 ?
-    // box-shadow: var(--md-sys-elevation-1);
+    // box-shadow: var(--md-sys-elevation-level1);
     border-block: 1px solid var(--md-sys-color-surface-container-high);
     background-color: var(--md-sys-color-surface-container);
     color: var(--md-sys-color-on-surface);
@@ -31,7 +31,7 @@ nav-bar {
         --md-filled-tonal-icon-button-pressed-icon-color: var(--md-sys-color-primary);
         --md-filled-tonal-icon-button-pressed-state-layer-color: var(--md-sys-color-primary);
     }
-    & > md-filled-tonal-icon-button.active {
+    & > md-filled-tonal-icon-button.link-to-current-route {
         --md-filled-tonal-icon-button-container-color: var(--md-sys-color-secondary-container);
     }
 }

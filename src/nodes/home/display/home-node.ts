@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/page-title/page-title";
@@ -15,7 +14,6 @@ import { RemoteStorage } from "../resources/RemoteStorage";
 
 @Component({
     imports: [
-        CommonModule,
         RouterLink,
         PageBreadcrumbs,
         PageTitle,

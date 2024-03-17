@@ -6,12 +6,10 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsu
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     encapsulation: ViewEncapsulation.None,
-    styleUrl: "fields-column.scss",
-    selector: 'fields-column',
+    styleUrl: "switchers-column.scss",
+    selector: 'switchers-column',
     host: { 'role': 'group' },
-    template: `
-        <ng-content />
-    `,
+    templateUrl: 'switchers-column.html',
 })
-export class FieldsColumn { // column-organizer-for-switches
+export class SwitchersColumn {
 }

@@ -20,16 +20,17 @@ export class ViewModel {
             return
         }
         this.#_ngZone.run(() => {
-            this.#_stableContentState.set("success")
-            // this.#_getStableContentOption.invoke("").subscribe({
-            //     next: (stableContent) => {
-            //         this.#_stableContent.set(stableContent)
-            //         this.#_stableContentState.set("success")
-            //     },
-            //     error: (err) => {
-            //         this.#_stableContentState.set("error")
-            //     }
-            // })
+            // this.#_stableContentState.set("success")
+            this.#_stableContentState.set("loading")
+            this.#_getStableContentOption.invoke("").subscribe({
+                next: (stableContent) => {
+                    this.#_stableContent.set(stableContent)
+                    this.#_stableContentState.set("success")
+                },
+                error: (err) => {
+                    this.#_stableContentState.set("error")
+                }
+            })
         })
     }
 

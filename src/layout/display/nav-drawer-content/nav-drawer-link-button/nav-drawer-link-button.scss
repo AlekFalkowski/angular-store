@@ -1,0 +1,151 @@
+@import "all-config";
+
+nav-drawer-link-button {
+    contain: size layout paint style;
+    height: 56px;
+    width: 100%;
+    $layer-inset-inline: 12px;
+    $layer-inset-block: 4px;
+    $layer-border-radius: 24px; // var(--md-sys-shape-corner-full);
+
+    // LINK BACK LAYER
+    & > [data-e="back-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: $layer-inset-inline;
+        inset-block: $layer-inset-block;
+        border-radius: $layer-border-radius;
+        background-color: transparent;
+        transition: background-color 200ms ease-in-out;
+    }
+    &:has(> a.link-to-current-route) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-secondary-container);
+    }
+    &:has(> a.disabled.link-to-current-route) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+
+    // LINK STATE LAYER
+    & > [data-e="state-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: $layer-inset-inline;
+        inset-block: $layer-inset-block;
+        border-radius: $layer-border-radius;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0;
+        transition: 200ms opacity ease-in-out // Скорость для hover, focus и фазы отбоя после нажатия.
+    }
+    &:has(> a.link-to-current-route) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-secondary-container);
+    }
+    &:has(> a:not(.disabled):focus-visible) > [data-e="state-layer"] {
+        opacity: 0.16;
+    }
+    &:has(> a:not(.disabled):hover) > [data-e="state-layer"] {
+        @include ONLY_FOR_HOVERING_POINTER {
+            opacity: 0.08;
+        }
+    }
+    &:has(> a:not(.disabled):active) > [data-e="state-layer"],
+    &:has(> a:not(.disabled)).pressed > [data-e="state-layer"] {
+        opacity: 0.12;
+        transition: 0ms opacity ease-in-out // Скорость на фазе нажатия.
+    }
+
+    // LINK FOCUS RING LAYER
+    & > [data-e="focus-ring-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: $layer-inset-inline;
+        inset-block: $layer-inset-block;
+        border-radius: $layer-border-radius;
+        outline: 2px solid transparent;
+        outline-offset: 2px;
+        transition: 200ms outline-color ease-in-out, 200ms outline-offset ease-in-out;
+    }
+    &:has(> a:not(.disabled):focus-visible) > [data-e="focus-ring-layer"] {
+        outline-color: var(--md-sys-color-secondary);
+    }
+    &:has(> a:not(.disabled):focus-visible:active) > [data-e="focus-ring-layer"],
+    &:has(> a:not(.disabled):focus-visible).pressed > [data-e="focus-ring-layer"] {
+        transition: 0s outline-offset ease-in-out;
+        outline-offset: 0;
+    }
+
+    // LINK
+    & > a {
+        contain: size layout paint style;
+        position: absolute;
+        inset: 0;
+        appearance: none;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        padding: 4px 36px;
+        border: none;
+        user-select: none;
+        text-decoration: none;
+        background-color: transparent;
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    & > a.link-to-current-route {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    & > a:focus-visible {
+        outline: none;
+    }
+    & > a:not(.disabled):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > a.disabled {
+        cursor: default;
+    }
+
+    // LINK ICONS
+    & > a > i {
+        contain: size layout paint style;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        margin-inline-start: -8px;
+        font-family: "Material Symbols Outlined";
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+        font-style: normal;
+    }
+    & > [data-e="link"] > i:last-child {
+        margin-inline-start: 0;
+        margin-inline-end: -8px;
+    }
+    & > a.disabled > i {
+        opacity: 0.38;
+    }
+
+    // LINK LABEL
+    & > a > span {
+        contain: layout paint style;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin-inline-end: auto;
+        @include MD3_LABEL_L_FONT_RULE_SET;
+    }
+    & > a:not(.disabled):hover > span {
+        @include ONLY_FOR_HOVERING_POINTER {
+            //text-decoration: underline;
+        }
+    }
+    & > a.disabled > span {
+        opacity: 0.38;
+    }
+}

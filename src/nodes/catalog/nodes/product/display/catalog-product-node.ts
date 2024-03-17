@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { Title } from "@angular/platform-browser";
 import { CatalogProductViewModel } from "../model/CatalogProductViewModel";
@@ -8,7 +7,6 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [
-        CommonModule,
         RouterModule,
         PageBreadcrumbs,
         PageTitle
@@ -30,8 +28,8 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     selector: 'catalog-product-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
     `,
     providers: [ CatalogProductViewModel ]
 })

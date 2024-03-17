@@ -10,7 +10,7 @@
         <page-title [title]="viewModel.stableContent()?.pageTitle ?? ''" />
         @if (viewModel.stableContent()?.filterConfig) {
             <two-column-template
-                 sideColumnPlacementSide="end"
+                 sideColumnPlacement="end"
                  openButtonText="Показать Фильтр"
                  [isSideColumnOpenInModal]="isSideColumnOpenInModal">
                 <catalog-section-filter ngProjectAs="side-column-content"

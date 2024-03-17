@@ -1,12 +1,10 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { Title } from "@angular/platform-browser";
 import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [
-        CommonModule,
         PageBreadcrumbs,
         PageTitle
     ],
@@ -27,8 +25,8 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     selector: 'not-found-node',
     host: {},
     template: `
-        <page-breadcrumbs />
-        <page-title title="404 Not Found" />
+        <page-breadcrumbs/>
+        <page-title title="404 Not Found"/>
     `,
     providers: []
 })

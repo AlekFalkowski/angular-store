@@ -23,12 +23,12 @@ import { isPlatformBrowser } from "@angular/common";
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     encapsulation: ViewEncapsulation.None,
-    styleUrl: "popup-fieldset.scss",
-    selector: 'popup-fieldset',
+    styleUrl: "switchers-status-monitor-with-selection-popup.scss",
+    selector: 'switchers-status-monitor-with-selection-popup',
     host: { '[class]': 'variant' },
-    templateUrl: 'popup-fieldset.html',
+    templateUrl: 'switchers-status-monitor-with-selection-popup.html',
 })
-export class PopupFieldset { // popup-for-switches-with-status-display
+export class SwitchersStatusMonitorWithSelectionPopup {
     @Input() label: string = ''
     @Input() inputText?: string | number = ''
     @Input() checkedQnt?: string = ''
@@ -42,6 +42,7 @@ export class PopupFieldset { // popup-for-switches-with-status-display
     #_platformId: Object = inject(PLATFORM_ID)
     #_ngZone: NgZone = inject(NgZone)
     #_windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
+    #_toggleListenerRemover: AbortController = new AbortController()
     #_scale = 0.7
     #_popupIsOpen: WritableSignal<boolean> = signal(false)
 
@@ -49,13 +50,12 @@ export class PopupFieldset { // popup-for-switches-with-status-display
         afterNextRender(() => {
             // @ts-ignore
             this.button.nativeElement.popoverTargetElement = this.popup.nativeElement
-            let controller: AbortController = new AbortController()
             // @ts-ignore
             this.popup?.nativeElement.addEventListener("toggle", (event: ToggleEvent) => {
                 this.#_ngZone.run(() => {
                     if (event.newState === "open") {
-                        controller.abort()
-                        controller = new AbortController()
+                        this.#_toggleListenerRemover.abort()
+                        this.#_toggleListenerRemover = new AbortController()
                         this.#_popupIsOpen.set(true)
                         // <<< START Temporary solution until Safari supports css @starting-style.
                         this.popup?.nativeElement.animate(
@@ -63,7 +63,7 @@ export class PopupFieldset { // popup-for-switches-with-status-display
                                 { opacity: '0', transform: 'scale(0.7)' },
                                 { opacity: '1', transform: 'scale(1)' },
                             ],
-                            { duration: 200, iterations: 1, easing: 'ease-out', fill: 'forwards' }
+                            { duration: 200, iterations: 1, easing: 'ease-in-out', fill: 'forwards' }
                         )
                         // >>> END Temporary solution until Safari supports css @starting-style.
                         window.addEventListener('click', (event) => {
@@ -88,20 +88,20 @@ export class PopupFieldset { // popup-for-switches-with-status-display
                                 //@ts-ignore
                                 popup.hidePopover()
                             })
-                            controller.abort()
+                            this.#_toggleListenerRemover.abort()
                             this.popup?.nativeElement.classList.add('is-closing')
                             this.popup?.nativeElement.animate(
                                 [
                                     { opacity: '1', transform: 'scale(1)' },
                                     { opacity: '0', transform: 'scale(0.7)' },
                                 ],
-                                { duration: 200, iterations: 1, easing: 'ease-out', fill: 'forwards' }
+                                { duration: 200, iterations: 1, easing: 'ease-in-out', fill: 'forwards' }
                             ).finished.then(() => {
                                 this.popup?.nativeElement.hidePopover()
                                 this.popup?.nativeElement.classList.remove('is-closing')
                             })
                             // >>> END Temporary solution until Safari supports css @starting-style.
-                        }, { capture: true, signal: controller.signal })
+                        }, { capture: true, signal: this.#_toggleListenerRemover.signal })
                     } else {
                         // // <<< START Solution for browsers supporting css @starting-style.
                         // this.popup?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
@@ -114,7 +114,7 @@ export class PopupFieldset { // popup-for-switches-with-status-display
                         // })
                         // // >>> END Solution for browsers supporting css @starting-style.
                         this.#_popupIsOpen.set(false)
-                        controller.abort()
+                        this.#_toggleListenerRemover.abort()
                         // <<< START Temporary solution until Safari supports css @starting-style.
                         this.popup?.nativeElement.animate(
                             [ { opacity: '0' } ],

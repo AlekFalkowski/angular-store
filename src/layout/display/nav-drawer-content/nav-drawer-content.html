@@ -1,23 +1,28 @@
-<h3 data-e="title">О магазине</h3>
-<div data-e="lorem">
-    <!-- <popup-fieldset label="About"> -->
-    <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
-    <!-- </popup-fieldset> -->
-</div>
+<nav-drawer-link-button (closeNavDrawer)="closeNavDrawer.emit()">
+    <a role="button"
+         routerLink="/"
+         routerLinkActive="link-to-current-route"
+         [routerLinkActiveOptions]="{ exact: true }"
+         ariaCurrentWhenActive="page">
+        <i translate="no" aria-hidden="true">home</i>
+        <span>Домашняя страница</span>
+    </a>
+</nav-drawer-link-button>
+
+@for (navGroup of navGroupList; track index; let index = $index) {
+    <hr />
+    @if (navGroup.title) {
+        <h3 data-e="group-title">{{ navGroup.title }}</h3>
+    }
+    @for (navDrawerItem of navGroup.navDrawerItemList; track navDrawerItem.name) {
+        <nav-drawer-item
+             [navDrawerItem]="navDrawerItem"
+             (closeNavDrawer)="closeNavDrawer.emit()">
+        </nav-drawer-item>
+    }
+}
 <hr />
-<h3 data-e="title">Каталог</h3>
-<div data-e="lorem"></div>
-<hr />
-<h3 data-e="title">Каталог</h3>
-<div data-e="lorem"></div>
-<hr />
-<h3 data-e="title">Каталог</h3>
-<div data-e="lorem"></div>
-<hr />
-<h3 data-e="title">Аккаунт</h3>
-<div data-e="lorem"></div>
-<hr />
-<h3 data-e="title">Настройки</h3>
+<h3 data-e="group-title">Настройки</h3>
 <!-- <label data-e="color-theme-switch-label" > -->
 <!--     Тёмная тема -->
 <!--     <md-checkbox -->
@@ -27,11 +32,11 @@
 <!--     ></md-checkbox> -->
 <!-- </label > -->
 <label data-e="color-theme-switch-label">
-    Тёмная тема
     <md-switch aria-label="Dark Theme"
          [attr.selected]="colorScheme() === 'dark' ? '' : null"
          (change)="setColorScheme.emit(colorScheme() === 'dark' ? 'light' : 'dark')"
     ></md-switch>
+    Тёмная тема
 </label>
 <!-- <mat-slide-toggle -->
 <!--       [ngModel]="colorScheme() === 'dark'" -->
@@ -45,11 +50,8 @@
 <!-- > -->
 <!--     Dark theme -->
 <!-- </mat-checkbox> -->
-<div data-e="lorem">
-    isDarkTheme: {{ colorScheme() | uppercase }}
-</div>
-<div data-e="lorem">
-    <!-- <popup-fieldset label="bottom"> -->
-    <!--     <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
-    <!-- </popup-fieldset> -->
-</div>
+<!-- <div data-e="lorem"> -->
+<!--     <switchers-status-monitor-with-selection-popup label="bottom"> -->
+<!--         <div style="height: 300px; width: 200px; background-color: white;" ></div> -->
+<!--     </switchers-status-monitor-with-selection-popup> -->
+<!-- </div> -->

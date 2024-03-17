@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from "@angular/common";
 import { ContactsViewModel } from "../model/ContactsViewModel";
 import { Title } from "@angular/platform-browser";
 import { GetContactsStableContentOption } from "../options/GetContactsStableContentOption";
@@ -9,7 +8,6 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
 
 @Component({
     imports: [
-        CommonModule,
         PageBreadcrumbs,
         PageTitle
     ],
@@ -34,11 +32,11 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     selector: 'contacts-node',
     host: { 'role': 'main' },
     template: `
-        <page-breadcrumbs />
-        <page-title [title]="viewModel.fakeStableContent.pageTitle" />
-        <div data-e="content" >
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
             CONTACTS_PAGE_CONTENT
-        </div >
+        </div>
     `,
     providers: [
         ContactsViewModel,
