@@ -61,7 +61,8 @@ import { StoreAssortment } from "@/nodes/home/display/store-assortment/store-ass
     selector: 'app-layout',
     host: {
         '[class.loading]': 'viewModel.stableContentState() !== "success"',
-        '[class.dark]': 'colorScheme() === "dark"'
+        '[class.dark]': 'colorScheme() === "dark"',
+        '(window:popstate)': 'closeNavDrawer()'
     },
     templateUrl: 'app-layout.html',
     providers: [
@@ -92,15 +93,49 @@ export class AppLayout {
                     this.#_browserColorScheme.set(event.matches ? "dark" : "light")
                 })
             window.addEventListener('keydown', (event) => {
-                // Отменить скролл по нажатию пробела.
-                //@ts-ignore
-                if (event.key === ' ' && (event.target.nodeName === 'BODY' || event.target.nodeName === 'A')) {
+                if (event.key === ' ' && (
+                    //@ts-ignore
+                    event.target?.nodeName === 'BODY' ||
+                    //@ts-ignore
+                    event.target?.nodeName === 'DIALOG' ||
+                    //@ts-ignore
+                    event.target?.nodeName === 'A'
+                )) {
+                    // Отменить скролл по нажатию пробела.
                     event.preventDefault()
                 }
-            })
+                if (event.key === 'Escape') {
+                    // Закрыть самый глубокий открытый details (если фокус находиться внутри details) или dialog или popover.
+                    const nodeList = document.documentElement.querySelectorAll(':where(dialog:modal, [popover]:popover-open, details[open])')
+                    if (nodeList.length) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    for (let i = nodeList.length - 1; i >= 0; i--) {
+                        if (nodeList[i].matches('details[open]')) {
+                            //@ts-ignore
+                            if (event.target && nodeList[i].contains(event.target)) {
+                                // Отбросить details, если фокус не внутри этого details.
+                                nodeList[i].removeAttribute('open')
+                                break
+                            }
+                            continue
+                        }
+                        if (nodeList[i].matches('dialog:modal')) {
+                            //@ts-ignore
+                            nodeList[i].close()
+                        }
+                        if (nodeList[i].matches('[popover]:popover-open')) {
+                            //@ts-ignore
+                            nodeList[i].hidePopover()
+                        }
+                        break
+                    }
+                }
+            }, { capture: true })
             effect(() => {
+                // Отменить css-transitions при смене цветовой схемы.
                 this.colorScheme()
-                // Отменить переходы при смене цветовой схемы.
                 document.documentElement.classList.add("disable-transitions")
                 setTimeout(() => {
                     document.documentElement.classList.remove("disable-transitions")
@@ -109,10 +144,12 @@ export class AppLayout {
         }
         afterNextRender(() => {
             this.navDrawer?.nativeElement.addEventListener("close", () => {
+                // При закрытии navDrawer закрыть вложенные модальные диалоги.
                 this.navDrawer?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
                     //@ts-ignore
                     popup.close()
                 })
+                // При закрытии navDrawer закрыть вложенные popovers.
                 this.navDrawer?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
                     //@ts-ignore
                     popup.hidePopover()
@@ -134,7 +171,7 @@ export class AppLayout {
     })
 
     openNavDrawer(): void {
-        this.navDrawer?.nativeElement.classList.add("is-starting")
+        this.navDrawer?.nativeElement.classList.add("before-opening")
         this.#_keydownListenerRemover.abort()
         this.#_keydownListenerRemover = new AbortController()
         this.navDrawer?.nativeElement.addEventListener("keydown", (event) => {
@@ -144,7 +181,26 @@ export class AppLayout {
             }
         }, { signal: this.#_keydownListenerRemover.signal })
         this.navDrawer?.nativeElement.showModal()
-        this.navDrawer?.nativeElement.classList.remove("is-starting")
+        this.navDrawer?.nativeElement.classList.remove("before-opening")
+        if (this.navDrawer?.nativeElement.querySelector('.link-to-current-route')) {
+            // Перевести фокус внутри nawDrawer на ссылку текущего маршрута, либо ее видимого summary-предка.
+            // @ts-ignore
+            if (this.navDrawer?.nativeElement.querySelector('.link-to-current-route').checkVisibility()) {
+                // @ts-ignore
+                this.navDrawer?.nativeElement.querySelector('.link-to-current-route').focus()
+            } else {
+                // @ts-ignore
+                var summary: HTMLElement | null = this.navDrawer?.nativeElement.querySelector('.link-to-current-route').parentElement.closest('details').querySelector('summary')
+                // @ts-ignore
+                while (summary !== null && !summary.checkVisibility()) {
+                    // @ts-ignore
+                    summary = summary?.parentElement.closest('details').querySelector('summary')
+                }
+                if (summary !== null) {
+                    summary.focus()
+                }
+            }
+        }
         this.navDrawer?.nativeElement.animate(
             [
                 { transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
@@ -161,7 +217,7 @@ export class AppLayout {
     }
 
     closeNavDrawer(): void {
-        this.navDrawer?.nativeElement.classList.add("is-closing")
+        this.navDrawer?.nativeElement.classList.add("before-closing")
         this.navDrawer?.nativeElement.animate(
             [
                 { transform: 'translateX(0)' },
@@ -170,7 +226,7 @@ export class AppLayout {
             { duration: 300, iterations: 1, easing: 'ease-in-out' }
         ).finished.then(() => {
             this.navDrawer?.nativeElement.close()
-            this.navDrawer?.nativeElement.classList.remove("is-closing")
+            this.navDrawer?.nativeElement.classList.remove("before-closing")
         })
     }
 }

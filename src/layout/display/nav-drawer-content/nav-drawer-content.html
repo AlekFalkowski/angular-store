@@ -2,7 +2,7 @@
     <a role="button"
          routerLink="/"
          routerLinkActive="link-to-current-route"
-         [routerLinkActiveOptions]="{ exact: true }"
+         [routerLinkActiveOptions]='{ matrixParams: "ignored", queryParams: "ignored", paths: "exact", fragment: "ignored" }'
          ariaCurrentWhenActive="page">
         <i translate="no" aria-hidden="true">home</i>
         <span>Домашняя страница</span>

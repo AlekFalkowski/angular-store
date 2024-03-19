@@ -25,7 +25,7 @@ two-column-template {
         height: min-content;
         white-space: nowrap;
         transition: top 400ms ease-in-out, visibility 300ms ease-in-out, opacity 300ms ease-in-out;
-        &:has(+[data-e="side-column"][open]:not(.is-closing)) {
+        &:has(+[data-e="side-column"][open]:not(.before-closing)) {
             opacity: 0;
             visibility: hidden;
         }
@@ -224,8 +224,8 @@ two-column-template {
         background-color: rgb(0 0 0 / 50%);
         transition: background-color 300ms ease-in-out;
     }
-    & > [data-e="side-column"].is-starting::backdrop,
-    & > [data-e="side-column"].is-closing::backdrop {
+    & > [data-e="side-column"].before-opening::backdrop,
+    & > [data-e="side-column"].before-closing::backdrop {
         background-color: rgb(0 0 0 / 0%);
     }
 

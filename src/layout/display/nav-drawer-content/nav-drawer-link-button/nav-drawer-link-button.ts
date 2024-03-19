@@ -56,7 +56,6 @@ export class NavDrawerLinkButton {
                         })
                         // Переход по ссылке по нажатию пробела.
                         this.#_elementRef.nativeElement.querySelector('a').click()
-                        this.closeNavDrawer.emit()
                         break
                     }
                 }

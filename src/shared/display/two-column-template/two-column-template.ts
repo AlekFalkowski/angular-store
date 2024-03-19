@@ -117,10 +117,10 @@ export class TwoColumnTemplate {
     }
 
     openSideColumn(): void {
-        this.sideColumn?.nativeElement.classList.add("is-starting")
+        this.sideColumn?.nativeElement.classList.add("before-opening")
         if (window.innerWidth >= this.#_breakpoint) {
             this.sideColumn?.nativeElement.show()
-            this.sideColumn?.nativeElement.classList.remove("is-starting")
+            this.sideColumn?.nativeElement.classList.remove("before-opening")
             this.viewModel.setPreferredSideColumnView('visible')
             this.sideColumn?.nativeElement.animate(
                 [
@@ -139,7 +139,7 @@ export class TwoColumnTemplate {
                 }
             }, { signal: this.#_keydownListenerRemover.signal })
             this.sideColumn?.nativeElement.showModal()
-            this.sideColumn?.nativeElement.classList.remove("is-starting")
+            this.sideColumn?.nativeElement.classList.remove("before-opening")
             this.isSideColumnOpenInModal.set(true)
             this.sideColumn?.nativeElement.animate(
                 [
@@ -158,7 +158,7 @@ export class TwoColumnTemplate {
     }
 
     closeSideColumn(): void {
-        this.sideColumn?.nativeElement.classList.add("is-closing")
+        this.sideColumn?.nativeElement.classList.add("before-closing")
         if (window.innerWidth >= this.#_breakpoint && !this.isSideColumnOpenInModal()) {
             this.viewModel.setPreferredSideColumnView('hidden')
         }
@@ -175,7 +175,7 @@ export class TwoColumnTemplate {
             { duration: 300, iterations: 1, easing: 'ease-in-out' }
         ).finished.then(() => {
             this.sideColumn?.nativeElement.close()
-            this.sideColumn?.nativeElement.classList.remove("is-closing")
+            this.sideColumn?.nativeElement.classList.remove("before-closing")
         })
     }
 }

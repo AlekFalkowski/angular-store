@@ -274,7 +274,7 @@ nav-drawer-directory {
     }
 
     // SUMMARY OPEN STATE INDICATOR
-    & > [data-e="indicator"] {
+    & > [dat-e="trailing-icon"] {
         contain: size layout paint style;
         position: absolute;
         inset-inline-end: 28px;
@@ -286,7 +286,7 @@ nav-drawer-directory {
         height: 24px;
         transition: 200ms transform ease-in-out;
     }
-    &:has(> details[open]) > [data-e="indicator"] {
+    &:has(> details[open]) > [dat-e="trailing-icon"] {
         transform: scaleY(-1);
     }
 

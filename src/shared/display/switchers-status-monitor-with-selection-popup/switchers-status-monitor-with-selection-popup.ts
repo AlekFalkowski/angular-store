@@ -71,7 +71,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
                             if (this.popup?.nativeElement.contains(event.target)) {
                                 return
                             }
-                            //@ts-ignore
+                            //@ts-ignore //TODO: Частное решение. переделать в общее.
                             if (event.target.nodeName === 'DIALOG') {
                                 event.stopPropagation()
                             }
@@ -89,7 +89,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
                                 popup.hidePopover()
                             })
                             this.#_toggleListenerRemover.abort()
-                            this.popup?.nativeElement.classList.add('is-closing')
+                            this.popup?.nativeElement.classList.add('before-hiding')
                             this.popup?.nativeElement.animate(
                                 [
                                     { opacity: '1', transform: 'scale(1)' },
@@ -98,7 +98,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
                                 { duration: 200, iterations: 1, easing: 'ease-in-out', fill: 'forwards' }
                             ).finished.then(() => {
                                 this.popup?.nativeElement.hidePopover()
-                                this.popup?.nativeElement.classList.remove('is-closing')
+                                this.popup?.nativeElement.classList.remove('before-hiding')
                             })
                             // >>> END Temporary solution until Safari supports css @starting-style.
                         }, { capture: true, signal: this.#_toggleListenerRemover.signal })
