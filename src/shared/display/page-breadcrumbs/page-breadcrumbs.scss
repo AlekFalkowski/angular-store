@@ -1,0 +1,26 @@
+@import "all-config";
+
+page-breadcrumbs {
+    padding-inline: var(--inline-padding);
+    height: 54px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 32px;
+    align-items: center;
+
+    & > [data-e="breadcrumbs"] {
+        display: flex;
+        align-items: center;
+
+        & > [data-e="home-button"] {
+            margin-inline-start: -11px;
+            margin-inline-end: 4px;
+            margin-top: -2px;
+        }
+    }
+    & > [data-e="share-button"] {
+        grid-column: 2;
+        justify-self: end;
+        margin-inline-end: -10px;
+        margin-top: -2px;
+    }
+}

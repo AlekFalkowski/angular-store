@@ -48,6 +48,9 @@ export class SwitchersStatusMonitorWithSelectionPopup {
 
     constructor() {
         afterNextRender(() => {
+            // window.addEventListener('scroll', () => {
+            //     console.log('scroll')
+            // }, { capture: true })
             // @ts-ignore
             this.button.nativeElement.popoverTargetElement = this.popup.nativeElement
             // @ts-ignore
@@ -127,7 +130,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
         })
     }
 
-    inlineStyle = computed<Record<string, string | undefined | null>>(() => {
+    popupPositionCssStyle = computed<Record<string, string | undefined | null>>(() => {
         if (!isPlatformBrowser(this.#_platformId)) {
             return {}
         }

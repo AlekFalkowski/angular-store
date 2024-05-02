@@ -5,7 +5,7 @@ nav-bar {
     contain: layout paint inline-size style;
     padding-inline: $full-inline-padding;
     position: sticky;
-    top: -1px;
+    top: 0;
     height: 56px;
     display: flex;
     align-items: center;
