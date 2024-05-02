@@ -37,6 +37,7 @@ html {
     @include LAYOUT_SIDE_PADDING_RULE_SET;
     transition: background-color 300ms ease-in-out, transform 300ms ease-in-out;
     // overflow-x: hidden;
+    color-scheme: light;
 }
 html[data-color-scheme="dark"],
 html:has(app-layout.dark) {

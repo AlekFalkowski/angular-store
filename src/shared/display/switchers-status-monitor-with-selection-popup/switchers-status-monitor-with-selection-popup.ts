@@ -42,7 +42,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
     #_platformId: Object = inject(PLATFORM_ID)
     #_ngZone: NgZone = inject(NgZone)
     #_windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
-    #_toggleListenerRemover: AbortController = new AbortController()
+    #_windowEventListenersRemover: AbortController = new AbortController()
     #_scale = 0.7
     #_popupIsOpen: WritableSignal<boolean> = signal(false)
 
@@ -57,8 +57,8 @@ export class SwitchersStatusMonitorWithSelectionPopup {
             this.popup?.nativeElement.addEventListener("toggle", (event: ToggleEvent) => {
                 this.#_ngZone.run(() => {
                     if (event.newState === "open") {
-                        this.#_toggleListenerRemover.abort()
-                        this.#_toggleListenerRemover = new AbortController()
+                        this.#_windowEventListenersRemover.abort()
+                        this.#_windowEventListenersRemover = new AbortController()
                         this.#_popupIsOpen.set(true)
                         // <<< START Temporary solution until Safari supports css @starting-style.
                         this.popup?.nativeElement.animate(
@@ -91,7 +91,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
                                 //@ts-ignore
                                 popup.hidePopover()
                             })
-                            this.#_toggleListenerRemover.abort()
+                            this.#_windowEventListenersRemover.abort()
                             this.popup?.nativeElement.classList.add('before-hiding')
                             this.popup?.nativeElement.animate(
                                 [
@@ -104,7 +104,46 @@ export class SwitchersStatusMonitorWithSelectionPopup {
                                 this.popup?.nativeElement.classList.remove('before-hiding')
                             })
                             // >>> END Temporary solution until Safari supports css @starting-style.
-                        }, { capture: true, signal: this.#_toggleListenerRemover.signal })
+                        }, { capture: true, signal: this.#_windowEventListenersRemover.signal })
+                        window.addEventListener('scroll', (event) => {
+                            //@ts-ignore
+                            if (this.popup?.nativeElement.contains(event.target)) {
+                                return
+                            }
+                            // // <<< START Solution for browsers supporting css @starting-style.
+                            // this.#_windowEventListenersRemover.abort()
+                            // this.popup?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
+                            //     //@ts-ignore
+                            //     popup.close()
+                            // })
+                            // this.popup?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
+                            //     //@ts-ignore
+                            //     popup.hidePopover()
+                            // })
+                            // // >>> END Solution for browsers supporting css @starting-style.
+                            // <<< START Temporary solution until Safari supports css @starting-style.
+                            this.popup?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
+                                //@ts-ignore
+                                popup.close()
+                            })
+                            this.popup?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
+                                //@ts-ignore
+                                popup.hidePopover()
+                            })
+                            this.#_windowEventListenersRemover.abort()
+                            this.popup?.nativeElement.classList.add('before-hiding')
+                            this.popup?.nativeElement.animate(
+                                [
+                                    { opacity: '1', transform: 'scale(1)' },
+                                    { opacity: '0', transform: 'scale(0.7)' },
+                                ],
+                                { duration: 200, iterations: 1, easing: 'ease-in-out', fill: 'forwards' }
+                            ).finished.then(() => {
+                                this.popup?.nativeElement.hidePopover()
+                                this.popup?.nativeElement.classList.remove('before-hiding')
+                            })
+                            // >>> END Temporary solution until Safari supports css @starting-style.
+                        }, { capture: true, signal: this.#_windowEventListenersRemover.signal })
                     } else {
                         // // <<< START Solution for browsers supporting css @starting-style.
                         // this.popup?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
@@ -117,7 +156,7 @@ export class SwitchersStatusMonitorWithSelectionPopup {
                         // })
                         // // >>> END Solution for browsers supporting css @starting-style.
                         this.#_popupIsOpen.set(false)
-                        this.#_toggleListenerRemover.abort()
+                        this.#_windowEventListenersRemover.abort()
                         // <<< START Temporary solution until Safari supports css @starting-style.
                         this.popup?.nativeElement.animate(
                             [ { opacity: '0' } ],
