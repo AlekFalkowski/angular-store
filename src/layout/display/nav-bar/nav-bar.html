@@ -1,43 +1,65 @@
-<md-icon-button
-     aria-label="Menu"
-     (click)="openNavDrawer.emit()">
-    <md-icon translate="no">
-        menu
-    </md-icon>
-</md-icon-button>
+<icon-button
+    appearance="simple">
+    <button
+        aria-label="Menu"
+        (click)="openNavDrawer.emit()">
+        <i translate="no" aria-hidden="true">menu</i>
+    </button>
+</icon-button>
 
-<spacer-block />
+<spacer-block/>
 
-<md-filled-tonal-icon-button
-     aria-label="Search">
-    <md-icon translate="no">
-        search
-    </md-icon>
-</md-filled-tonal-icon-button>
-<md-filled-tonal-icon-button
-     aria-label="Bookmarks"
-     routerLink="/bookmarks"
-     routerLinkActive="link-to-current-route"
-     ariaCurrentWhenActive="page">
-    <md-icon translate="no">
-        bookmarks
-    </md-icon>
-</md-filled-tonal-icon-button>
-<md-filled-tonal-icon-button
-     aria-label="Shopping cart"
-     routerLink="/cart"
-     routerLinkActive="link-to-current-route"
-     ariaCurrentWhenActive="page">
-    <md-icon translate="no">
-        shopping_cart
-    </md-icon>
-</md-filled-tonal-icon-button>
-<md-filled-tonal-icon-button
-     aria-label="Person"
-     routerLink="/account"
-     routerLinkActive="link-to-current-route"
-     ariaCurrentWhenActive="page">
-    <md-icon translate="no">
-        person
-    </md-icon>
-</md-filled-tonal-icon-button>
+<icon-button
+    appearance="simple">
+    <button
+        aria-label="Search">
+        <i translate="no" aria-hidden="true">search</i>
+    </button>
+</icon-button>
+
+<icon-button
+    appearance="simple">
+    <a
+        role="button"
+        aria-label="Bookmarks"
+        routerLink="/bookmarks"
+        routerLinkActive="link-to-current-route"
+        ariaCurrentWhenActive="page">
+        <i translate="no" aria-hidden="true">bookmarks</i>
+    </a>
+</icon-button>
+
+<icon-button
+    appearance="simple">
+    <a
+        role="button"
+        aria-label="Shopping cart"
+        routerLink="/cart"
+        routerLinkActive="link-to-current-route"
+        ariaCurrentWhenActive="page">
+        <i translate="no" aria-hidden="true">shopping_cart</i>
+    </a>
+</icon-button>
+
+<icon-button
+    appearance="simple">
+    <a
+        role="button"
+        aria-label="Person"
+        routerLink="/account"
+        routerLinkActive="link-to-current-route"
+        ariaCurrentWhenActive="page">
+        <i translate="no" aria-hidden="true">person</i>
+    </a>
+</icon-button>
+
+<icon-button
+    appearance="simple">
+    <button
+        aria-label="Test UI"
+        routerLink="/test-ui"
+        routerLinkActive="link-to-current-route"
+        ariaCurrentWhenActive="page">
+        <i translate="no" aria-hidden="true">change_history</i>
+    </button>
+</icon-button>

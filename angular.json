@@ -21,7 +21,7 @@
                     "builder": "@angular-devkit/build-angular:application",
                     "options": {
                         "outputPath": "dist/blanco",
-                        "index": "src/frame/index.html",
+                        "index": "src/document/document.html",
                         "browser": "src/main.ts",
                         "polyfills": [
                             "zone.js"
@@ -39,7 +39,7 @@
                             ]
                         },
                         "styles": [
-                            "src/frame/index.scss"
+                            "src/document/document.scss"
                         ],
                         "scripts": [],
                         "server": "src/main.server.ts",
@@ -111,7 +111,7 @@
                             ]
                         },
                         "styles": [
-                            "src/frame/index.scss"
+                            "src/document/document.scss"
                         ],
                         "scripts": [],
                         "karmaConfig": "karma.conf.js"

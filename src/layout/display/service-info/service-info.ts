@@ -12,11 +12,11 @@ import {
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'service-info.scss',
     selector: 'service-info',
     host: {},
     templateUrl: 'service-info.html',
+    styleUrl: 'service-info.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class ServiceInfo {
     @Input() windowInnerWidth!: Signal<number>

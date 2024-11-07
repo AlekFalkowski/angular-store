@@ -1,30 +1,18 @@
-<input data-e="input"
-     type="text"
-     placeholder=" "
-     [class]="variant"
-     [class.error]="error"
-     [disabled]="disabled"
-     [name]="name"
-     [value]="value"
-     [ngModel]="currentValue"
-     (ngModelChange)="changeValue.emit($event)"
->
-<label data-e="label">
-    {{ label }}
-</label>
-<div data-e="ground"
-     aria-hidden="true">
-</div>
-<div data-e="overlay"
-     aria-hidden="true">
-</div>
-<div data-e="indicator"
-     aria-hidden="true">
-</div>
-<!--            <span data-e="count" aria-hidden="true">88</span>-->
-<!--            <SvgDropdown data-e="icon" aria-hidden="true"/>-->
-@if (helpText) {
-    <div data-e="help-text">
-        {{ helpText }}
+<div data-e="back-layer" aria-hidden="true"></div>
+<div data-e="state-layer" aria-hidden="true"></div>
+<div data-e="focus-ring-layer" aria-hidden="true"></div>
+@if (supportingText) {
+    <div data-e="supporting-text">
+        {{ supportingText }}
     </div>
 }
+<ng-content />
+<!-- <label> -->
+<!--     <span>{{ field.label }}</span> -->
+<!--     <input type="text" -->
+<!--          [name]="field.name" -->
+<!--          [value]="field.value" -->
+<!--          [ngModel]="textFieldsStates.get(field.name)" -->
+<!--          (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
+<!--     /> -->
+<!-- </label> -->

@@ -1,3 +1,7 @@
+<div style="height: 72px;"></div>
+
+
+
 @for (fieldSet of filterConfig; track fieldSet.label; let index = $index) {
     @if (fieldSet.label != null) {
         <div data-e="fieldset-label">{{ fieldSet.label }}</div>
@@ -7,145 +11,157 @@
     @for (field of fieldSet.fieldList; track field.label) {
         @switch (field.type) {
             @case ("TMultiChoiceField") {
-                <switchers-status-monitor-with-selection-popup
-                     [label]="field.label"
-                     [checkedQnt]="multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? '' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + '/' + field.options.length.toString() : ''"
-                >
-                    <switchers-column>
+                <popup-selection>
+                    <select-button
+                        ngProjectAs="launcher-content"
+                        appearance="outlined">
+                        <label>
+                            <span>{{ field.label }}</span>
+                            <button>
+                                <span>
+                                    {{
+                                        multiChoiceFieldsStates.get(field.name)?.size ?? 0 > 0 ? '' + multiChoiceFieldsStates.get(field.name)?.size?.toString() + '/' + field.options.length.toString() : ''
+                                    }}
+                                </span>
+                            </button>
+                        </label>
+                    </select-button>
+                    <!-- <base-button ngProjectAs="launcher-content"> -->
+                    <!--     <button> -->
+                    <!--         <span></span> -->
+                    <!--     </button> -->
+                    <!-- </base-button> -->
+                    <switch-group
+                        ngProjectAs="popup-content">
                         @for (option of field.options; track option.label) {
                             <label>
-                                <input type="checkbox"
-                                     [name]="field.name"
-                                     [value]="option.value"
-                                     [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
-                                     (ngModelChange)="multiChoiceFieldsStates.get(field.name)?.has(option.value)
+                                <span>{{ option.label }}</span>
+                                <input
+                                    type="checkbox"
+                                    [name]="field.name"
+                                    [value]="option.value"
+                                    [ngModel]="multiChoiceFieldsStates.get(field.name)?.has(option.value)"
+                                    (ngModelChange)="multiChoiceFieldsStates.get(field.name)?.has(option.value)
                                                ? multiChoiceFieldsStates.get(field.name)?.delete(option.value)
                                                : multiChoiceFieldsStates.get(field.name)?.add(option.value)
                                            "
                                 />
-                                <span>{{ option.label }}</span>
                             </label>
                         }
-                    </switchers-column>
-                </switchers-status-monitor-with-selection-popup>
+                    </switch-group>
+                </popup-selection>
                 <md-chip-set>
                     @for (option of field.options; track option.label) {
                         @if (multiChoiceFieldsStates.get(field.name)?.has(option.value)) {
                             <md-input-chip
-                                 [attr.label]="option.label"
-                                 remove-only="true"
+                                [attr.label]="option.label"
+                                remove-only="true"
                             ></md-input-chip>
                         }
                     }
                 </md-chip-set>
             }
             @case ("TSingleChoiceField") {
-                <switchers-status-monitor-with-selection-popup
-                     [label]="field.label"
-                     [inputText]="singleChoiceFieldsStates.get(field.name)"
-                >
-                    <switchers-column>
+                <popup-selection>
+                    <select-button
+                        ngProjectAs="launcher-content"
+                        appearance="outlined">
+                        <label>
+                            <span>{{ field.label }}</span>
+                            <button>
+                                <span>
+                                    {{ singleChoiceFieldsStates.get(field.name) }}
+                                </span>
+                            </button>
+                        </label>
+                    </select-button>
+                    <!-- <base-button ngProjectAs="launcher-content"> -->
+                    <!--     <button> -->
+                    <!--         <span></span> -->
+                    <!--     </button> -->
+                    <!-- </base-button> -->
+                    <switch-group
+                        ngProjectAs="popup-content">
                         @for (option of field.options; track option.label) {
                             <label>
-                                <input type="radio"
-                                     [name]="field.name"
-                                     [value]="option.value"
-                                     [ngModel]="singleChoiceFieldsStates.get(field.name)"
-                                     (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
+                                <span>{{ option.label }}</span>
+                                <input
+                                    type="radio"
+                                    [name]="field.name"
+                                    [value]="option.value"
+                                    [ngModel]="singleChoiceFieldsStates.get(field.name)"
+                                    (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)"
                                 />
                                 <!-- <md-radio -->
                                 <!--       [attr.checked]="singleChoiceFieldsStates.get(field.name) ===  option.value ? '' : null" -->
                                 <!--       (change)="singleChoiceFieldsStates.set(field.name, option.value)" -->
                                 <!-- ></md-radio > -->
-                                <span>{{ option.label }}</span>
                             </label>
                         }
-                    </switchers-column>
-                </switchers-status-monitor-with-selection-popup>
-                <!-- <md-outlined-select -->
-                     <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
-                     <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
-                     <!-- > -->
-                     <!--     @for (option of field.options; track option.label) { -->
-                     <!--     <md-select-option [value]="option.value"> -->
-                     <!--         <div slot="headline">{{ option.label }}</div> -->
-                     <!--     </md-select-option> -->
-                     <!--     } -->
-                     <!-- </md-outlined-select> -->
-                     <!-- <select -->
-                     <!--       [ngModel]="singleChoiceFieldsStates.get(field.name)" -->
-                     <!--       (ngModelChange)="singleChoiceFieldsStates.set(field.name, $event)" -->
-                     <!-- > -->
-                     <!--     <option disabled selected></option> -->
-                     <!--     @for (option of field.options; track option.label) { -->
-                     <!--         <option [value]="option.value" >{{ option.label }}</option > -->
-                     <!--     } -->
-                     <!-- </select > -->
+                    </switch-group>
+                </popup-selection>
             }
             @case ("TRangeField") {
-                <!-- <label style="display: flex;" > -->
-                     <!--     <input -->
-                     <!--           type="text" -->
-                     <!--           [name]="field.name" -->
-                     <!--           [value]="field.value" -->
-                     <!--           [ngModel]="textFieldsStates.get(field.name)" -->
-                     <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
-                     <!--     /> -->
-                     <!--     <span >{{ field.label }}</span > -->
-                     <!-- </label > -->
-                     <!-- <input -->
-                     <!--       type="text" -->
-                     <!--       [name]="field.name" -->
-                     <!--       [value]="field.value" -->
-                     <!--       [ngModel]="textFieldsStates.get(field.endName)" -->
-                     <!--       (ngModelChange)="textFieldsStates.set(field.endName, $event)" -->
-                     <!-- /> -->
-                <div data-e="range-field">
+                <range-field>
                     <text-field
-                         [label]="field.label"
-                         [name]="field.name"
-                         [value]="field.value"
-                         [currentValue]="textFieldsStates.get(field.name)"
-                         (changeValue)="textFieldsStates.set(field.name, $event)"
-                    ></text-field>
+                        appearance="outlined">
+                        <label>
+                            <span>{{ field.label }}</span>
+                            <input
+                                type="text"
+                                [name]="field.name"
+                                [value]="field.value"
+                                [ngModel]="textFieldsStates.get(field.name)"
+                                (ngModelChange)="textFieldsStates.set(field.name, $event)"
+                            />
+                        </label>
+                    </text-field>
                     <text-field
-                         [label]="field.label"
-                         [name]="field.name"
-                         [value]="field.value"
-                         [currentValue]="textFieldsStates.get(field.endName)"
-                         (changeValue)="textFieldsStates.set(field.endName, $event)"
-                    ></text-field>
-                </div>
+                        appearance="outlined">
+                        <label>
+                            <input
+                                type="text"
+                                [name]="field.name"
+                                [value]="field.value"
+                                [ngModel]="textFieldsStates.get(field.endName)"
+                                (ngModelChange)="textFieldsStates.set(field.endName, $event)"
+                            />
+                        </label>
+                    </text-field>
+                </range-field>
             }
             @case ("TTextField") {
-                <!-- <label style="display: flex;" > -->
-                     <!--     <input -->
-                     <!--           type="text" -->
-                     <!--           [name]="field.name" -->
-                     <!--           [value]="field.value" -->
-                     <!--           [ngModel]="textFieldsStates.get(field.name)" -->
-                     <!--           (ngModelChange)="textFieldsStates.set(field.name, $event)" -->
-                     <!--     /> -->
-                     <!--     <span >{{ field.label }}</span > -->
-                     <!-- </label > -->
                 <text-field
-                     [label]="field.label"
-                     [name]="field.name"
-                     [value]="field.value"
-                     [currentValue]="textFieldsStates.get(field.name)"
-                     (changeValue)="textFieldsStates.set(field.name, $event)"
-                ></text-field>
+                    appearance="outlined">
+                    <label>
+                        <span>{{ field.label }}</span>
+                        <input
+                            type="text"
+                            [name]="field.name"
+                            [value]="field.value"
+                            [ngModel]="textFieldsStates.get(field.name)"
+                            (ngModelChange)="textFieldsStates.set(field.name, $event)"
+                        />
+                    </label>
+                </text-field>
             }
         }
     }
 }
-<div data-e="actions-line">
-    <md-filled-button data-e="submit-button"
-         (click)="submitFilter.emit()">
-        Применить
-    </md-filled-button>
-    <md-outlined-button data-e="submit-button"
-         (click)="cleanFilter.emit()">
-        Очистить
-    </md-outlined-button>
+<div
+    data-e="actions-line">
+    <base-button
+        appearance="filled"
+        data-e="submit-button">
+        <button (click)="submitFilter.emit()">
+            <span>Применить</span>
+        </button>
+    </base-button>
+    <base-button
+        appearance="outlined"
+        data-e="submit-button">
+        <button (click)="cleanFilter.emit()">
+            <span>Очистить</span>
+        </button>
+    </base-button>
 </div>

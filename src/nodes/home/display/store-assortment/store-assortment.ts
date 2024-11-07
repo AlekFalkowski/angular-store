@@ -12,11 +12,11 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'store-assortment.scss',
     selector: 'store-assortment',
     host: {},
     templateUrl: 'store-assortment.html',
+    styleUrl: 'store-assortment.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: [],
 })
 export class StoreAssortment {

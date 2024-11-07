@@ -14,7 +14,15 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'articles-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
+            ARTICLES_PAGE_CONTENT
+        </div>
+    `,
     styles: `
         @import "all-config";
         articles-node {
@@ -29,15 +37,7 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
             }
         }
     `,
-    selector: 'articles-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-        <div data-e="content">
-            ARTICLES_PAGE_CONTENT
-        </div>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: [
         ArticlesViewModel,
         GetArticlesStableContentOption,

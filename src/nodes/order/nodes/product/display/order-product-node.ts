@@ -14,7 +14,15 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'order-product-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
+            ORDER_PRODUCT
+        </div>
+    `,
     styles: `
         @import "all-config";
         order-product-node {
@@ -29,15 +37,7 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
             }
         }
     `,
-    selector: 'order-product-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-        <div data-e="content">
-            ORDER_PRODUCT
-        </div>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: [ OrderProductViewModel ]
 })
 export class OrderProductNode {

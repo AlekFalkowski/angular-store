@@ -5,7 +5,10 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsu
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'order-list',
+    template: `
+        <div>ORDER_LIST_ROW</div>
+    `,
     styles: `
         @import "all-config";
         order-list {
@@ -14,10 +17,7 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsu
             background-color: var(--md-sys-color-surface-container-low);
         }
     `,
-    selector: 'order-list',
-    template: `
-        <div>ORDER_LIST_ROW</div>
-    `,
+    encapsulation: ViewEncapsulation.None,
 })
 export class OrderList {
 }

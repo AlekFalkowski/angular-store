@@ -1,5 +1,8 @@
 <div data-e="error-text">Loading error 🙁</div>
-<md-filled-button data-e="try-again-button"
-     (click)="tryAgain.emit()">
-    Try again
-</md-filled-button>
+<base-button
+    data-e="try-again-button"
+    appearance="filled">
+    <button (click)="tryAgain.emit()">
+        <span>Try again</span>
+    </button>
+</base-button>

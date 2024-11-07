@@ -1,0 +1,9 @@
+@import "all-config";
+
+test-ui-node {
+    max-width: $base-max-width;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}

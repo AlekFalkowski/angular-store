@@ -16,7 +16,16 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'order-index-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <order-list/>
+        <div data-e="content">
+            {{ viewModel.stableContent?.number }}
+        </div>
+    `,
     styles: `
         @import "all-config";
         order-index-node {
@@ -31,16 +40,7 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
             }
         }
     `,
-    selector: 'order-index-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-        <order-list/>
-        <div data-e="content">
-            {{ viewModel.stableContent?.number }}
-        </div>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: [
         OrderViewModel,
         GetOrderStableContentOption,

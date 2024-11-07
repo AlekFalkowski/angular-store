@@ -11,9 +11,7 @@ import {
 import { RouterModule } from '@angular/router';
 import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import {
-    SwitchersStatusMonitorWithSelectionPopup
-} from "@/shared/display/switchers-status-monitor-with-selection-popup/switchers-status-monitor-with-selection-popup";
+import { PopupSelection } from "@/shared/display/popup-selection/popup-selection";
 import { TNavGroup } from "../../types/TNavGroup";
 import { UpperCasePipe } from "@angular/common";
 import { NavDrawerLinkButton } from "@/layout/display/nav-drawer-content/nav-drawer-link-button/nav-drawer-link-button";
@@ -25,7 +23,7 @@ import { NavDrawerItem } from "@/layout/display/nav-drawer-content/nav-drawer-it
         SpacerBlock,
         FormsModule,
         ReactiveFormsModule,
-        SwitchersStatusMonitorWithSelectionPopup,
+        PopupSelection,
         UpperCasePipe,
         NavDrawerLinkButton,
         NavDrawerItem
@@ -33,11 +31,11 @@ import { NavDrawerItem } from "@/layout/display/nav-drawer-content/nav-drawer-it
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'nav-drawer-content.scss',
     selector: 'nav-drawer-content',
     host: {},
     templateUrl: 'nav-drawer-content.html',
+    styleUrl: 'nav-drawer-content.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class NavDrawerContent {
     @Input() navGroupList!: TNavGroup[]

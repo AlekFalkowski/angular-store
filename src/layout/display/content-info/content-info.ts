@@ -10,11 +10,11 @@ import { SpacerBlock } from "@/shared/display/spacer-block/spacer-block";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'content-info.scss',
     selector: 'content-info',
     host: { 'role': 'contentinfo' },
     templateUrl: 'content-info.html',
+    styleUrl: 'content-info.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class ContentInfo {
 }

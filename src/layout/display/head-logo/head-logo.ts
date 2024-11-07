@@ -6,11 +6,11 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'head-logo.scss',
     selector: 'head-logo',
     host: {},
     templateUrl: 'head-logo.html',
+    styleUrl: 'head-logo.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class HeadLogo {
 }

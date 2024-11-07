@@ -1,0 +1,26 @@
+@mixin FOCUS_RING_NOT_FOCUSED_RULE_SET {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition: 200ms outline-color ease-in-out, 200ms outline-offset ease-in-out;
+}
+@mixin FOCUS_RING_FOCUSED_RULE_SET {
+    outline-color: var(--md-sys-color-secondary);
+}
+@mixin FOCUS_RING_PRESSED_RULE_SET {
+    transition: 200ms outline-color ease-in-out, 0s outline-offset ease-in-out;
+    outline-offset: 0;
+}
+
+// // bootstrap style
+// @mixin FOCUS_RING_NOT_FOCUSED_RULE_SET {
+//     outline: none;
+//     transition: 200ms box-shadow ease-in-out;
+//     opacity: 0.25;
+// }
+// @mixin FOCUS_RING_FOCUSED_RULE_SET {
+//     // box-shadow: 0 0 0 .25rem rgba(13, 110, 253, .25);
+//     box-shadow: 0 0 0 4px var(--md-sys-color-secondary);
+// }
+// @mixin FOCUS_RING_PRESSED_RULE_SET {
+//     box-shadow: 0 0 0 2px var(--md-sys-color-secondary);
+// }

@@ -5,7 +5,11 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, View
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'page-title',
+    host: {},
+    template: `
+        <h1 data-e="headline">{{ title }}</h1>
+    `,
     styles: `
         @import "all-config";
         page-title {
@@ -25,11 +29,7 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, Input, View
             }
         }
     `,
-    selector: 'page-title',
-    host: {},
-    template: `
-        <h1 data-e="headline">{{ title }}</h1>
-    `,
+    encapsulation: ViewEncapsulation.None,
 })
 export class PageTitle {
     @Input() title: string = ""

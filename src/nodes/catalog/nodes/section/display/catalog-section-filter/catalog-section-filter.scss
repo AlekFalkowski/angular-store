@@ -6,11 +6,13 @@ catalog-section-filter {
     padding-top: 8px;
 
     & > [data-e="fieldset-label"] {
-        margin: 14px 24px;
+        margin: 14px 28px;
         @include MD3_TITLE_S_FONT_RULE_SET
     }
 
-    & > switchers-status-monitor-with-selection-popup {
+    & > text-field,
+    & > range-field,
+    & > popup-selection {
         margin-inline: 24px;
     }
 
@@ -32,7 +34,6 @@ catalog-section-filter {
         display: flex;
         align-items: center;
         justify-content: start;
-        gap: 8px;
         margin-inline: 20px;
         padding-inline: 4px;
         // border-block: 1px solid var(--md-sys-color-surface-container);

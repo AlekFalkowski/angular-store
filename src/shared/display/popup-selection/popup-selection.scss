@@ -1,0 +1,78 @@
+@import "all-config";
+
+$toggleTransitionDuration: 150ms; // RELATED VALUES in JS: toggleTransitionDuration
+
+popup-selection {
+    --tdm: 1;
+    max-width: 100%;
+
+    // // <<< START Solution for browsers supporting css @starting-style.
+    // // Experimental technology that only works in Chrome.
+    // // After starting to use it is necessary replace +:popover-open:not(.before-hiding) to +:popover-open in this file.
+    // // POPUP WINDOW
+    // & > [data-e="popup"] {
+    //     contain: layout paint;
+    //     max-width: min(560px, calc(100vw - var(--side-padding) * 2));
+    //     max-height: 90svh;
+    //     position: fixed;
+    //     overscroll-behavior: contain;
+    //     flex-direction: column;
+    //     margin: 0;
+    //     padding: 0;
+    //     border: none;
+    //     border-radius: $md-sys-shape-corner-extra-small;
+    //     box-shadow: $md-sys-elevation-level2;
+    //     background-color: var(--md-sys-color-surface);
+    //     transition: opacity 0.7s ease-in-out, transform 0.7s ease-in-out, overlay 0.7s ease-in-out allow-discrete, display 0.7s ease-in-out allow-discrete;
+    //     opacity: 0;
+    //     transform: scale(0.7);
+    // }
+    // & > [data-e="popup"]:popover-open,
+    // & > [data-e="popup"]:modal {
+    //     @starting-style {
+    //         opacity: 0;
+    //         transform: scale(0.7);
+    //     }
+    //     opacity: 1;
+    //     transform: scale(1);
+    // }
+    // &.tonal > [data-e="popup"] {
+    //     background-color: var(--md-sys-color-surface-high);
+    // }
+    //
+    // // POPUP BACKDROP
+    // & > [data-e="popup"]::backdrop {
+    //     transition: display 0.7s allow-discrete, overlay 0.7s allow-discrete, background-color 0.7s;
+    //     background-color: rgb(0 0 0 / 0%);
+    // }
+    // & > [data-e="popup"]:popover-open::backdrop,
+    // & > [data-e="popup"]:modal::backdrop {
+    //     @starting-style {
+    //         background-color: rgb(0 0 0 / 0%);
+    //     }
+    //     background-color: rgb(0 0 0 / 50%);
+    // }
+    // // >>> END Solution for browsers supporting css @starting-style.
+
+    // <<< START Temporary solution until Safari supports css @starting-style.
+    // POPUP WINDOW
+    & > [data-e="popup"] {
+        contain: layout paint;
+        max-width: min(560px, calc(100vw - var(--side-padding) * 2));
+        max-height: 90svh;
+        position: fixed;
+        overscroll-behavior: contain;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        border: none;
+        border-radius: $md-sys-shape-corner-extra-small;
+        box-shadow: $md-sys-elevation-level2;
+        background-color: var(--md-sys-color-surface);
+        opacity: 0;
+    }
+    &.tonal > [data-e="popup"] {
+        background-color: var(--md-sys-color-surface-high);
+    }
+    // >>> END Temporary solution until Safari supports css @starting-style.
+}

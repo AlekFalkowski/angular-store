@@ -26,11 +26,11 @@ import { RemoteStorage } from "../resources/RemoteStorage";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'home-node.scss',
     selector: 'home-node',
     host: { 'role': 'main' },
     templateUrl: 'home-node.html',
+    styleUrl: 'home-node.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: [
         ViewModel,
         GetStableContentOption,

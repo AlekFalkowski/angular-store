@@ -1,0 +1,313 @@
+@import "all-config";
+
+$toggleTransitionDuration: 200ms; // RELATED VALUES in JS: toggleTransitionDuration
+
+select-button {
+    $label-text-height: 16px;
+    $min-layer-inset: 4px;
+    $layer-height: 40px;
+    $layer-inset-block-start: $min-layer-inset + $label-text-height + $min-layer-inset;
+    $outlined-layer-border-radius: $md-sys-shape-corner-extra-small;
+    $filled-layer-border-radius: $md-sys-shape-corner-extra-small-top;
+    contain: inline-size layout paint style;
+    display: block;
+    padding-block-start: $label-text-height + $layer-height + 3 * $min-layer-inset;
+    padding-block-end: $min-layer-inset;
+
+    // BACK LAYER
+    & > [data-e="back-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: $min-layer-inset;
+        inset-block-start: $layer-inset-block-start;
+        height: $layer-height;
+    }
+    &.outlined > [data-e="back-layer"] {
+        border-radius: $outlined-layer-border-radius;
+        background-color: transparent;
+    }
+    &.filled > [data-e="back-layer"] {
+        border-radius: $filled-layer-border-radius;
+        background-color: var(--md-sys-color-surface-container-highest);
+        transition: background-color 200ms ease-in-out;
+    }
+
+    // STATE LAYER
+    & > [data-e="state-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: $min-layer-inset;
+        inset-block-start: $layer-inset-block-start;
+        height: $layer-height;
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0;
+    }
+    &.outlined > [data-e="state-layer"] {
+        border-radius: $outlined-layer-border-radius;
+    }
+    &.filled > [data-e="state-layer"] {
+        border-radius: $filled-layer-border-radius;
+    }
+    &.filled:has(> label > button:not(:disabled):not(:focus-visible):hover) > [data-e="state-layer"] {
+        transition: 200ms opacity ease-in-out; // Скорость для hover и focus.
+        @include ONLY_FOR_HOVERING_POINTER {
+            opacity: 0.04;
+        }
+    }
+
+    // FOCUS RING LAYER
+    & > [data-e="focus-ring-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: $min-layer-inset;
+        inset-block-start: $layer-inset-block-start;
+        height: $layer-height;
+        @include FOCUS_RING_NOT_FOCUSED_RULE_SET;
+    }
+    &.outlined > [data-e="focus-ring-layer"] {
+        border-radius: $outlined-layer-border-radius;
+    }
+    &.filled > [data-e="focus-ring-layer"] {
+        border-radius: $filled-layer-border-radius;
+    }
+    &:has(> label > button:not(:disabled):focus-visible) > [data-e="focus-ring-layer"] {
+        @include FOCUS_RING_FOCUSED_RULE_SET;
+    }
+
+    // ENVIRONMENT LAYER: OPEN STATE INDICATOR
+    & > [data-e="open-state-indicator"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline-end: $min-layer-inset + 8px;
+        inset-block-start: calc($layer-inset-block-start + $layer-height / 2 - 24px / 2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        transition: 200ms transform ease-in-out;
+    }
+    &:has(+:popover-open:not(.before-hiding)) > [data-e="open-state-indicator"] {
+        transform: scaleY(-1);
+    }
+    &:has(> label > button:disabled) > [data-e="open-state-indicator"] {
+        opacity: 0.38;
+    }
+
+    // ENVIRONMENT LAYER: SUPPORTING TEXT
+    & > [data-e="supporting-text"] {
+        contain: size layout paint style;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        min-height: 16px;
+        @include MD3_BODY_S_FONT_RULE_SET;
+        padding-inline: 16px;
+    }
+    &:has(> label > button:disabled) > [data-e="supporting-text"] {
+        color: var(--md-sys-color-on-surface-variant);
+        opacity: 0.38;
+    }
+    &:has(> label > button:not(:disabled):not(.error)) > [data-e="supporting-text"] {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &:has(> label > button:not(:disabled).error) > [data-e="supporting-text"] {
+        color: var(--md-sys-color-error);
+    }
+
+    // TARGET LAYER: label
+    & > label {
+        contain: size layout style;
+        position: absolute;
+        inset-inline: 0;
+        inset-block-start: $label-text-height + $min-layer-inset;
+        height: $layer-height + 2 * $min-layer-inset;
+    }
+    & > label:has(> button:not(:disabled)) {
+        cursor: pointer;
+    }
+
+    // TARGET LAYER: label TEXT
+    & > label > span {
+        contain: size layout paint style;
+        position: absolute;
+        inset-inline: 8px;
+        inset-block-start: 0 - $label-text-height;
+        height: $label-text-height;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        color: var(--md-sys-color-on-surface-variant);
+        @include MD3_BODY_S_FONT_RULE_SET;
+        pointer-events: none;
+    }
+    &:not(:has(+:popover-open:not(.before-hiding))) > label:has(> button:not(:disabled):not(:focus-visible):not(.error):hover) > span {
+        @include ONLY_FOR_HOVERING_POINTER {
+            color: var(--md-sys-color-on-surface);
+        }
+    }
+    & > label:has(> button:not(:disabled):not(:focus-visible).error) > span {
+        color: var(--md-sys-color-error);
+    }
+    &:not(:has(+:popover-open:not(.before-hiding))) > label:has(> button:not(:disabled):not(:focus-visible).error:hover) > span {
+        @include ONLY_FOR_HOVERING_POINTER {
+            color: var(--md-sys-color-on-error-container);
+        }
+    }
+    & > label:has(> button:focus-visible:not(.error)) > span {
+        color: var(--md-sys-color-primary);
+    }
+    & > label:has(> button:focus-visible.error) > span {
+        color: var(--md-sys-color-error);
+    }
+    &:has(+:popover-open:not(.before-hiding)) > label:has(> button:not(.error)) > span {
+        color: var(--md-sys-color-primary);
+    }
+    &:has(+:popover-open:not(.before-hiding)) > label:has(> button.error) > span {
+        color: var(--md-sys-color-error);
+    }
+    & > label:has(> button:disabled) > span {
+        opacity: 0.38;
+    }
+
+    // TARGET LAYER: BOTTOM-LINE INDICATOR (only for filled appearance)
+    &.filled > label::before {
+        display: block;
+        content: "";
+        position: absolute;
+        inset-inline-start: $min-layer-inset;
+        bottom: $min-layer-inset;
+        width: calc(100% - 2 * $min-layer-inset);
+        height: 2px;
+        background-color: var(--md-sys-color-surface-variant);
+        transform-origin: center bottom;
+        transform: scaleX(0);
+        transition-property: transform;
+        transition-duration: calc($toggleTransitionDuration * var(--tdm, 1));
+    }
+    &.filled > label:has(> button:focus-visible:not(.error))::before {
+        transform: scaleX(100%);
+        background-color: var(--md-sys-color-primary);
+    }
+    &.filled > label:has(> button:focus-visible.error)::before {
+        transform: scaleX(100%);
+        background-color: var(--md-sys-color-error);
+    }
+    &.filled:has(+:popover-open:not(.before-hiding)) > label:has(> button:not(.error))::before {
+        transform: scaleX(100%);
+        background-color: var(--md-sys-color-primary);
+    }
+    &.filled:has(+:popover-open:not(.before-hiding)) > label:has(> button.error)::before {
+        transform: scaleX(100%);
+        background-color: var(--md-sys-color-error);
+    }
+
+    // TARGET LAYER: button
+    & > label > button {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $min-layer-inset;
+        width: calc(100% - 2 * $min-layer-inset);
+        height: $layer-height;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        background-color: transparent;
+        color: var(--md-sys-color-on-surface);
+        @include MD3_BODY_L_FONT_RULE_SET;
+        appearance: none;
+        outline: none;
+        text-align: start;
+    }
+    & > label > button:not(:disabled) {
+        cursor: pointer;
+    }
+    &.outlined > label > button {
+        padding-inline-start: 11px;
+        padding-inline-end: 31px;
+        border-radius: $outlined-layer-border-radius;
+        border: 1px solid var(--md-sys-color-outline);
+        box-shadow: inset transparent 0 1px;
+        transition-property: border-color, box-shadow;
+        transition-duration: calc($toggleTransitionDuration * var(--tdm));
+    }
+    &.outlined:not(:has(+:popover-open:not(.before-hiding))) > label > button:not(:disabled):not(:focus-visible):not(.error):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            border-color: var(--md-sys-color-on-surface);
+        }
+    }
+    &.outlined > label > button:not(:disabled):not(:focus-visible).error {
+        border-color: var(--md-sys-color-error);
+    }
+    &.outlined:not(:has(+:popover-open:not(.before-hiding))) > label > button:not(:disabled):not(:focus-visible).error:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            border-color: var(--md-sys-color-on-error-container);
+        }
+    }
+    &.outlined > label > button:focus-visible:not(.error) {
+        border-color: var(--md-sys-color-primary);
+        box-shadow: inset 0 0 0 1px var(--md-sys-color-primary);
+    }
+    &.outlined > label > button:focus-visible.error {
+        border-color: var(--md-sys-color-error);
+        box-shadow: inset 0 0 0 1px var(--md-sys-color-error);
+    }
+    &.outlined:has(+:popover-open:not(.before-hiding)) > label > button:not(.error) {
+        border-color: var(--md-sys-color-primary);
+        box-shadow: inset 0 0 0 1px var(--md-sys-color-primary);
+    }
+    &.outlined:has(+:popover-open:not(.before-hiding)) > label > button.error {
+        border-color: var(--md-sys-color-error);
+        box-shadow: inset 0 0 0 1px var(--md-sys-color-error);
+    }
+    &.outlined > label > button:disabled {
+        opacity: 0.38;
+    }
+    &.filled > label > button {
+        padding-inline-start: 12px;
+        padding-inline-end: 32px;
+        border-radius: $filled-layer-border-radius;
+        border-inline: none;
+        border-top: none;
+        border-bottom: 1px solid var(--md-sys-color-on-surface-variant);
+    }
+    &.filled:not(:has(+:popover-open:not(.before-hiding))) > label > button:not(:disabled):not(:focus-visible):not(.error):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            border-color: var(--md-sys-color-on-surface);
+        }
+    }
+    &.filled > label > button:not(:disabled):not(:focus-visible).error {
+        border-color: var(--md-sys-color-error);
+        &::before { // indicator
+            background-color: var(--md-sys-color-error);
+        }
+    }
+    &.filled:not(:has(+:popover-open:not(.before-hiding))) > label > button:not(:disabled):not(:focus-visible).error:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            border-color: var(--md-sys-color-on-error-container);
+            &::before { // indicator
+                background-color: var(--md-sys-color-on-error-container);
+            }
+        }
+    }
+    &.filled > label > button:focus-visible:not(.error) {
+        border-color: var(--md-sys-color-primary);
+    }
+    &.filled > label > button:focus-visible.error {
+        border-color: var(--md-sys-color-error);
+    }
+    &.filled:has(+:popover-open:not(.before-hiding)) > label > button:not(.error) {
+        border-color: var(--md-sys-color-primary);
+    }
+    &.filled:has(+:popover-open:not(.before-hiding)) > label > button.error {
+        border-color: var(--md-sys-color-error);
+    }
+    &.filled > label > button:disabled {
+        opacity: 0.38;
+    }
+
+    // TARGET LAYER: button LEADING ICON
+    // TARGET LAYER: button PREFIX TEXT
+    // TARGET LAYER: button TRAILING ICON
+    // TARGET LAYER: button SUFFIX TEXT
+}

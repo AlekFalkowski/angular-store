@@ -12,11 +12,11 @@ import {
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'loading-process-cover.scss',
     selector: 'loading-process-cover',
     host: {},
     templateUrl: 'loading-process-cover.html',
+    styleUrl: 'loading-process-cover.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class LoadingProcessCover {

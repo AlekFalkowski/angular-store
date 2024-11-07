@@ -1,32 +1,43 @@
-<md-filled-button data-e="open-button"
-     [style.--open-button-top-indent]="openButtonTopIndent()"
-     (click)="openSideColumn()">
-    {{ openButtonText }}
-</md-filled-button>
-<dialog data-e="side-column"
-     open
-     #sideColumn
-     (click)="closeSideColumnOnClickByBackdrop($event)">
-    <md-filled-icon-button data-e="hide-button"
-         (click)="closeSideColumn()">
-        <md-icon data-e="hide-button-icon">
-            double_arrow
-        </md-icon>
-    </md-filled-icon-button>
-    <md-icon-button data-e="close-button"
-         (click)="closeSideColumn()">
-        <md-icon data-e="close-button-icon">
-            close
-        </md-icon>
-    </md-icon-button>
+<base-button
+    data-e="open-button"
+    appearance="filled"
+    [style.--open-button-top-indent]="openButtonTopIndent()">
+    <button (click)="openSideColumn()">
+        <span>{{ openButtonText }}</span>
+    </button>
+</base-button>
+<dialog
+    data-e="side-column"
+    open
+    #sideColumnRef
+    (click)="closeSideColumnOnClickByBackdrop($event)">
+    <icon-button
+        appearance="filled"
+        data-e="hide-button">
+        <button
+            aria-label="Hide side column"
+            (click)="closeSideColumn()">
+            <i translate="no" aria-hidden="true">double_arrow</i>
+        </button>
+    </icon-button>
+    <icon-button
+        appearance="simple"
+        data-e="close-button">
+        <button
+            aria-label="Close side column"
+            (click)="closeSideColumn()">
+            <i translate="no" aria-hidden="true">close</i>
+        </button>
+    </icon-button>
     <div data-e="limited-path">
         <div data-e="floating-slot">
-            <ng-content select="side-column-content" />
+            <ng-content select="side-column-content"/>
         </div>
     </div>
 </dialog>
-<div data-e="main-column"
-     [class.full-width]="viewModel.preferredSideColumnView() === 'hidden'">
+<div
+    data-e="main-column"
+    [class.full-width]="viewModel.preferredSideColumnView() === 'hidden'">
     <div data-e="space-for-side-column-open-button"></div>
-    <ng-content select="main-column-content" />
+    <ng-content select="main-column-content"/>
 </div>

@@ -1,0 +1,20 @@
+<ng-content select="launcher-content"/>
+
+<!-- <<< START Solution for browsers supporting css @starting-style. -->
+<!-- <div data-e="popup" -->
+<!--      #popup -->
+<!--      popover="auto" -->
+<!--      [style]="inlineStyle()"> -->
+<!--     <ng-content /> -->
+<!-- </div> -->
+<!-- >>> END Solution for browsers supporting css @starting-style. -->
+
+<!-- <<< START Temporary solution until Safari supports css @starting-style. -->
+<div
+    data-e="popup"
+    #popupRef
+    popover="manual"
+    [style]="popupPositionCssStyle()">
+    <ng-content select="popup-content"/>
+</div>
+<!-- >>> END Temporary solution until Safari supports css @starting-style. -->

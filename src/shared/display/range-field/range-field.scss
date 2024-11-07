@@ -1,0 +1,34 @@
+@import "all-config";
+
+range-field {
+    display: grid;
+    grid-template-columns: 50% 50%;
+
+    & > text-field {
+        contain: inline-size layout style;
+    }
+
+    & > text-field > label > span {
+        inset-inline-end: calc(-100% + 8px);
+    }
+
+    &:has(> text-field > label > input:not(:disabled):not(:focus-visible):not(.error):hover) > text-field > label > span {
+        @include ONLY_FOR_HOVERING_POINTER {
+            color: var(--md-sys-color-on-surface);
+        }
+    }
+    &:has(> text-field > label > input:not(:disabled):not(:focus-visible).error) > text-field > label > span {
+        color: var(--md-sys-color-error);
+    }
+    &:has(> text-field > label > input:not(:disabled):not(:focus-visible).error:hover) > text-field > label > span {
+        @include ONLY_FOR_HOVERING_POINTER {
+            color: var(--md-sys-color-on-error-container);
+        }
+    }
+    &:has(> text-field > label > input:focus-visible:not(.error)) > text-field > label > span {
+        color: var(--md-sys-color-primary);
+    }
+    &:has(> text-field > label > input:focus-visible.error) > text-field > label > span {
+        color: var(--md-sys-color-error);
+    }
+}

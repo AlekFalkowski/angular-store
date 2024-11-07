@@ -1,43 +1,47 @@
 @switch (viewModel.stableContentState()) {
     @case ("loading") {
-        <loading-process-cover />
+        <loading-process-cover/>
     }
     @case ("error") {
-        <loading-error-cover (tryAgain)="viewModel.doStartInitialization()" />
+        <loading-error-cover (tryAgain)="viewModel.doStartInitialization()"/>
     }
 }
 
-<nav-bar (openNavDrawer)="openNavDrawer()" />
-<head-bar />
+<nav-bar (openNavDrawer)="openNavDrawer()"/>
+<head-bar/>
 
-<router-outlet />
-<spacer-block />
+<router-outlet/>
+<spacer-block/>
 
-<content-info />
+<content-info/>
 <!-- <service-info -->
-<!--      [windowInnerWidth]="windowStateProvider.windowInnerWidth" -->
-<!--      [windowInnerHeight]="windowStateProvider.windowInnerHeight" -->
-<!--      [documentOffsetWidth]="windowStateProvider.documentOffsetWidth" -->
-<!--      [documentClientHeight]="windowStateProvider.documentClientHeight" -->
-<!--      [documentScrollbarWidth]="windowStateProvider.documentScrollbarWidth" -->
-<!--      [isMobileInPortraitOnly]="windowStateProvider.isMobileInPortraitOnly" -->
-<!--      [isMobileInLandscapeOnly]="windowStateProvider.isMobileInLandscapeOnly" -->
-<!--      [isMobileInAllOrientations]="windowStateProvider.isMobileInAllOrientations" -->
+<!--      [windowInnerWidth]="documentSizeProvider.windowInnerWidth" -->
+<!--      [windowInnerHeight]="documentSizeProvider.windowInnerHeight" -->
+<!--      [documentOffsetWidth]="documentSizeProvider.documentOffsetWidth" -->
+<!--      [documentClientHeight]="documentSizeProvider.documentClientHeight" -->
+<!--      [documentScrollbarWidth]="documentSizeProvider.documentScrollbarWidth" -->
+<!--      [isMobileInPortraitOnly]="documentSizeProvider.isMobileInPortraitOnly" -->
+<!--      [isMobileInLandscapeOnly]="documentSizeProvider.isMobileInLandscapeOnly" -->
+<!--      [isMobileInAllOrientations]="documentSizeProvider.isMobileInAllOrientations" -->
 <!-- /> -->
 
-<dialog data-e="nav-drawer"
-     #navDrawer
-     (click)="closeNavDrawerOnClickByBackdrop($event)">
-    <md-icon-button data-e="close-button"
-         (click)="closeNavDrawer()">
-        <md-icon data-e="close-button-icon">
-            close
-        </md-icon>
-    </md-icon-button>
+<dialog
+    data-e="nav-drawer"
+    #navDrawerRef
+    (click)="closeNavDrawerOnClickByBackdrop($event)">
+    <icon-button
+        appearance="simple"
+        data-e="close-button">
+        <button
+            aria-label="Close naw drawer"
+            (click)="closeNavDrawer()">
+            <i translate="no" aria-hidden="true">close</i>
+        </button>
+    </icon-button>
     <nav-drawer-content
-         [navGroupList]="viewModel.stableContent()?.navDrawerGroupList ?? []"
-         [colorScheme]="colorScheme"
-         (setColorScheme)="viewModel.setPreferredColorScheme($event)"
-         (closeNavDrawer)="closeNavDrawer()"
+        [navGroupList]="viewModel.stableContent()?.navDrawerGroupList ?? []"
+        [colorScheme]="colorScheme"
+        (setColorScheme)="viewModel.setPreferredColorScheme($event)"
+        (closeNavDrawer)="closeNavDrawer()"
     />
 </dialog>

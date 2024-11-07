@@ -13,11 +13,11 @@ import { TStringLink } from "@/shared/types/TStringLink";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'head-bar.scss',
     selector: 'head-bar',
     host: { 'role': 'banner', 'aria-label': 'Head bar', },
     templateUrl: 'head-bar.html',
+    styleUrl: 'head-bar.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class HeadBar {
     readonly linkListForMobile: TStringLink[] = [

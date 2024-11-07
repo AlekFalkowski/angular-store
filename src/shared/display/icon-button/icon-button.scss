@@ -1,0 +1,345 @@
+@import "all-config";
+
+icon-button {
+    contain: size layout paint style;
+    display: block;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    $layer-inset: 4px;
+    $layer-border-radius: $md-sys-shape-corner-full;
+
+    // BACK LAYER
+    & > [data-e="back-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+        transition: background-color 200ms ease-in-out;
+    }
+    &.simple > [data-e="back-layer"] {
+        background-color: transparent;
+    }
+    &.outlined > [data-e="back-layer"] {
+        background-color: transparent;
+    }
+    &.outlined:has(> button[aria-pressed="true"]) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-inverse-surface);
+    }
+    &.outlined:has(> a.link-to-current-route) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-inverse-surface);
+    }
+    &.outlined:has(> button:disabled[aria-pressed="true"]) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+    &.tonal:has(> button:not([aria-pressed="false"])) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-secondary-container);
+    }
+    &.tonal:has(> a.link-to-current-route) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-secondary-container);
+    }
+    &.tonal:has(> button[aria-pressed="false"]) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    &.tonal:has(> a) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    &.tonal:has(> button:disabled) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+    &.filled:has(> button:not([aria-pressed="false"])) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.filled:has(> a.link-to-current-route) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.filled:has(> button[aria-pressed="false"]) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    &.filled:has(> a) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-surface-variant);
+    }
+    &.filled:has(> button:disabled) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+
+    // STATE LAYER
+    & > [data-e="state-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+        opacity: 0;
+        transition: 200ms opacity ease-in-out // Скорость для hover, focus и фазы отбоя после нажатия.
+    }
+    &.simple > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-surface-variant);
+    }
+    &.simple:has(> button[aria-pressed="true"]) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.simple:has(> a.link-to-current-route) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.outlined > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-surface-variant);
+    }
+    &.outlined:has(> button[aria-pressed="true"]) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-inverse-on-surface);
+    }
+    &.outlined:has(> a.link-to-current-route) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-inverse-on-surface);
+    }
+    &.tonal:has(> button:not([aria-pressed="false"])) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-secondary-container);
+    }
+    &.tonal:has(> a.link-to-current-route) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-secondary-container);
+    }
+    &.tonal:has(> button[aria-pressed="false"]) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-surface-variant);
+    }
+    &.tonal:has(> a) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-surface-variant);
+    }
+    &.filled:has(> button:not([aria-pressed="false"])) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-primary);
+    }
+    &.filled:has(> a.link-to-current-route) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-primary);
+    }
+    &.filled:has(> button[aria-pressed="false"]) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.filled:has(> a) > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &:has(> button:focus-visible) > [data-e="state-layer"] {
+        opacity: 0.16;
+    }
+    &:has(> a:focus-visible) > [data-e="state-layer"] {
+        opacity: 0.16;
+    }
+    &:has(> button:not(:disabled):hover) > [data-e="state-layer"] {
+        @include ONLY_FOR_HOVERING_POINTER {
+            opacity: 0.08;
+        }
+    }
+    &:has(> a:hover) > [data-e="state-layer"] {
+        @include ONLY_FOR_HOVERING_POINTER {
+            opacity: 0.08;
+        }
+    }
+    &:has(> button:not(:disabled):active) > [data-e="state-layer"],
+    &:has(> button:not(:disabled)).pressed > [data-e="state-layer"] {
+        opacity: 0.12;
+        transition: 0ms opacity ease-in-out // Скорость на фазе нажатия.
+    }
+    &:has(> a:active) > [data-e="state-layer"],
+    &:has(> a).pressed > [data-e="state-layer"] {
+        opacity: 0.12;
+        transition: 0ms opacity ease-in-out // Скорость на фазе нажатия.
+    }
+
+    // FOCUS RING LAYER
+    & > [data-e="focus-ring-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+        @include FOCUS_RING_NOT_FOCUSED_RULE_SET;
+    }
+    &:has(> button:focus-visible) > [data-e="focus-ring-layer"] {
+        @include FOCUS_RING_FOCUSED_RULE_SET;
+    }
+    &:has(> a:focus-visible) > [data-e="focus-ring-layer"] {
+        @include FOCUS_RING_FOCUSED_RULE_SET;
+    }
+    &:has(> button:focus-visible:active) > [data-e="focus-ring-layer"],
+    &:has(> a:focus-visible:active) > [data-e="focus-ring-layer"],
+    &:has(> button:focus-visible).pressed > [data-e="focus-ring-layer"],
+    &:has(> a:focus-visible).pressed > [data-e="focus-ring-layer"] {
+        @include FOCUS_RING_PRESSED_RULE_SET;
+    }
+
+    // TARGET LAYER: button / a
+    & > button {
+        contain: size layout paint style;
+        position: absolute;
+        inset: 0;
+        appearance: none;
+        height: 100%;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: $layer-inset;
+        border: none;
+        user-select: none;
+        text-decoration: none;
+        background-color: transparent;
+        outline: none;
+    }
+    & > a {
+        contain: size layout paint style;
+        position: absolute;
+        inset: 0;
+        appearance: none;
+        height: 100%;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: $layer-inset;
+        border: none;
+        user-select: none;
+        text-decoration: none;
+        background-color: transparent;
+        outline: none;
+    }
+    & > button:not(:disabled):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > a:hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > button:disabled {
+        cursor: default;
+    }
+
+    // TARGET LAYER: BORDER LAYER
+    &.outlined > button::before {
+        display: block;
+        content: "";
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+    }
+    &.outlined > a::before {
+        display: block;
+        content: "";
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+    }
+    &.outlined > button:not(:disabled):not([aria-pressed="true"])::before {
+        border: 1px solid var(--md-sys-color-outline);
+    }
+    &.outlined > a::before {
+        border: 1px solid var(--md-sys-color-outline);
+    }
+    &.outlined > button:disabled:not([aria-pressed="true"])::before {
+        border: 1px solid var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+    &.outlined > a.link-to-current-route::before {
+        border: 1px solid var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+
+    // TARGET LAYER: ICONS
+    & > button > i {
+        contain: size layout paint style;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        font-family: "Material Symbols Outlined";
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+        font-style: normal;
+    }
+    & > a > i {
+        contain: size layout paint style;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        font-family: "Material Symbols Outlined";
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+        font-style: normal;
+    }
+    & > button[aria-pressed="true"] > i {
+        font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    & > a.link-to-current-route > i {
+        font-variation-settings: 'FILL' 1, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    & > button:disabled > i {
+        opacity: 0.38;
+    }
+    &.simple > button:not(:disabled) > i {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &.simple > a > i {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &.simple > button:not(:disabled)[aria-pressed="true"] > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.simple > a.link-to-current-route > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.simple > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.outlined > button:not(:disabled) > i {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &.outlined > a > i {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &.outlined > button:not(:disabled)[aria-pressed="true"] > i {
+        color: var(--md-sys-color-inverse-on-surface);
+    }
+    &.outlined > a.link-to-current-route > i {
+        color: var(--md-sys-color-inverse-on-surface);
+    }
+    &.outlined > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.tonal > button:not(:disabled):not([aria-pressed="false"]) > i {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    &.tonal > a.link-to-current-route > i {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    &.tonal > button:not(:disabled)[aria-pressed="false"] > i {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &.tonal > a > i {
+        color: var(--md-sys-color-on-surface-variant);
+    }
+    &.tonal > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.filled > button:not(:disabled):not([aria-pressed="false"]) > i {
+        color: var(--md-sys-color-on-primary);
+    }
+    &.filled > a.link-to-current-route > i {
+        color: var(--md-sys-color-on-primary);
+    }
+    &.filled > button:not(:disabled)[aria-pressed="false"] > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.filled > a > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.filled > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+}

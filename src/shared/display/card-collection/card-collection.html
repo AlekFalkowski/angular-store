@@ -1,0 +1,30 @@
+@for (card of cardCollection; track card.title; let last = $last) {
+    @switch (card.type) {
+        @case ("TAssortmentCard") {
+            <a
+                data-e="card"
+                [routerLink]="card.outLink"
+            >
+                <div data-e="back-cover"></div>
+                <div data-e="img-frame" aria-hidden="true">
+                    <img [src]="card.imageUrl">
+                </div>
+                <div data-e="title">{{ card.title }}</div>
+                <div data-e="description">{{ card.description }}</div>
+            </a>
+        }
+        @case ("TCatalogProductCard") {
+            <a
+                data-e="card"
+                [routerLink]="card.outLink"
+            >
+                <div data-e="back-cover"></div>
+                <div data-e="img-frame" aria-hidden="true">
+                    <img [src]="card.imageUrl" class="cover">
+                </div>
+                <div data-e="title">{{ card.title }}</div>
+                <div data-e="price"> {{ card.price }}</div>
+            </a>
+        }
+    }
+}

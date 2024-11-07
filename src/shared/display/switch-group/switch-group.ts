@@ -5,11 +5,11 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsu
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: "switchers-column.scss",
-    selector: 'switchers-column',
+    selector: 'switch-group',
     host: { 'role': 'group' },
-    templateUrl: 'switchers-column.html',
+    templateUrl: 'switch-group.html',
+    styleUrl: "switch-group.scss",
+    encapsulation: ViewEncapsulation.None,
 })
-export class SwitchersColumn {
+export class SwitchGroup {
 }

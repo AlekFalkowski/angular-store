@@ -17,29 +17,33 @@ import { isPlatformBrowser } from "@angular/common";
 import { RouterLink, RouterLinkActive } from "@angular/router";
 import { fromEvent, Subscription, throttleTime } from "rxjs";
 import { SharedViewModel } from "@/shared/model/SharedViewModel";
+import { BaseButton } from "@/shared/display/base-button/base-button";
+import { IconButton } from "@/shared/display/icon-button/icon-button";
 
 @Component({
     imports: [
         RouterLinkActive,
-        RouterLink
+        RouterLink,
+        BaseButton,
+        IconButton
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'two-column-template.scss',
     selector: 'two-column-template',
     host: {
         '[class.start-side]': 'sideColumnPlacement === "start"',
         '[class.end-side]': 'sideColumnPlacement === "end"',
     },
     templateUrl: 'two-column-template.html',
+    styleUrl: 'two-column-template.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class TwoColumnTemplate {
     @Input() sideColumnPlacement: "start" | "end" = "start"
     @Input() openButtonText!: string
     @Input() isSideColumnOpenInModal: WritableSignal<boolean> = signal(false)
-    @ViewChild('sideColumn', { static: true }) sideColumn: ElementRef<HTMLDialogElement> | undefined
+    @ViewChild('sideColumnRef', { static: true }) sideColumnRef: ElementRef<HTMLDialogElement> | undefined
     readonly viewModel: SharedViewModel = inject(SharedViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_ngZone: NgZone = inject(NgZone)
@@ -55,14 +59,14 @@ export class TwoColumnTemplate {
         afterNextRender(() => {
             document.addEventListener('scroll', this.#_changeOpenButtonIndentByChangingScrollDirection)
             if (this.viewModel.preferredSideColumnView() === 'hidden' || window.innerWidth < this.#_breakpoint) {
-                this.sideColumn?.nativeElement.close()
+                this.sideColumnRef?.nativeElement.close()
             }
-            this.sideColumn?.nativeElement.addEventListener("close", () => {
-                this.sideColumn?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
+            this.sideColumnRef?.nativeElement.addEventListener("close", () => {
+                this.sideColumnRef?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
                     //@ts-ignore
                     popup.close()
                 })
-                this.sideColumn?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
+                this.sideColumnRef?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
                     //@ts-ignore
                     popup.hidePopover()
                 })
@@ -77,14 +81,14 @@ export class TwoColumnTemplate {
                     .pipe(throttleTime(400, undefined, { leading: false, trailing: true }))
                     .subscribe(() => {
                         if (window.innerWidth >= this.#_breakpoint) {
-                            if (this.sideColumn?.nativeElement.open && this.isSideColumnOpenInModal()) {
-                                this.sideColumn?.nativeElement.close()
+                            if (this.sideColumnRef?.nativeElement.open && this.isSideColumnOpenInModal()) {
+                                this.sideColumnRef?.nativeElement.close()
                             }
-                            if (!this.sideColumn?.nativeElement.open && this.viewModel.preferredSideColumnView() !== 'hidden') {
-                                this.sideColumn?.nativeElement.show()
+                            if (!this.sideColumnRef?.nativeElement.open && this.viewModel.preferredSideColumnView() !== 'hidden') {
+                                this.sideColumnRef?.nativeElement.show()
                             }
-                        } else if (this.sideColumn?.nativeElement.open && !this.isSideColumnOpenInModal()) {
-                            this.sideColumn?.nativeElement.close()
+                        } else if (this.sideColumnRef?.nativeElement.open && !this.isSideColumnOpenInModal()) {
+                            this.sideColumnRef?.nativeElement.close()
                         }
                     })
         })
@@ -117,12 +121,12 @@ export class TwoColumnTemplate {
     }
 
     openSideColumn(): void {
-        this.sideColumn?.nativeElement.classList.add("before-opening")
+        this.sideColumnRef?.nativeElement.classList.add("before-opening")
         if (window.innerWidth >= this.#_breakpoint) {
-            this.sideColumn?.nativeElement.show()
-            this.sideColumn?.nativeElement.classList.remove("before-opening")
+            this.sideColumnRef?.nativeElement.show()
+            this.sideColumnRef?.nativeElement.classList.remove("before-opening")
             this.viewModel.setPreferredSideColumnView('visible')
-            this.sideColumn?.nativeElement.animate(
+            this.sideColumnRef?.nativeElement.animate(
                 [
                     { opacity: '0', transform: `translateX(${ this.sideColumnPlacement === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
                     { opacity: '1', transform: 'translateX(0)' },
@@ -132,16 +136,16 @@ export class TwoColumnTemplate {
         } else {
             this.#_keydownListenerRemover.abort()
             this.#_keydownListenerRemover = new AbortController()
-            this.sideColumn?.nativeElement.addEventListener("keydown", (event) => {
+            this.sideColumnRef?.nativeElement.addEventListener("keydown", (event) => {
                 if (event.key === 'Escape') {
                     event.preventDefault()
                     this.closeSideColumn()
                 }
             }, { signal: this.#_keydownListenerRemover.signal })
-            this.sideColumn?.nativeElement.showModal()
-            this.sideColumn?.nativeElement.classList.remove("before-opening")
+            this.sideColumnRef?.nativeElement.showModal()
+            this.sideColumnRef?.nativeElement.classList.remove("before-opening")
             this.isSideColumnOpenInModal.set(true)
-            this.sideColumn?.nativeElement.animate(
+            this.sideColumnRef?.nativeElement.animate(
                 [
                     { transform: `translateX(${ this.sideColumnPlacement === 'start' ? `${ -this.#_sideColumnWidth }px` : `${ this.#_sideColumnWidth }px` })` },
                     { transform: 'translateX(0)' },
@@ -152,17 +156,17 @@ export class TwoColumnTemplate {
     }
 
     closeSideColumnOnClickByBackdrop(event: Event): void {
-        if (event.target === this.sideColumn?.nativeElement) {
+        if (event.target === this.sideColumnRef?.nativeElement) {
             this.closeSideColumn()
         }
     }
 
     closeSideColumn(): void {
-        this.sideColumn?.nativeElement.classList.add("before-closing")
+        this.sideColumnRef?.nativeElement.classList.add("before-closing")
         if (window.innerWidth >= this.#_breakpoint && !this.isSideColumnOpenInModal()) {
             this.viewModel.setPreferredSideColumnView('hidden')
         }
-        this.sideColumn?.nativeElement.animate(
+        this.sideColumnRef?.nativeElement.animate(
             window.innerWidth >= this.#_breakpoint
                 ? [
                     { opacity: '1', transform: 'translateX(0)' },
@@ -174,8 +178,8 @@ export class TwoColumnTemplate {
                 ],
             { duration: 300, iterations: 1, easing: 'ease-in-out' }
         ).finished.then(() => {
-            this.sideColumn?.nativeElement.close()
-            this.sideColumn?.nativeElement.classList.remove("before-closing")
+            this.sideColumnRef?.nativeElement.close()
+            this.sideColumnRef?.nativeElement.classList.remove("before-closing")
         })
     }
 }

@@ -30,10 +30,11 @@ html {
     scrollbar-gutter: stable;
     // scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    @include MD3_CORNERS_TOKEN_SET;
     @include MD3_ELEVATION_TOKEN_SET;
     @include MD3_LIGHT_SC_THEME_COLOR_TOKEN_SET;
     background-color: var(--md-sys-color-surface);
-    @include MD3_TYPOGRAPHY_TOKEN_SET;
+    // @include MD3_TYPOGRAPHY_TOKEN_SET;
     @include LAYOUT_SIDE_PADDING_RULE_SET;
     transition: background-color 300ms ease-in-out, transform 300ms ease-in-out;
     // overflow-x: hidden;

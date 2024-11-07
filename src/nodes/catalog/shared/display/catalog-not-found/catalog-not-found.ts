@@ -10,15 +10,15 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styles: `
-    `,
     selector: 'catalog-not-found',
     host: {},
     template: `
         <page-breadcrumbs/>
         <page-title title="404 Not Found"/>
     `,
+    styles: `
+    `,
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class CatalogNotFound {

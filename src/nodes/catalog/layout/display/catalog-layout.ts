@@ -6,14 +6,14 @@ import { RouterModule } from "@angular/router";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styles: `
-    `,
     selector: 'catalog-layout',
     host: {},
     template: `
         <router-outlet></router-outlet>
     `,
+    styles: `
+    `,
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class CatalogLayout {

@@ -1,0 +1,238 @@
+@import "all-config";
+
+base-button {
+    contain: layout paint style;
+    display: block;
+    width: fit-content;
+    height: 48px;
+    flex-shrink: 0;
+    $layer-inset: 4px;
+    $layer-border-radius: $md-sys-shape-corner-full;
+
+    // BACK LAYER
+    & > [data-e="back-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+        transition: background-color 200ms ease-in-out;
+    }
+    &.simple > [data-e="back-layer"] {
+        background-color: transparent;
+    }
+    &.outlined > [data-e="back-layer"] {
+        background-color: transparent;
+    }
+    &.tonal > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-secondary-container);
+    }
+    &.tonal:has(> button:disabled) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+    &.filled > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.filled:has(> button:disabled) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+    &.elevated:has(> button:not(:disabled)) > [data-e="back-layer"] {
+        box-shadow: $md-sys-elevation-level1;
+        background-color: var(--md-sys-color-surface);
+    }
+    &.elevated:has(> button:disabled) > [data-e="back-layer"] {
+        background-color: var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+
+    // STATE LAYER
+    & > [data-e="state-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+        opacity: 0;
+        transition: 200ms opacity ease-in-out // Скорость для hover, focus и фазы отбоя после нажатия.
+    }
+    &.simple > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.outlined > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &.tonal > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-secondary-container);
+    }
+    &.filled > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-on-primary);
+    }
+    &.elevated > [data-e="state-layer"] {
+        background-color: var(--md-sys-color-primary);
+    }
+    &:has(> button:focus-visible) > [data-e="state-layer"] {
+        opacity: 0.16;
+    }
+    &:has(> button:not(:disabled):hover) > [data-e="state-layer"] {
+        @include ONLY_FOR_HOVERING_POINTER {
+            opacity: 0.08;
+        }
+    }
+    &:has(> button:not(:disabled):active) > [data-e="state-layer"],
+    &:has(> button:not(:disabled)).pressed > [data-e="state-layer"] {
+        opacity: 0.12;
+        transition: 0ms opacity ease-in-out // Скорость на фазе нажатия.
+    }
+
+    // FOCUS RING LAYER
+    & > [data-e="focus-ring-layer"] {
+        contain: size layout paint style;
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+        @include FOCUS_RING_NOT_FOCUSED_RULE_SET;
+    }
+    &:has(> button:focus-visible) > [data-e="focus-ring-layer"] {
+        @include FOCUS_RING_FOCUSED_RULE_SET;
+    }
+    &:has(> button:focus-visible:active) > [data-e="focus-ring-layer"],
+    &:has(> button:focus-visible).pressed > [data-e="focus-ring-layer"] {
+        @include FOCUS_RING_PRESSED_RULE_SET;
+    }
+
+    // TARGET LAYER: button
+    & > button {
+        contain: layout paint style;
+        position: relative;
+        appearance: none;
+        height: 100%;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 4px 28px;
+        border: none;
+        // border-radius: $layer-border-radius;
+        user-select: none;
+        text-decoration: none;
+        background-color: transparent;
+        color: var(--md-sys-color-on-surface-variant);
+        outline: none;
+    }
+    & > button:not(:disabled):hover {
+        @include ONLY_FOR_HOVERING_POINTER {
+            cursor: pointer;
+        }
+    }
+    & > button.disabled {
+        cursor: default;
+    }
+
+    // TARGET LAYER: BORDER LAYER
+    &.outlined > button::before {
+        display: block;
+        content: "";
+        position: absolute;
+        inset: $layer-inset;
+        border-radius: $layer-border-radius;
+    }
+    &.outlined > button:not(:disabled)::before {
+        border: 1px solid var(--md-sys-color-outline);
+    }
+    &.outlined > button:disabled::before {
+        border: 1px solid var(--md-sys-color-on-surface);
+        opacity: 0.12;
+    }
+
+    // TARGET LAYER: ICONS
+    & > button > i {
+        contain: size layout paint style;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 18px;
+        height: 18px;
+        margin-inline-start: -8px;
+        font-family: "Material Symbols Outlined";
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-size: 18px;
+        font-style: normal;
+    }
+    & > button:disabled > i {
+        opacity: 0.38;
+    }
+    &.simple > button:not(disabled) > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.simple > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.outlined > button:not(disabled) > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.outlined > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.tonal > button:not(disabled) > i {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    &.tonal > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.filled > button:not(disabled) > i {
+        color: var(--md-sys-color-on-primary);
+    }
+    &.filled > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.elevated > button:not(disabled) > i {
+        color: var(--md-sys-color-primary);
+    }
+    &.elevated > button:disabled > i {
+        color: var(--md-sys-color-on-surface);
+    }
+
+    // TARGET LAYER: TEXT
+    & > button > span {
+        contain: layout paint style;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        @include MD3_LABEL_L_FONT_RULE_SET;
+    }
+    & > button:disabled > span {
+        opacity: 0.38;
+    }
+    &.simple > button:not(disabled) > span {
+        color: var(--md-sys-color-primary);
+    }
+    &.simple > button:disabled > span {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.outlined > button:not(disabled) > span {
+        color: var(--md-sys-color-primary);
+    }
+    &.outlined > button:disabled > span {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.tonal > button:not(disabled) > span {
+        color: var(--md-sys-color-on-secondary-container);
+    }
+    &.tonal > button:disabled > span {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.filled > button:not(disabled) > span {
+        color: var(--md-sys-color-on-primary);
+    }
+    &.filled > button:disabled > span {
+        color: var(--md-sys-color-on-surface);
+    }
+    &.elevated > button:not(disabled) > span {
+        color: var(--md-sys-color-primary);
+    }
+    &.elevated > button:disabled > span {
+        color: var(--md-sys-color-on-surface);
+    }
+}

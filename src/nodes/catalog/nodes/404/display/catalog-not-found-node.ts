@@ -9,7 +9,11 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-foun
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'catalog-not-found-node',
+    host: { 'role': 'main' },
+    template: `
+        <catalog-not-found/>
+    `,
     styles: `
         @import "all-config";
         catalog-not-found-node {
@@ -20,11 +24,7 @@ import { CatalogNotFound } from "@/nodes/catalog/shared/display/catalog-not-foun
             flex-direction: column;
         }
     `,
-    selector: 'catalog-not-found-node',
-    host: { 'role': 'main' },
-    template: `
-        <catalog-not-found/>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class CatalogNotFoundNode {

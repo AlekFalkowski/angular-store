@@ -22,11 +22,11 @@ import { NavDrawerDirectory } from "@/layout/display/nav-drawer-content/nav-draw
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'nav-drawer-item.scss',
     selector: 'nav-drawer-item',
     host: {},
     templateUrl: 'nav-drawer-item.html',
+    styleUrl: 'nav-drawer-item.scss',
+    encapsulation: ViewEncapsulation.None,
 })
 export class NavDrawerItem {
     @Input() navDrawerItem!: TNavDrawerItem

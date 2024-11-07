@@ -42,11 +42,11 @@ import { RemoteStorage } from "../resources/RemoteStorage";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'catalog-section-node.scss',
     selector: 'catalog-section-node',
     host: { 'role': 'main' },
     templateUrl: 'catalog-section-node.html',
+    styleUrl: 'catalog-section-node.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: [
         ViewModel,
         GetDynamicContentOption,

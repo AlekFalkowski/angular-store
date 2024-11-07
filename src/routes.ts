@@ -19,6 +19,7 @@ import { OrderIndexNode } from "@/nodes/order/nodes/0/display/order-index-node";
 import { OrderProductNode } from "@/nodes/order/nodes/product/display/order-product-node";
 import { ServiceNode } from "@/nodes/service/display/service-node";
 import { NotFoundNode } from "@/nodes/404/display/not-found-node";
+import { TestUiNode } from "@/nodes/test-ui/display/test-ui-node";
 
 const routes: Routes = [
     {
@@ -114,6 +115,10 @@ const routes: Routes = [
     {
         path: 'service',
         component: ServiceNode,
+    },
+    {
+        path: 'test-ui',
+        component: TestUiNode,
     },
     {
         path: '**',

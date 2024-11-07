@@ -17,7 +17,7 @@ import {
 import { isPlatformBrowser } from "@angular/common";
 import { RouterModule, RouterOutlet } from '@angular/router';
 import "@material/web/all"
-import { WindowStateProvider } from "@/frame/WindowStateProvider";
+import { DocumentSizeProvider } from "@/document/DocumentSizeProvider";
 import { HeadBar } from "./head-bar/head-bar";
 import { NavBar } from "./nav-bar/nav-bar";
 import { ContentInfo } from "./content-info/content-info";
@@ -35,6 +35,7 @@ import { LoadingProcessCover } from "./loading-process-cover/loading-process-cov
 import { PageBreadcrumbs } from "@/shared/display/page-breadcrumbs/page-breadcrumbs";
 import { PageTitle } from "@/shared/display/page-title/page-title";
 import { StoreAssortment } from "@/nodes/home/display/store-assortment/store-assortment";
+import { IconButton } from "@/shared/display/icon-button/icon-button";
 
 @Component({
     imports: [
@@ -51,13 +52,12 @@ import { StoreAssortment } from "@/nodes/home/display/store-assortment/store-ass
         LoadingProcessCover,
         PageBreadcrumbs,
         PageTitle,
-        StoreAssortment
+        StoreAssortment,
+        IconButton
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'app-layout.scss',
     selector: 'app-layout',
     host: {
         '[class.loading]': 'viewModel.stableContentState() !== "success"',
@@ -65,6 +65,8 @@ import { StoreAssortment } from "@/nodes/home/display/store-assortment/store-ass
         '(window:popstate)': 'closeNavDrawer()'
     },
     templateUrl: 'app-layout.html',
+    styleUrl: 'app-layout.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: [
         ViewModel,
         GetStableContentOption,
@@ -75,8 +77,8 @@ import { StoreAssortment } from "@/nodes/home/display/store-assortment/store-ass
     ]
 })
 export class AppLayout {
-    @ViewChild('navDrawer', { static: true }) navDrawer: ElementRef<HTMLDialogElement> | undefined
-    readonly windowStateProvider: WindowStateProvider = inject(WindowStateProvider)
+    @ViewChild('navDrawerRef', { static: true }) navDrawerRef: ElementRef<HTMLDialogElement> | undefined
+    readonly documentSizeProvider: DocumentSizeProvider = inject(DocumentSizeProvider)
     readonly viewModel: ViewModel = inject(ViewModel)
     #_platformId: Object = inject(PLATFORM_ID)
     #_keydownListenerRemover: AbortController = new AbortController()
@@ -143,14 +145,14 @@ export class AppLayout {
             });
         }
         afterNextRender(() => {
-            this.navDrawer?.nativeElement.addEventListener("close", () => {
+            this.navDrawerRef?.nativeElement.addEventListener("close", () => {
                 // При закрытии navDrawer закрыть вложенные модальные диалоги.
-                this.navDrawer?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
+                this.navDrawerRef?.nativeElement.querySelectorAll(':modal').forEach((popup) => {
                     //@ts-ignore
                     popup.close()
                 })
                 // При закрытии navDrawer закрыть вложенные popovers.
-                this.navDrawer?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
+                this.navDrawerRef?.nativeElement.querySelectorAll(':popover-open').forEach((popup) => {
                     //@ts-ignore
                     popup.hidePopover()
                 })
@@ -171,26 +173,26 @@ export class AppLayout {
     })
 
     openNavDrawer(): void {
-        this.navDrawer?.nativeElement.classList.add("before-opening")
+        this.navDrawerRef?.nativeElement.classList.add("before-opening")
         this.#_keydownListenerRemover.abort()
         this.#_keydownListenerRemover = new AbortController()
-        this.navDrawer?.nativeElement.addEventListener("keydown", (event) => {
+        this.navDrawerRef?.nativeElement.addEventListener("keydown", (event) => {
             if (event.key === 'Escape') {
                 event.preventDefault()
                 this.closeNavDrawer()
             }
         }, { signal: this.#_keydownListenerRemover.signal })
-        this.navDrawer?.nativeElement.showModal()
-        this.navDrawer?.nativeElement.classList.remove("before-opening")
-        if (this.navDrawer?.nativeElement.querySelector('.link-to-current-route')) {
+        this.navDrawerRef?.nativeElement.showModal()
+        this.navDrawerRef?.nativeElement.classList.remove("before-opening")
+        if (this.navDrawerRef?.nativeElement.querySelector('.link-to-current-route')) {
             // Перевести фокус внутри nawDrawer на ссылку текущего маршрута, либо ее видимого summary-предка.
             // @ts-ignore
-            if (this.navDrawer?.nativeElement.querySelector('.link-to-current-route').checkVisibility()) {
+            if (this.navDrawerRef?.nativeElement.querySelector('.link-to-current-route').checkVisibility()) {
                 // @ts-ignore
-                this.navDrawer?.nativeElement.querySelector('.link-to-current-route').focus()
+                this.navDrawerRef?.nativeElement.querySelector('.link-to-current-route').focus()
             } else {
                 // @ts-ignore
-                var summary: HTMLElement | null = this.navDrawer?.nativeElement.querySelector('.link-to-current-route').parentElement.closest('details').querySelector('summary')
+                var summary: HTMLElement | null = this.navDrawerRef?.nativeElement.querySelector('.link-to-current-route').parentElement.closest('details').querySelector('summary')
                 // @ts-ignore
                 while (summary !== null && !summary.checkVisibility()) {
                     // @ts-ignore
@@ -201,7 +203,7 @@ export class AppLayout {
                 }
             }
         }
-        this.navDrawer?.nativeElement.animate(
+        this.navDrawerRef?.nativeElement.animate(
             [
                 { transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
                 { transform: 'translateX(0)' },
@@ -211,22 +213,22 @@ export class AppLayout {
     }
 
     closeNavDrawerOnClickByBackdrop(event: Event): void {
-        if (event.target === this.navDrawer?.nativeElement) {
+        if (event.target === this.navDrawerRef?.nativeElement) {
             this.closeNavDrawer()
         }
     }
 
     closeNavDrawer(): void {
-        this.navDrawer?.nativeElement.classList.add("before-closing")
-        this.navDrawer?.nativeElement.animate(
+        this.navDrawerRef?.nativeElement.classList.add("before-closing")
+        this.navDrawerRef?.nativeElement.animate(
             [
                 { transform: 'translateX(0)' },
                 { transform: `translateX(${ -this.#_navDrawerContentWidth }px)` },
             ],
             { duration: 300, iterations: 1, easing: 'ease-in-out' }
         ).finished.then(() => {
-            this.navDrawer?.nativeElement.close()
-            this.navDrawer?.nativeElement.classList.remove("before-closing")
+            this.navDrawerRef?.nativeElement.close()
+            this.navDrawerRef?.nativeElement.classList.remove("before-closing")
         })
     }
 }

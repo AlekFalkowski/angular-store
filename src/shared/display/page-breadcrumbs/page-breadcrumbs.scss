@@ -12,7 +12,7 @@ page-breadcrumbs {
         align-items: center;
 
         & > [data-e="home-button"] {
-            margin-inline-start: -11px;
+            margin-inline-start: -14px;
             margin-inline-end: 4px;
             margin-top: -2px;
         }
@@ -20,7 +20,7 @@ page-breadcrumbs {
     & > [data-e="share-button"] {
         grid-column: 2;
         justify-self: end;
-        margin-inline-end: -10px;
+        margin-inline-end: -14px;
         margin-top: -2px;
     }
 }

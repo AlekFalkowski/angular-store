@@ -14,7 +14,15 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'cart-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
+            CART_PAGE_CONTENT
+        </div>
+    `,
     styles: `
         @import "all-config";
         cart-node {
@@ -29,15 +37,7 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
             }
         }
     `,
-    selector: 'cart-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-        <div data-e="content">
-            CART_PAGE_CONTENT
-        </div>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: [
         CartViewModel,
         GetCartStableContentOption,

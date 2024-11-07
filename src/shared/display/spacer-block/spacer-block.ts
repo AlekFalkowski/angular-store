@@ -5,15 +5,15 @@ import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, ViewEncapsu
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'spacer-block',
+    host: {},
+    template: ``,
     styles: `
         spacer-block {
             flex-grow: 1;
         }
     `,
-    selector: 'spacer-block',
-    host: {},
-    template: ``,
+    encapsulation: ViewEncapsulation.None,
 })
 export class SpacerBlock {
 }

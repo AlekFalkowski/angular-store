@@ -16,7 +16,15 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'catalog-list-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+        <div data-e="content">
+            CATALOG_LIST_PAGE_CONTENT
+        </div>
+    `,
     styles: `
         @import "all-config";
         catalog-list-node {
@@ -31,15 +39,7 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
             }
         }
     `,
-    selector: 'catalog-list-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-        <div data-e="content">
-            CATALOG_LIST_PAGE_CONTENT
-        </div>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: [
         CatalogListViewModel
     ]

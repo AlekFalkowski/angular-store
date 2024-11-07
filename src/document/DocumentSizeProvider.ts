@@ -10,12 +10,12 @@ import {
     signal,
     WritableSignal
 } from "@angular/core";
-import { debounceTime, fromEvent, throttleTime } from "rxjs";
 import { isPlatformBrowser } from "@angular/common";
 import { MAX_PHONE_VIEWPORT_HEIGHT, MAX_PHONE_VIEWPORT_WIDTH } from "@/config/breakpoints";
+import { debounceTime, fromEvent, throttleTime } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
-export class WindowStateProvider {
+export class DocumentSizeProvider {
 
     #_platformId: Object = inject(PLATFORM_ID)
     #_ngZone: NgZone = inject(NgZone)
@@ -50,23 +50,23 @@ export class WindowStateProvider {
         }
         afterNextRender(() => {
             setTimeout(() => {
-                this.#_updateFrameDimensions()
+                this.#_updateDocumentSizes()
             })
             fromEvent(window, 'resize')
-                  .pipe(throttleTime(400, undefined, { leading: false, trailing: true }))
-                  .subscribe(() => {
-                      document.documentElement.classList.add('disable-transitions')
-                      this.#_updateFrameDimensions()
-                  })
+                .pipe(throttleTime(400, undefined, { leading: false, trailing: true }))
+                .subscribe(() => {
+                    document.documentElement.classList.add('disable-transitions')
+                    this.#_updateDocumentSizes()
+                })
             fromEvent(window, 'resize')
-                  .pipe(debounceTime(500))
-                  .subscribe(() => {
-                      document.documentElement.classList.remove('disable-transitions')
-                  })
+                .pipe(debounceTime(500))
+                .subscribe(() => {
+                    document.documentElement.classList.remove('disable-transitions')
+                })
         })
     }
 
-    #_updateFrameDimensions() {
+    #_updateDocumentSizes() {
         this.#_ngZone.run(() => {
             this.#_windowInnerWidth.set(window.innerWidth)
             this.#_windowInnerHeight.set(window.innerHeight)

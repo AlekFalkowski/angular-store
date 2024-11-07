@@ -1,11 +1,25 @@
 <div data-e="breadcrumbs">
-    <!-- @if (link) { -->
-    <md-icon-button data-e="home-button" [routerLink]="['/']" aria-label="Home">
-        <md-icon translate="no">home</md-icon>
-    </md-icon-button>
+    <icon-button
+        appearance="simple"
+        data-e="home-button">
+        <a
+            role="button"
+            aria-label="Home"
+            routerLink="/"
+            routerLinkActive="link-to-current-route"
+            [routerLinkActiveOptions]="{ exact: true }"
+            ariaCurrentWhenActive="page">
+            <i translate="no" aria-hidden="true">home</i>
+        </a>
+    </icon-button>
     TODO ( breadcrumbs )
     <!-- } -->
 </div>
-<md-icon-button data-e="share-button" aria-label="Share">
-    <md-icon translate="no">share</md-icon>
-</md-icon-button>
+<icon-button
+    appearance="simple"
+    data-e="share-button">
+    <button
+        aria-label="Share">
+        <i translate="no" aria-hidden="true">share</i>
+    </button>
+</icon-button>

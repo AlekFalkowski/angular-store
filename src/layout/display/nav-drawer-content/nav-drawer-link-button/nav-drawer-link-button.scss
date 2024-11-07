@@ -2,13 +2,14 @@
 
 nav-drawer-link-button {
     contain: size layout paint style;
+    display: block;
     height: 56px;
     width: 100%;
     $layer-inset-inline: 12px;
     $layer-inset-block: 4px;
-    $layer-border-radius: 24px; // var(--md-sys-shape-corner-full);
+    $layer-border-radius: $md-sys-shape-corner-full;
 
-    // LINK BACK LAYER
+    // BACK LAYER
     & > [data-e="back-layer"] {
         contain: size layout paint style;
         position: absolute;
@@ -26,15 +27,13 @@ nav-drawer-link-button {
         opacity: 0.12;
     }
 
-    // LINK STATE LAYER
+    // STATE LAYER
     & > [data-e="state-layer"] {
         contain: size layout paint style;
         position: absolute;
         inset-inline: $layer-inset-inline;
         inset-block: $layer-inset-block;
         border-radius: $layer-border-radius;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
         background-color: var(--md-sys-color-on-surface);
         opacity: 0;
         transition: 200ms opacity ease-in-out // Скорость для hover, focus и фазы отбоя после нажатия.
@@ -56,27 +55,24 @@ nav-drawer-link-button {
         transition: 0ms opacity ease-in-out // Скорость на фазе нажатия.
     }
 
-    // LINK FOCUS RING LAYER
+    // FOCUS RING LAYER
     & > [data-e="focus-ring-layer"] {
         contain: size layout paint style;
         position: absolute;
         inset-inline: $layer-inset-inline;
         inset-block: $layer-inset-block;
         border-radius: $layer-border-radius;
-        outline: 2px solid transparent;
-        outline-offset: 2px;
-        transition: 200ms outline-color ease-in-out, 200ms outline-offset ease-in-out;
+        @include FOCUS_RING_NOT_FOCUSED_RULE_SET;
     }
     &:has(> a:not(.disabled):focus-visible) > [data-e="focus-ring-layer"] {
-        outline-color: var(--md-sys-color-secondary);
+        @include FOCUS_RING_FOCUSED_RULE_SET;
     }
     &:has(> a:not(.disabled):focus-visible:active) > [data-e="focus-ring-layer"],
     &:has(> a:not(.disabled):focus-visible).pressed > [data-e="focus-ring-layer"] {
-        transition: 0s outline-offset ease-in-out;
-        outline-offset: 0;
+        @include FOCUS_RING_PRESSED_RULE_SET;
     }
 
-    // LINK
+    // TARGET LAYER
     & > a {
         contain: size layout paint style;
         position: absolute;
@@ -108,7 +104,7 @@ nav-drawer-link-button {
         cursor: default;
     }
 
-    // LINK ICONS
+    // TARGET LAYER: ICONS
     & > a > i {
         contain: size layout paint style;
         flex-shrink: 0;
@@ -123,15 +119,15 @@ nav-drawer-link-button {
         font-size: 24px;
         font-style: normal;
     }
-    & > [data-e="link"] > i:last-child {
-        margin-inline-start: 0;
-        margin-inline-end: -8px;
-    }
+    // & > a > i:last-child {
+    //     margin-inline-start: 0;
+    //     margin-inline-end: -8px;
+    // }
     & > a.disabled > i {
         opacity: 0.38;
     }
 
-    // LINK LABEL
+    // TARGET LAYER: TEXT
     & > a > span {
         contain: layout paint style;
         overflow: hidden;

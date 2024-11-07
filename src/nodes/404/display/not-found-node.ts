@@ -11,7 +11,12 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
+    selector: 'not-found-node',
+    host: {},
+    template: `
+        <page-breadcrumbs/>
+        <page-title title="404 Not Found"/>
+    `,
     styles: `
         @import "all-config";
         not-found-node {
@@ -22,12 +27,7 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
             flex-direction: column;
         }
     `,
-    selector: 'not-found-node',
-    host: {},
-    template: `
-        <page-breadcrumbs/>
-        <page-title title="404 Not Found"/>
-    `,
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class NotFoundNode {

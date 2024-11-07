@@ -1,0 +1,25 @@
+@import "all-config";
+
+test-icon-button {
+    display: block;
+    padding-inline: var(--inline-padding);
+    padding-bottom: 32px;
+
+    & > [data-e="title"] {
+        margin-bottom: 56px;
+        color: var(--md-sys-color-primary);
+        @include MD3_HEADLINE_M_FONT_RULE_SET;
+        text-transform: uppercase;
+        text-align: center;
+        text-wrap: balance;
+    }
+
+    & > [data-e="group"] {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin-bottom: 16px;
+        margin-top: 16px;
+    }
+}

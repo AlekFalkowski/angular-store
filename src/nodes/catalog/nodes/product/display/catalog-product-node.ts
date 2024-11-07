@@ -14,7 +14,12 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.Emulated,
+    selector: 'catalog-product-node',
+    host: { 'role': 'main' },
+    template: `
+        <page-breadcrumbs/>
+        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
+    `,
     styles: `
         @import "all-config";
         :host {
@@ -25,12 +30,7 @@ import { PageTitle } from "@/shared/display/page-title/page-title";
             flex-direction: column;
         }
     `,
-    selector: 'catalog-product-node',
-    host: { 'role': 'main' },
-    template: `
-        <page-breadcrumbs/>
-        <page-title [title]="viewModel.fakeStableContent.pageTitle"/>
-    `,
+    encapsulation: ViewEncapsulation.Emulated,
     providers: [ CatalogProductViewModel ]
 })
 export class CatalogProductNode {

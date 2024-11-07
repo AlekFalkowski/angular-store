@@ -16,11 +16,12 @@ import { CardCollection } from "@/shared/display/card-collection/card-collection
 import { LoadingError } from "@/shared/display/loading-error/loading-error";
 import { LoadingProcess } from "@/shared/display/loading-process/loading-process";
 import { TFieldSet } from "@/shared/types/TFieldSet";
-import {
-    SwitchersStatusMonitorWithSelectionPopup
-} from "@/shared/display/switchers-status-monitor-with-selection-popup/switchers-status-monitor-with-selection-popup";
+import { PopupSelection } from "@/shared/display/popup-selection/popup-selection";
 import { TextField } from "@/shared/display/text-field/text-field";
-import { SwitchersColumn } from "@/shared/display/switchers-column/switchers-column";
+import { SwitchGroup } from "@/shared/display/switch-group/switch-group";
+import { SelectButton } from "@/shared/display/select-button/select-button";
+import { RangeField } from "@/shared/display/range-field/range-field";
+import { BaseButton } from "@/shared/display/base-button/base-button";
 
 @Component({
     imports: [
@@ -32,18 +33,21 @@ import { SwitchersColumn } from "@/shared/display/switchers-column/switchers-col
         LoadingProcess,
         CatalogNotFound,
         FormsModule,
-        SwitchersStatusMonitorWithSelectionPopup,
+        PopupSelection,
         TextField,
-        SwitchersColumn
+        SwitchGroup,
+        SelectButton,
+        RangeField,
+        BaseButton
     ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'catalog-section-filter.scss',
     selector: 'catalog-section-filter',
     host: {},
     templateUrl: 'catalog-section-filter.html',
+    styleUrl: 'catalog-section-filter.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class CatalogSectionFilter {

@@ -1,3 +1,5 @@
+// https://m3.material.io/styles/color/resources
+
 @mixin MD3_LIGHT_SC_THEME_COLOR_TOKEN_SET {
     // --md-source: #333399;
     // --md-sys-color-primary: rgb(88 89 146);
@@ -308,10 +310,12 @@
     --md-sys-color-surface-container-high: rgb(42 41 47);
     --md-sys-color-surface-container-highest: rgb(53 52 58);
 }
+
+// OLD TOKEN SYSTEM:
 // @mixin MD3_LIGHT_HC_THEME_COLOR_TOKEN_SET {
 //     //--md-sys-color-primary: #5152b8;
 //     --md-sys-color-primary: #333399;
-//     $-md-sys-color-primary: #333399;
+//     $md-sys-color-primary: #333399;
 //     --md-sys-color-on-primary: #ffffff;
 //     --md-sys-color-primary-container: #e1dfff;
 //     --md-sys-color-on-primary-container: #08006b;
@@ -330,7 +334,7 @@
 //     --md-sys-color-background: #fffbff;
 //     --md-sys-color-on-background: #1c1b1f;
 //     --md-sys-color-surface: #fffbff;
-//     $-md-sys-color-surface: #fffbff;
+//     $md-sys-color-surface: #fffbff;
 //     --md-sys-color-on-surface: #1c1b1f;
 //     --md-sys-color-surface-variant: #e4e1ec;
 //     --md-sys-color-on-surface-variant: #47464f;
@@ -342,15 +346,16 @@
 //     --md-sys-color-surface-tint: #5152b8;
 //     --md-sys-color-outline-variant: #c8c5d0;
 //     --md-sys-color-scrim: #000000;
-//     --md-sys-color-surface-1: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 5%)};
-//     --md-sys-color-surface-2: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 8%)};
-//     --md-sys-color-surface-3: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 11%)};
-//     --md-sys-color-surface-4: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 12%)};
-//     --md-sys-color-surface-5: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 14%)};
+//     --md-sys-color-surface-1: #{mix($md-sys-color-primary, $md-sys-color-surface, 5%)};
+//     --md-sys-color-surface-2: #{mix($md-sys-color-primary, $md-sys-color-surface, 8%)};
+//     --md-sys-color-surface-3: #{mix($md-sys-color-primary, $md-sys-color-surface, 11%)};
+//     --md-sys-color-surface-4: #{mix($md-sys-color-primary, $md-sys-color-surface, 12%)};
+//     --md-sys-color-surface-5: #{mix($md-sys-color-primary, $md-sys-color-surface, 14%)};
 // }
+// OLD TOKEN SYSTEM:
 // @mixin MD3_DARK_THEME_COLOR_TOKEN_SET {
 //     --md-sys-color-primary: #c1c1ff;
-//     $-md-sys-color-primary: #c1c1ff;
+//     $md-sys-color-primary: #c1c1ff;
 //     --md-sys-color-on-primary: #201e88;
 //     --md-sys-color-primary-container: #38399e;
 //     --md-sys-color-on-primary-container: #e1dfff;
@@ -369,7 +374,7 @@
 //     --md-sys-color-background: #1c1b1f;
 //     --md-sys-color-on-background: #e5e1e6;
 //     --md-sys-color-surface: #1c1b1f;
-//     $-md-sys-color-surface: #1c1b1f;
+//     $md-sys-color-surface: #1c1b1f;
 //     --md-sys-color-on-surface: #e5e1e6;
 //     --md-sys-color-surface-variant: #47464f;
 //     --md-sys-color-on-surface-variant: #c8c5d0;
@@ -382,10 +387,10 @@
 //     --md-sys-color-outline-variant: #47464f;
 //     --md-sys-color-scrim: #000000;
 //     // Additional tokens:
-//     --html-shaded-color: #{mix(#000000, $-md-sys-color-surface, 50%)};
-//     --md-sys-color-surface-1: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 5%)};
-//     --md-sys-color-surface-2: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 8%)};
-//     --md-sys-color-surface-3: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 11%)};
-//     --md-sys-color-surface-4: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 12%)};
-//     --md-sys-color-surface-5: #{mix($-md-sys-color-primary, $-md-sys-color-surface, 14%)};
+//     --html-shaded-color: #{mix(#000000, $md-sys-color-surface, 50%)};
+//     --md-sys-color-surface-1: #{mix($md-sys-color-primary, $md-sys-color-surface, 5%)};
+//     --md-sys-color-surface-2: #{mix($md-sys-color-primary, $md-sys-color-surface, 8%)};
+//     --md-sys-color-surface-3: #{mix($md-sys-color-primary, $md-sys-color-surface, 11%)};
+//     --md-sys-color-surface-4: #{mix($md-sys-color-primary, $md-sys-color-surface, 12%)};
+//     --md-sys-color-surface-5: #{mix($md-sys-color-primary, $md-sys-color-surface, 14%)};
 // }

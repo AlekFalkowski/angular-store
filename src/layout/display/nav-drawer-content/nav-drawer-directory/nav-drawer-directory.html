@@ -1,14 +1,35 @@
-<div data-e="back-layer"></div>
-<div data-e="state-layer"></div>
-<div data-e="focus-ring-layer"></div>
-<div dat-e="trailing-icon" aria-hidden="true">
+<div data-e="back-layer" aria-hidden="true"></div>
+<div data-e="state-layer" aria-hidden="true"></div>
+<div data-e="focus-ring-layer" aria-hidden="true"></div>
+<div data-e="open-state-indicator" aria-hidden="true">
     <svg data-e="icon"
-         aria-hidden="true"
-         xmlns="http://www.w3.org/2000/svg"
-         width="18"
-         height="18"
-         fill="currentColor">
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        fill="currentColor">
         <path d="M9 11.4 4.5 6.6h9Z" />
     </svg>
 </div>
 <ng-content />
+<!-- <details> -->
+<!--     <summary> -->
+<!--         @if (navDrawerItem.iconCode) { -->
+<!--             <i translate="no" aria-hidden="true">{{ navDrawerItem.iconCode }}</i> -->
+<!--         } -->
+<!--         <span>{{ navDrawerItem.name }}</span> -->
+<!--     </summary> -->
+<!--     @for (navDrawerItem of navDrawerItem.navDrawerItemList; track navDrawerItem.name) { -->
+<!--         <nav-drawer-item -->
+<!--              [navDrawerItem]="navDrawerItem" -->
+<!--              (closeNavDrawer)="closeNavDrawer.emit()"> -->
+<!--         </nav-drawer-item> -->
+<!--     } -->
+<!-- </details> -->
+
+<!-- P.S.  -->
+<!-- https://stackoverflow.com/questions/13604788/disable-details-summary -->
+<!-- Вы по-прежнему можете использовать disabled атрибут или сделать его class вместо него, если хотите.  -->
+<!-- Объявление pointer-events, если установлено значение,  -->
+<!-- none делает summary тег невидимым для мыши (таким образом, элементы под тегом будут доступны для щелчка).  -->
+<!-- Добавлено tabindex="-1"в summary теги для отключенных, чтобы исключить фокус клавиатуры. -->

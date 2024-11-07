@@ -6,17 +6,20 @@ import {
     Output,
     ViewEncapsulation
 } from '@angular/core';
+import { BaseButton } from "@/shared/display/base-button/base-button";
 
 @Component({
-    imports: [],
+    imports: [
+        BaseButton
+    ],
     standalone: true,
     changeDetection: ChangeDetectionStrategy.OnPush,
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    encapsulation: ViewEncapsulation.None,
-    styleUrl: 'loading-error.scss',
     selector: 'loading-error',
     host: {},
     templateUrl: 'loading-error.html',
+    styleUrl: 'loading-error.scss',
+    encapsulation: ViewEncapsulation.None,
     providers: []
 })
 export class LoadingError {

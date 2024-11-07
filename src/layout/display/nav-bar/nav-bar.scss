@@ -2,36 +2,22 @@
 
 nav-bar {
     z-index: $nav-bar-z-index;
-    contain: layout paint inline-size style;
+    contain: inline-size layout paint style;
     padding-inline: $full-inline-padding;
     position: sticky;
     top: 0;
     height: 56px;
     display: flex;
     align-items: center;
-    gap: 4px; // или 0 ?
-    // box-shadow: var(--md-sys-elevation-level1);
+    // box-shadow: $md-sys-elevation-level1;
     border-block: 1px solid var(--md-sys-color-surface-container-high);
     background-color: var(--md-sys-color-surface-container);
     color: var(--md-sys-color-on-surface);
-    //@include body-large;
 
     & > :first-child {
-        margin-inline-start: -10px;
+        margin-inline-start: -14px;
     }
     & > :last-child {
-        margin-inline-end: -10px;
-    }
-    & > md-filled-tonal-icon-button {
-        --md-filled-tonal-icon-button-container-color: transparent;
-        --md-filled-tonal-icon-button-focus-icon-color: var(--md-sys-color-primary);
-        --md-filled-tonal-icon-button-hover-icon-color: var(--md-sys-color-primary);
-        --md-filled-tonal-icon-button-hover-state-layer-color: var(--md-sys-color-primary);
-        --md-filled-tonal-icon-button-icon-color: var(--md-sys-color-primary);
-        --md-filled-tonal-icon-button-pressed-icon-color: var(--md-sys-color-primary);
-        --md-filled-tonal-icon-button-pressed-state-layer-color: var(--md-sys-color-primary);
-    }
-    & > md-filled-tonal-icon-button.link-to-current-route {
-        --md-filled-tonal-icon-button-container-color: var(--md-sys-color-secondary-container);
+        margin-inline-end: -14px;
     }
 }
